@@ -12,3 +12,12 @@ export const createSchool = async (a: string, b: string) => {
   revalidatePath("/school")
   return new_sch
 }
+
+export const deleteSchool = async (a: number) => {
+  await prisma.school.delete({
+    where: {
+      id: a,
+    },
+  })
+  console.log("sucessfully deleted")
+}

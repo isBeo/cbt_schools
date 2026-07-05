@@ -1,20 +1,12 @@
-import { prisma } from "@/lib/prisma"
+"use client"
 
-const page = async () => {
-  try {
-    const newSch = await prisma.school.create({
-      data: {
-        name: "eagle crestwood",
-        address: "mercy land",
-      },
-    })
+import { Button } from "@/components/ui/button"
+import { deleteSchool } from "../actions/create_school"
 
-    console.log(newSch)
-  } catch (e) {
-    console.error(e)
-    throw e
+export default function Page() {
+  async function handleDelete() {
+    await deleteSchool(8)
   }
-  return <div>{}</div>
-}
 
-export default page
+  return <Button onClick={handleDelete}>Delete School</Button>
+}
