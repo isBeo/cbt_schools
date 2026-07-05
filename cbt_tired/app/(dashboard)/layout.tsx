@@ -1,11 +1,23 @@
-export default function RootLayout({
+import { AppSidebar } from "@/components/App_sideBar"
+import DashBoardHeader from "@/components/DashBoardHeader"
+import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar"
+
+export default function DashboardLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode
-}>) {
+}) {
   return (
-    <section>
-      <body>{children}</body>
-    </section>
+    <SidebarProvider>
+      <AppSidebar />
+
+      <SidebarInset>
+        <DashBoardHeader />
+
+        <main className="p-6">
+          {children}
+        </main>
+      </SidebarInset>
+    </SidebarProvider>
   )
 }

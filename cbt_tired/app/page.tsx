@@ -1,6 +1,8 @@
+import { redirect } from "next/navigation"
 import React from "react"
 
 const page = async () => {
+  redirect("/dashboard")
   // try {
   //   const new_sch = await prisma.school.create({
   //     data: {

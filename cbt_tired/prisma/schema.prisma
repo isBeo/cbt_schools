@@ -1,10 +1,3 @@
-
-
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Get a free hosted Postgres database in seconds: `npx create-db`
-
 generator client {
   provider = "prisma-client"
   output   = "../generated/prisma"
@@ -14,155 +7,125 @@ datasource db {
   provider = "postgresql"
 }
 
-
 model School {
   id        Int       @id @default(autoincrement())
-  name      String        @unique
-  address   String?       @unique
+  name      String
+  address   String?
   createdAt DateTime  @default(now())
-
   students  Student[]
+
   @@map("school")
 }
 
 model Class {
-  id        Int      @id @default(autoincrement())
-  name      String   @unique
-  level     String
-
-  students  Student[]
-  exams     Exam[]
+  id       Int       @id @default(autoincrement())
+  name     String    @unique
+  level    String
+  exams    Exam[]
+  students Student[]
 }
 
 model Subject {
-  id        Int      @id @default(autoincrement())
-  name      String   @unique
-  code      String   @unique
-
-  exams     Exam[]
+  id    Int    @id @default(autoincrement())
+  name  String @unique
+  code  String @unique
+  exams Exam[]
 }
 
 model Student {
-  id            Int      @id @default(autoincrement())
-  admissionNo   String   @unique
-  firstName     String
-  lastName      String
-  gender        String
-  email         String?  @unique
-
-  schoolId      Int
-  classId       Int
-
-  school         School       @relation(fields: [schoolId], references: [id])
-  class          Class        @relation(fields: [classId], references: [id])
-  examAttempts   ExamAttempt[]
-
-  createdAt DateTime @default(now())
+  id           Int           @id @default(autoincrement())
+  admissionNo  String        @unique
+  firstName    String
+  lastName     String
+  gender       String
+  email        String?       @unique
+  schoolId     Int
+  classId      Int
+  createdAt    DateTime      @default(now())
+  examAttempts ExamAttempt[]
+  class        Class         @relation(fields: [classId], references: [id])
+  school       School        @relation(fields: [schoolId], references: [id])
 }
 
 model Exam {
-  id               Int      @id @default(autoincrement())
-  title            String
-  term             String
-  session          String
-  durationMinutes  Int
-  totalMarks       Int
-  status           String
-
-  subjectId Int
-  classId   Int
-
-  subject Subject @relation(fields: [subjectId], references: [id])
-  class   Class   @relation(fields: [classId], references: [id])
-
-  questions Question[]
-  attempts  ExamAttempt[]
+  id              Int           @id @default(autoincrement())
+  title           String
+  term            String
+  session         String
+  durationMinutes Int
+  totalMarks      Int
+  status          String
+  subjectId       Int
+  classId         Int
+  class           Class         @relation(fields: [classId], references: [id])
+  subject         Subject       @relation(fields: [subjectId], references: [id])
+  attempts        ExamAttempt[]
+  questions       Question[]
 }
 
 model Question {
-  id            Int      @id @default(autoincrement())
+  id            Int             @id @default(autoincrement())
   questionText  String
   questionType  String
   marks         Int
   questionOrder Int
-
-  examId Int
-
-  exam    Exam     @relation(fields: [examId], references: [id])
-  options Option[]
-  answers StudentAnswer[]
+  examId        Int
+  options       Option[]
+  exam          Exam            @relation(fields: [examId], references: [id])
+  answers       StudentAnswer[]
 }
 
 model Option {
-  id          Int     @id @default(autoincrement())
+  id          Int             @id @default(autoincrement())
   optionText  String
   optionOrder Int
   isCorrect   Boolean
-
-  questionId Int
-
-  question Question @relation(fields: [questionId], references: [id])
-
-  answers StudentAnswer[]
+  questionId  Int
+  question    Question        @relation(fields: [questionId], references: [id])
+  answers     StudentAnswer[]
 }
 
 model ExamAttempt {
-  id          Int      @id @default(autoincrement())
+  id          Int             @id @default(autoincrement())
   startedAt   DateTime
   submittedAt DateTime?
   status      String
-
-  studentId Int
-  examId    Int
-
-  student Student @relation(fields: [studentId], references: [id])
-  exam    Exam    @relation(fields: [examId], references: [id])
-
-  answers StudentAnswer[]
-  result  Result?
+  studentId   Int
+  examId      Int
+  exam        Exam            @relation(fields: [examId], references: [id])
+  student     Student         @relation(fields: [studentId], references: [id])
+  result      Result?
+  answers     StudentAnswer[]
 }
 
 model StudentAnswer {
-  id Int @id @default(autoincrement())
-
-  attemptId Int
-  questionId Int
+  id               Int         @id @default(autoincrement())
+  attemptId        Int
+  questionId       Int
   selectedOptionId Int?
-
-  answerText String?
-  answeredAt DateTime
-
-  attempt ExamAttempt @relation(fields: [attemptId], references: [id])
-  question Question @relation(fields: [questionId], references: [id])
-  selectedOption Option? @relation(fields: [selectedOptionId], references: [id])
+  answerText       String?
+  answeredAt       DateTime
+  attempt          ExamAttempt @relation(fields: [attemptId], references: [id])
+  question         Question    @relation(fields: [questionId], references: [id])
+  selectedOption   Option?     @relation(fields: [selectedOptionId], references: [id])
 }
 
 model Result {
-  id Int @id @default(autoincrement())
-
-  attemptId Int @unique
-
-  score Decimal
-  percentage Decimal
-  grade String
-  generatedAt DateTime @default(now())
-
-  attempt ExamAttempt @relation(fields: [attemptId], references: [id])
-
-  details ResultDetail[]
+  id          Int            @id @default(autoincrement())
+  attemptId   Int            @unique
+  score       Decimal
+  percentage  Decimal
+  grade       String
+  generatedAt DateTime       @default(now())
+  attempt     ExamAttempt    @relation(fields: [attemptId], references: [id])
+  details     ResultDetail[]
 }
 
 model ResultDetail {
-  id Int @id @default(autoincrement())
-
-  resultId Int
-  questionId Int
-
-  isCorrect Boolean
+  id           Int     @id @default(autoincrement())
+  resultId     Int
+  questionId   Int
+  isCorrect    Boolean
   marksAwarded Decimal
-
-  result Result @relation(fields: [resultId], references: [id])
+  result       Result  @relation(fields: [resultId], references: [id])
 }
-
-
-
