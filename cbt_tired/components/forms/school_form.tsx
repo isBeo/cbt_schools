@@ -19,7 +19,12 @@ export function SchoolForm() {
   })
   const onSubmit = async (data: SchoolInput) => {
     const result = await createSchool(data)
-
+    if (result.success) {
+      // School was created
+      console.log('created successfully', result.message)
+    } else {
+      // Something went 
+    }
     console.log(result)
   }
   return (
