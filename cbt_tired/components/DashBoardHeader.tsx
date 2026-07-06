@@ -5,7 +5,7 @@ const DashBoardHeader = () => {
     <header className="flex h-16 items-center gap-4 border-b px-6">
       <SidebarTrigger />
 
-      <Separator orientation="vertical" className="h-6" />
+      <Separator orientation="vertical" className="h-full" />
 
       <div>
         <h2 className="font-semibold">Dashboard</h2>
