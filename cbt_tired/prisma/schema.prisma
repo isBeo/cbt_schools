@@ -9,13 +9,14 @@ datasource db {
 
 model School {
   id        Int       @id @default(autoincrement())
-  name      String
+  name      String    @unique
   address   String?
   createdAt DateTime  @default(now())
   students  Student[]
 
   @@map("school")
 }
+
 
 model Class {
   id       Int       @id @default(autoincrement())
