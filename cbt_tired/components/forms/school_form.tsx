@@ -1,5 +1,5 @@
 "use client"
-
+import { createSchool } from "@/app/actions/school"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 
@@ -17,11 +17,16 @@ export function SchoolForm() {
       address: "",
     },
   })
-  const onSubmit = (data: SchoolInput) => {
-    console.log(data)
+  const onSubmit = async (data: SchoolInput) => {
+    const result = await createSchool(data)
+
+    console.log(result)
   }
   return (
-    <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-8 p-4 shadow shadow-primary rounded-md">
+    <form
+      onSubmit={form.handleSubmit(onSubmit)}
+      className="flex flex-col gap-8 rounded-md p-4 shadow shadow-primary"
+    >
       <h3 className="bg-accent p-3 text-center">Registration</h3>
       <Input placeholder="School name" {...form.register("name")} />
 
