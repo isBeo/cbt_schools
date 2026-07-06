@@ -17,10 +17,15 @@ export function SchoolForm() {
       address: "",
     },
   })
-
+  const onSubmit = (data: SchoolInput) => {
+    console.log(data)
+  }
   return (
-    <form>
+    <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-8 p-4 shadow shadow-primary rounded-md">
+      <h3 className="bg-accent p-3 text-center">Registration</h3>
       <Input placeholder="School name" {...form.register("name")} />
+
+      <Input placeholder="School address" {...form.register("address")} />
 
       <Button type="submit">Save School</Button>
     </form>

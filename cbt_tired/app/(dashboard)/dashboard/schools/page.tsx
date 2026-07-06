@@ -1,14 +1,11 @@
-import { prisma } from "@/lib/prisma"
-import { SchoolTable } from "./components/SchoolTable"
+import { SchoolForm } from "@/components/forms/school_form"
 
-const page = async () => {
-  // const schools = await prisma.school.findMany({
-  //   orderBy: {
-  //     createdAt: "desc",
-  //   },
-  // })
+export default function SchoolsPage() {
+  return (
+    <main className="mx-auto max-w-xl p-6 flex flex-col ">
+      <h1 className="mb-6 text-2xl font-bold">Schools</h1>
 
-  // console.table(schools)
-  return <section>schools</section>
+      <SchoolForm />
+    </main>
+  )
 }
-export default page
