@@ -6,12 +6,14 @@ import { Button } from "@/components/ui/button"
 
 type ExamFormProps = {
   exam: any
+  studentId: number
 }
 
-export function ExamForm({ exam }: ExamFormProps) {
+export function ExamForm({ exam, studentId }: ExamFormProps) {
   const [currentQuestion, setCurrentQuestion] = useState(0)
 
   const question = exam.questions[currentQuestion]
+  const [answers, setAnswers] = useState<Record<number, number>>({})
   if (!question) {
     return <div className="p-6">No questions have been added to this exam.</div>
   }
@@ -20,8 +22,8 @@ export function ExamForm({ exam }: ExamFormProps) {
       <div>
         <h1 className="text-2xl font-bold">{exam.title}</h1>
 
-        <p>
-          Question {currentQuestion + 1} of {exam.questions.length}
+        <p className="text-sm text-muted-foreground">
+          Answered {Object.keys(answers).length} of {exam.questions.length}
         </p>
       </div>
 
@@ -34,7 +36,17 @@ export function ExamForm({ exam }: ExamFormProps) {
               key={option.id}
               className="flex cursor-pointer items-center gap-3 rounded border p-3"
             >
-              <input type="radio" name={`question-${question.id}`} />
+              <input
+                type="radio"
+                name={`question-${question.id}`}
+                checked={answers[question.id] === option.id}
+                onChange={() =>
+                  setAnswers((prev) => ({
+                    ...prev,
+                    [question.id]: option.id,
+                  }))
+                }
+              />
 
               {option.optionText}
             </label>
@@ -59,8 +71,49 @@ export function ExamForm({ exam }: ExamFormProps) {
             Next
           </Button>
         ) : (
-          <Button type="button">Submit Exam</Button>
+          <Button
+            type="button"
+            onClick={() => {
+              console.log(answers)
+              alert("Ready to submit!")
+            }}
+          >
+            Submit Exam
+          </Button>
         )}
+      </div>
+      <div className="rounded-lg border p-4">
+        <h3 className="mb-4 font-semibold">Question Palette</h3>
+
+        <div className="grid grid-cols-5 gap-2">
+          {exam.questions.map((q: any, index: number) => {
+            const current = index === currentQuestion
+            const answered = answers[q.id]
+
+            return (
+              <button
+                key={q.id}
+                type="button"
+                onClick={() => setCurrentQuestion(index)}
+                className={`rounded p-2 text-sm font-medium ${
+                  current
+                    ? "bg-blue-600 text-white"
+                    : answered
+                      ? "bg-green-600 text-white"
+                      : "bg-gray-200 text-black"
+                }`}
+              >
+                {index + 1}
+              </button>
+            )
+          })}
+        </div>
+
+        <div className="mt-4 flex gap-6 text-sm">
+          <span>🟦 Current</span>
+          <span>🟩 Answered</span>
+          <span>⬜ Not Answered</span>
+        </div>
       </div>
     </div>
   )

@@ -1,6 +1,7 @@
 "use client"
 
-import Link from "next/link"
+import {  useSidebar } from "@/components/ui/sidebar"
+import { RiGraduationCapLine } from "@remixicon/react"
 import {
   RiDashboardLine,
   RiSchoolLine,
@@ -17,28 +18,27 @@ import {
   SidebarContent,
   SidebarGroup,
   SidebarGroupContent,
+  SidebarGroupLabel,
   SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
-import { Link2 } from "lucide-react"
+import Link from "next/link"
 
-const items = [
+const mainItems = [
   {
     title: "Dashboard",
     url: "/dashboard",
     icon: RiDashboardLine,
   },
+]
+
+const academicItems = [
   {
     title: "Schools",
     url: "/dashboard/schools",
     icon: RiSchoolLine,
-  },
-  {
-    title: "Students",
-    url: "/dashboard/students",
-    icon: RiGroupLine,
   },
   {
     title: "Classes",
@@ -50,14 +50,22 @@ const items = [
     url: "/dashboard/subjects",
     icon: RiBook2Line,
   },
+]
+
+const examItems = [
+  {
+    title: "Student Registration",
+    url: "/register",
+    icon: RiGroupLine,
+  },
   {
     title: "Exams",
     url: "/dashboard/exams",
     icon: RiFileList3Line,
   },
   {
-    title: "Questions",
-    url: "/dashboard/questions",
+    title: "Upload Questions",
+    url: "/dashboard/exams/import",
     icon: RiQuestionLine,
   },
   {
@@ -73,24 +81,85 @@ const items = [
 ]
 
 export function AppSidebar() {
+  const { state } = useSidebar()
+
   return (
     <Sidebar collapsible="icon">
-      <SidebarHeader className="p-4">
-        <h2 className="text-lg font-bold">CBT Admin</h2>
-      </SidebarHeader>
+      <SidebarHeader className="flex items-center justify-center p-4">
+        {state === "collapsed" ? (
+          <RiGraduationCapLine className="size-7 text-primary" />
+        ) : (
+          <div className="flex items-center gap-3">
+            <RiGraduationCapLine className="size-7 text-primary" />
 
+            <div>
+              <h2 className="leading-none my-1 font-bold">Eagle Crest</h2>
+
+              <p className="text-xs text-muted-foreground">CBT System</p>
+            </div>
+          </div>
+        )}
+      </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
+          <SidebarGroupLabel>Panel</SidebarGroupLabel>
+
           <SidebarGroupContent>
             <SidebarMenu>
-              {items.map((item) => (
+              {mainItems.map((item) => (
                 <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton >
-                    {/* <Link href={item.url}>
-                      <item.icon /> */}
-                      <Link2 ></Link2>
+                  <SidebarMenuButton>
+                    <Link
+                      href={item.url}
+                      className="flex items-center gap-3 p-2"
+                    >
+                      <item.icon className="size-5" />
                       <span>{item.title}</span>
-                    {/* </Link> */}
+                    </Link>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              ))}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+
+        <SidebarGroup>
+          <SidebarGroupLabel>ACADEMICS</SidebarGroupLabel>
+
+          <SidebarGroupContent>
+            <SidebarMenu>
+              {academicItems.map((item) => (
+                <SidebarMenuItem key={item.title}>
+                  <SidebarMenuButton>
+                    <Link
+                      href={item.url}
+                      className="flex items-center gap-3 p-2"
+                    >
+                      <item.icon className="size-5" />
+                      <span>{item.title}</span>
+                    </Link>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              ))}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+
+        <SidebarGroup>
+          <SidebarGroupLabel>EXAMINATION</SidebarGroupLabel>
+
+          <SidebarGroupContent>
+            <SidebarMenu>
+              {examItems.map((item) => (
+                <SidebarMenuItem key={item.title}>
+                  <SidebarMenuButton>
+                    <Link
+                      href={item.url}
+                      className="flex items-center gap-3 p-2"
+                    >
+                      <item.icon className="size-5" />
+                      <span>{item.title}</span>
+                    </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}

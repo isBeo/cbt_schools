@@ -53,19 +53,36 @@ model Student {
 }
 
 model Exam {
-  id              Int           @id @default(autoincrement())
+  id              Int       @id @default(autoincrement())
+
+  // Basic information
   title           String
   term            String
   session         String
+
+  // Timing
   durationMinutes Int
+  startTime       DateTime?
+  endTime         DateTime?
+
+  // Marking
   totalMarks      Int
-  status          String
+
+  // Exam state
+  status          ExamStatus @default(DRAFT)
+
+  // Relationships
   subjectId       Int
   classId         Int
-  class           Class         @relation(fields: [classId], references: [id])
-  subject         Subject       @relation(fields: [subjectId], references: [id])
-  attempts        ExamAttempt[]
+
+  subject         Subject    @relation(fields: [subjectId], references: [id])
+  class           Class      @relation(fields: [classId], references: [id])
+
   questions       Question[]
+  attempts        ExamAttempt[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
 }
 
 model Question {
@@ -78,6 +95,13 @@ model Question {
   options       Option[]
   exam          Exam            @relation(fields: [examId], references: [id])
   answers       StudentAnswer[]
+}
+
+enum ExamStatus {
+  DRAFT
+  PUBLISHED
+  ACTIVE
+  CLOSED
 }
 
 model Option {

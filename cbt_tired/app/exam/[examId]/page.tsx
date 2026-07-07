@@ -7,15 +7,21 @@ type Props = {
   params: Promise<{
     examId: string
   }>
+  searchParams: Promise<{
+    student?: string
+  }>
 }
 
-export default async function ExamPage({ params }: Props) {
+export default async function ExamPage({ params, searchParams }: Props) {
   const { examId } = await params
-
+  const { student } = await searchParams
+  if (!student) {
+    notFound()
+  }
   const exam = await prisma.exam.findUnique({
     where: {
       id: Number(examId),
-      status: "Active"
+      status: "Active",
     },
     include: {
       questions: {
@@ -35,7 +41,7 @@ export default async function ExamPage({ params }: Props) {
 
   return (
     <main className="mx-auto max-w-4xl p-6">
-      <ExamForm exam={exam} />
+      <ExamForm exam={exam} studentId={Number(student)} />
     </main>
   )
 }
