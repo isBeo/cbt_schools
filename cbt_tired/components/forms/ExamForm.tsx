@@ -1,32 +1,61 @@
+"use client"
 import { submitExam } from "@/app/actions/exam"
-;("use client")
+import { useRouter } from "next/navigation"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 
 import { Button } from "@/components/ui/button"
 
 type ExamFormProps = {
   exam: any
   studentId: number
+  duration: number
 }
-
-export function ExamForm({ exam, studentId }: ExamFormProps) {
+export function ExamForm({ exam, studentId, duration }: ExamFormProps) {
   const [currentQuestion, setCurrentQuestion] = useState(0)
+  
+  const router = useRouter()
 
+  const handleSubmit = async () => {
+  const result = await submitExam({
+    studentId,
+    examId: exam.id,
+    answers,
+  })
+
+  if (result.success) {
+    router.push(`/result/${result.attemptId}`)
+  }
+}
   const question = exam.questions[currentQuestion]
   const [answers, setAnswers] = useState<Record<number, number>>({})
+  const [timeLeft, setTimeLeft] = useState(duration * 60)
 
-  async function handleSubmit() {
-    const result = await submitExam({
-      studentId,
-      examId: exam.id,
-      answers,
-    })
+  useEffect(() => {
+    if (timeLeft <= 0) return
 
-    if (result.success) {
-      alert("Exam submitted successfully!")
-    }
-  }
+    const timer = setInterval(() => {
+      setTimeLeft((prev) => prev - 1)
+    }, 1000)
+
+    return () => clearInterval(timer)
+  }, [timeLeft])
+
+  // async function handleSubmit() {
+  //   const result = await submitExam({
+  //     studentId,
+  //     examId: exam.id,
+  //     answers,
+  //   })
+
+  //   if (result.success) {
+  //     window.location.href = `/result/${result.attemptId}`
+  //   }
+
+  //   if (result.success) {
+  //     alert("Exam submitted successfully!")
+  //   }
+  // }
   if (!question) {
     return <div className="p-6">No questions have been added to this exam.</div>
   }
@@ -34,6 +63,12 @@ export function ExamForm({ exam, studentId }: ExamFormProps) {
     <div className="space-y-6">
       <div>
         <h1 className="text-2xl font-bold">{exam.title}</h1>
+        
+        
+        <p className="rounded bg-red-600 px-4 py-2 text-center text-xl font-bold text-white">
+  {Math.floor(timeLeft / 60)}:
+  {(timeLeft % 60).toString().padStart(2, "0")}
+</p>
 
         <p className="text-sm text-muted-foreground">
           Answered {Object.keys(answers).length} of {exam.questions.length}
@@ -123,5 +158,5 @@ export function ExamForm({ exam, studentId }: ExamFormProps) {
         </div>
       </div>
     </div>
-  ) 
+  )
 }

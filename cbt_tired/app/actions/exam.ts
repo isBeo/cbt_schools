@@ -282,7 +282,7 @@ export async function importBusinessStudiesExam() {
   }
 }
 
-export async function submitExam() {}
+// export async function submitExam() {}
 
 type SubmitExamInput = {
   studentId: number
@@ -290,32 +290,123 @@ type SubmitExamInput = {
   answers: Record<number, number>
 }
 
+// export async function submitExam(data: SubmitExamInput) {
+//   const attempt = await prisma.examAttempt.create({
+//     data: {
+//       studentId: data.studentId,
+//       examId: data.examId,
+//       startedAt: new Date(),
+//       submittedAt: new Date(),
+//       status: "COMPLETED",
+//     },
+//   })
+
+//   const answerEntries = Object.entries(data.answers)
+
+//   for (const [questionId, optionId] of answerEntries) {
+//     await prisma.studentAnswer.create({
+//       data: {
+//         attemptId: attempt.id,
+//         questionId: Number(questionId),
+//         selectedOptionId: optionId,
+//         answeredAt: new Date(),
+//       },
+//     })
+//   }
+
+//   return {
+//     success: true,
+//     attemptId: attempt.id,
+//   }
+// }
+
 export async function submitExam(data: SubmitExamInput) {
-  const attempt = await prisma.examAttempt.create({
-    data: {
-      studentId: data.studentId,
+  // Fetch questions BEFORE starting the transaction
+  const questions = await prisma.question.findMany({
+    where: {
       examId: data.examId,
-      startedAt: new Date(),
-      submittedAt: new Date(),
-      status: "COMPLETED",
+    },
+    include: {
+      options: true,
     },
   })
 
-  const answerEntries = Object.entries(data.answers)
+  const questionMap = new Map(questions.map((q) => [q.id, q]))
 
-  for (const [questionId, optionId] of answerEntries) {
-    await prisma.studentAnswer.create({
+  return await prisma.$transaction(async (tx) => {
+    const attempt = await tx.examAttempt.create({
       data: {
-        attemptId: attempt.id,
-        questionId: Number(questionId),
-        selectedOptionId: optionId,
-        answeredAt: new Date(),
+        studentId: data.studentId,
+        examId: data.examId,
+        startedAt: new Date(),
+        submittedAt: new Date(),
+        status: "COMPLETED",
       },
     })
-  }
 
-  return {
-    success: true,
-    attemptId: attempt.id,
-  }
+    let score = 0
+    let totalMarks = 0
+
+    const answersToCreate: {
+      attemptId: number
+      questionId: number
+      selectedOptionId: number
+      answeredAt: Date
+    }[] = []
+
+    for (const [questionId, optionId] of Object.entries(data.answers)) {
+      const question = questionMap.get(Number(questionId))
+
+      if (!question) continue
+
+      totalMarks += question.marks
+
+      const selectedOptionId = Number(optionId)
+
+      const correctOption = question.options.find((option) => option.isCorrect)
+
+      if (correctOption?.id === selectedOptionId) {
+        score += question.marks
+      }
+
+      answersToCreate.push({
+        attemptId: attempt.id,
+        questionId: Number(questionId),
+        selectedOptionId,
+        answeredAt: new Date(),
+      })
+    }
+
+    await tx.studentAnswer.createMany({
+      data: answersToCreate,
+    })
+
+    const percentage = totalMarks === 0 ? 0 : (score / totalMarks) * 100
+
+    let grade = "F"
+
+    if (percentage >= 70) grade = "A"
+    else if (percentage >= 60) grade = "B"
+    else if (percentage >= 50) grade = "C"
+    else if (percentage >= 45) grade = "D"
+    else if (percentage >= 40) grade = "E"
+
+    const result = await tx.result.create({
+      data: {
+        attemptId: attempt.id,
+        score,
+        percentage,
+        grade,
+      },
+    })
+
+    return {
+      success: true,
+      attemptId: attempt.id,
+      resultId: result.id,
+      score,
+      percentage,
+      grade,
+    }
+  })
 }
