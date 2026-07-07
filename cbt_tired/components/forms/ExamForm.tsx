@@ -1,4 +1,5 @@
-"use client"
+import { submitExam } from "@/app/actions/exam"
+;("use client")
 
 import { useState } from "react"
 
@@ -14,6 +15,18 @@ export function ExamForm({ exam, studentId }: ExamFormProps) {
 
   const question = exam.questions[currentQuestion]
   const [answers, setAnswers] = useState<Record<number, number>>({})
+
+  async function handleSubmit() {
+    const result = await submitExam({
+      studentId,
+      examId: exam.id,
+      answers,
+    })
+
+    if (result.success) {
+      alert("Exam submitted successfully!")
+    }
+  }
   if (!question) {
     return <div className="p-6">No questions have been added to this exam.</div>
   }
@@ -71,13 +84,7 @@ export function ExamForm({ exam, studentId }: ExamFormProps) {
             Next
           </Button>
         ) : (
-          <Button
-            type="button"
-            onClick={() => {
-              console.log(answers)
-              alert("Ready to submit!")
-            }}
-          >
+          <Button type="button" onClick={handleSubmit}>
             Submit Exam
           </Button>
         )}
@@ -116,5 +123,5 @@ export function ExamForm({ exam, studentId }: ExamFormProps) {
         </div>
       </div>
     </div>
-  )
+  ) 
 }

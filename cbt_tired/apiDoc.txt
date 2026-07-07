@@ -1,0 +1,17 @@
+
+
+
+
+
+`
+
+
+    | Action                          | File                     | Status      | Purpose                                                   |
+    | ------------------------------- | ------------------------ | ----------- | --------------------------------------------------------- |
+    | ✅ `registerStudent()`           | `app/actions/student.ts` | Working     | Registers a student and redirects to the active exam.     |
+    | ✅ `importBusinessStudiesExam()` | `app/actions/exam.ts`    | Working     | Imports the Business Studies questions into the database. |
+    | 🚧 `submitExam()`               | `app/actions/exam.ts`    | In progress | Creates an `ExamAttempt` and saves the student's answers. |
+
+
+
+`

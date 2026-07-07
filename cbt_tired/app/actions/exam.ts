@@ -240,7 +240,7 @@ export async function importBusinessStudiesExam() {
 
   // ⛔ Don't add insertion code yet.
   // We'll add it in Part 3 after all questions are included.
-    // Prevent duplicate imports
+  // Prevent duplicate imports
   const existing = await prisma.question.count({
     where: {
       examId: exam.id,
@@ -281,5 +281,41 @@ export async function importBusinessStudiesExam() {
     message: `${questions.length} questions imported successfully.`,
   }
 }
-   
- 
+
+export async function submitExam() {}
+
+type SubmitExamInput = {
+  studentId: number
+  examId: number
+  answers: Record<number, number>
+}
+
+export async function submitExam(data: SubmitExamInput) {
+  const attempt = await prisma.examAttempt.create({
+    data: {
+      studentId: data.studentId,
+      examId: data.examId,
+      startedAt: new Date(),
+      submittedAt: new Date(),
+      status: "COMPLETED",
+    },
+  })
+
+  const answerEntries = Object.entries(data.answers)
+
+  for (const [questionId, optionId] of answerEntries) {
+    await prisma.studentAnswer.create({
+      data: {
+        attemptId: attempt.id,
+        questionId: Number(questionId),
+        selectedOptionId: optionId,
+        answeredAt: new Date(),
+      },
+    })
+  }
+
+  return {
+    success: true,
+    attemptId: attempt.id,
+  }
+}

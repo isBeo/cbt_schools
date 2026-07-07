@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/prisma"
 import { notFound } from "next/navigation"
 import { ExamForm } from "@/components/forms/ExamForm"
+import { ExamStatus } from "@/generated/prisma/client"
 
 
 type Props = {
@@ -21,7 +22,7 @@ export default async function ExamPage({ params, searchParams }: Props) {
   const exam = await prisma.exam.findUnique({
     where: {
       id: Number(examId),
-      status: "Active",
+      status: ExamStatus.ACTIVE,
     },
     include: {
       questions: {
