@@ -4,6 +4,7 @@
   "type": "module",
   "private": true,
   "scripts": {
+     "seed": "tsx prisma/seed.ts",
     "dev": "next dev",
     "build": "next build",
     "postinstall": "prisma generate",
