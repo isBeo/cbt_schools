@@ -21,10 +21,10 @@ export default async function SchoolsPage() {
           </p>
         </div>
 
-        <Button className={'font-bolder'} asChild>
-          <Link href="/dashboard/schools/register"><Plus/> </Link>
-          {/* <span>Add</span> */}
-        </Button>
+          <Link href="/dashboard/schools/register" className={'font-bolder'} ><Plus/> 
+          
+          <span>Add</span>
+          </Link>
       </div>
 
       <SchoolTable schools={schools} />
