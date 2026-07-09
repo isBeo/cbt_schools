@@ -1,0 +1,202 @@
+[
+  {
+    "questionText": "Independence means the ability of a nation to __.",
+    "marks": 1,
+    "options": [
+      { "text": "Be ruled by another country", "correct": false },
+      { "text": "Govern itself", "correct": true },
+      { "text": "Trade with other nations", "correct": false },
+      { "text": "Join the United Nations", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Nigeria gained independence on __.",
+    "marks": 1,
+    "options": [
+      { "text": "October 1, 1954", "correct": false },
+      { "text": "October 1, 1963", "correct": false },
+      { "text": "October 1, 1960", "correct": true },
+      { "text": "October 1, 1957", "correct": false }
+    ]
+  },
+  {
+    "questionText": "The first constitution to introduce the elective principle in Nigeria was the __.",
+    "marks": 1,
+    "options": [
+      { "text": "Richards Constitution", "correct": false },
+      { "text": "Clifford Constitution", "correct": true },
+      { "text": "Lyttleton Constitution", "correct": false },
+      { "text": "Macpherson Constitution", "correct": false }
+    ]
+  },
+  {
+    "questionText": "The Clifford Constitution was introduced in __.",
+    "marks": 1,
+    "options": [
+      { "text": "1922", "correct": true },
+      { "text": "1946", "correct": false },
+      { "text": "1951", "correct": false },
+      { "text": "1954", "correct": false }
+    ]
+  },
+  {
+    "questionText": "The Richards Constitution divided Nigeria into __ regions.",
+    "marks": 1,
+    "options": [
+      { "text": "Two", "correct": false },
+      { "text": "Three", "correct": true },
+      { "text": "Four", "correct": false },
+      { "text": "Five", "correct": false }
+    ]
+  },
+  {
+    "questionText": "The Macpherson Constitution was introduced in __.",
+    "marks": 1,
+    "options": [
+      { "text": "1922", "correct": false },
+      { "text": "1946", "correct": false },
+      { "text": "1951", "correct": true },
+      { "text": "1954", "correct": false }
+    ]
+  },
+  {
+    "questionText": "The Lyttleton Constitution firmly established __ in Nigeria.",
+    "marks": 1,
+    "options": [
+      { "text": "Monarchy", "correct": false },
+      { "text": "Federalism", "correct": true },
+      { "text": "Dictatorship", "correct": false },
+      { "text": "Socialism", "correct": false }
+    ]
+  },
+  {
+    "questionText": "The first Prime Minister of Nigeria was __.",
+    "marks": 1,
+    "options": [
+      { "text": "Nnamdi Azikiwe", "correct": false },
+      { "text": "Obafemi Awolowo", "correct": false },
+      { "text": "Tafawa Balewa", "correct": true },
+      { "text": "Herbert Macaulay", "correct": false }
+    ]
+  },
+  {
+    "questionText": "The first Governor-General of independent Nigeria was __.",
+    "marks": 1,
+    "options": [
+      { "text": "Ahmadu Bello", "correct": false },
+      { "text": "Nnamdi Azikiwe", "correct": true },
+      { "text": "Tafawa Balewa", "correct": false },
+      { "text": "Yakubu Gowon", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Herbert Macaulay is remembered as a Nigerian __.",
+    "marks": 1,
+    "options": [
+      { "text": "Governor", "correct": false },
+      { "text": "Nationalist", "correct": true },
+      { "text": "Soldier", "correct": false },
+      { "text": "Judge", "correct": false }
+    ]
+  },
+  {
+    "questionText": "The newspaper used by Nnamdi Azikiwe to promote nationalism was __.",
+    "marks": 1,
+    "options": [
+      { "text": "Daily Times", "correct": false },
+      { "text": "Nigerian Tribune", "correct": false },
+      { "text": "West African Pilot", "correct": true },
+      { "text": "Observer", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Princess Alexandra represented __ at Nigeria's independence ceremony.",
+    "marks": 1,
+    "options": [
+      { "text": "France", "correct": false },
+      { "text": "Queen Elizabeth II", "correct": true },
+      { "text": "United Nations", "correct": false },
+      { "text": "United States", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Nigeria became a Republic in __.",
+    "marks": 1,
+    "options": [
+      { "text": "1960", "correct": false },
+      { "text": "1962", "correct": false },
+      { "text": "1963", "correct": true },
+      { "text": "1966", "correct": false }
+    ]
+  },
+  {
+    "questionText": "The military took over government in Nigeria in __.",
+    "marks": 1,
+    "options": [
+      { "text": "1960", "correct": false },
+      { "text": "1963", "correct": false },
+      { "text": "1966", "correct": true },
+      { "text": "1970", "correct": false }
+    ]
+  },
+  {
+    "questionText": "The Nigerian Civil War began in __.",
+    "marks": 1,
+    "options": [
+      { "text": "1963", "correct": false },
+      { "text": "1966", "correct": false },
+      { "text": "1967", "correct": true },
+      { "text": "1970", "correct": false }
+    ]
+  },
+  {
+    "questionText": "The Nigerian Civil War ended in __.",
+    "marks": 1,
+    "options": [
+      { "text": "1968", "correct": false },
+      { "text": "1969", "correct": false },
+      { "text": "1970", "correct": true },
+      { "text": "1971", "correct": false }
+    ]
+  },
+  {
+    "questionText": "The leader of Nigeria during the Civil War was __.",
+    "marks": 1,
+    "options": [
+      { "text": "Nnamdi Azikiwe", "correct": false },
+      { "text": "Yakubu Gowon", "correct": true },
+      { "text": "Obafemi Awolowo", "correct": false },
+      { "text": "Tafawa Balewa", "correct": false }
+    ]
+  },
+  {
+    "questionText": "One major cause of the Nigerian Civil War was __.",
+    "marks": 1,
+    "options": [
+      { "text": "Sporting activities", "correct": false },
+      { "text": "Ethnic and political conflicts", "correct": true },
+      { "text": "Tourism", "correct": false },
+      { "text": "Education", "correct": false }
+    ]
+  },
+  {
+    "questionText": "The policy adopted after the Civil War was __.",
+    "marks": 1,
+    "options": [
+      { "text": "Revenge and punishment", "correct": false },
+      { "text": "No victor, no vanquished", "correct": true },
+      { "text": "Colonialism", "correct": false },
+      { "text": "Federalism", "correct": false }
+    ]
+  },
+  {
+    "questionText": "One effect of the Civil War was __.",
+    "marks": 1,
+    "options": [
+      { "text": "Increase in population", "correct": false },
+      { "text": "Destruction of lives and property", "correct": true },
+      { "text": "End of education", "correct": false },
+      { "text": "End of trade", "correct": false }
+    ]
+  }
+]

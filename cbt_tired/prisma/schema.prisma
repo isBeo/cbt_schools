@@ -11,6 +11,7 @@ model School {
   id        Int       @id @default(autoincrement())
   name      String    @unique
   address   String?
+  users User[]
   createdAt DateTime  @default(now())
   students  Student[]
 
@@ -59,6 +60,7 @@ model Exam {
   title           String
   term            String
   session         String
+  questionSource  String?  
 
   // Timing
   durationMinutes Int
@@ -115,16 +117,25 @@ model Option {
 }
 
 model ExamAttempt {
-  id          Int             @id @default(autoincrement())
+  id          Int           @id @default(autoincrement())
   startedAt   DateTime
   submittedAt DateTime?
-  status      String
+
+  status      AttemptStatus @default(IN_PROGRESS)
+
   studentId   Int
   examId      Int
-  exam        Exam            @relation(fields: [examId], references: [id])
-  student     Student         @relation(fields: [studentId], references: [id])
+
+  exam        Exam          @relation(fields: [examId], references: [id])
+  student     Student       @relation(fields: [studentId], references: [id])
+
   result      Result?
   answers     StudentAnswer[]
+}
+enum AttemptStatus {
+  IN_PROGRESS
+  SUBMITTED
+  GRADED
 }
 
 model StudentAnswer {
@@ -149,7 +160,26 @@ model Result {
   attempt     ExamAttempt    @relation(fields: [attemptId], references: [id])
   details     ResultDetail[]
 }
+model User {
+  id           Int      @id @default(autoincrement())
+  name         String
+  email        String   @unique
+  passwordHash String
 
+  role         Role
+
+  schoolId     Int?
+
+  school        School? @relation(fields: [schoolId], references: [id])
+
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+enum Role {
+  SUPER_ADMIN
+  SCHOOL_ADMIN
+  TEACHER
+}
 model ResultDetail {
   id           Int     @id @default(autoincrement())
   resultId     Int

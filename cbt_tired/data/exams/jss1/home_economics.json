@@ -1,0 +1,202 @@
+[
+  {
+    "questionText": "Resources are things that help us to meet our:",
+    "marks": 1,
+    "options": [
+      { "text": "Friends", "correct": false },
+      { "text": "Needs and wants", "correct": true },
+      { "text": "Enemies", "correct": false },
+      { "text": "Problems", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Which of the following is a human resource?",
+    "marks": 1,
+    "options": [
+      { "text": "Building", "correct": false },
+      { "text": "Time", "correct": true },
+      { "text": "Money", "correct": false },
+      { "text": "Land", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Decision-making means:",
+    "marks": 1,
+    "options": [
+      { "text": "Buying clothes", "correct": false },
+      { "text": "Making a choice among alternatives", "correct": true },
+      { "text": "Sleeping", "correct": false },
+      { "text": "Eating food", "correct": false }
+    ]
+  },
+  {
+    "questionText": "The first step in decision-making is to:",
+    "marks": 1,
+    "options": [
+      { "text": "Identify the problem", "correct": true },
+      { "text": "Spend money", "correct": false },
+      { "text": "Buy the item", "correct": false },
+      { "text": "Evaluate the result", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Food purchasing means:",
+    "marks": 1,
+    "options": [
+      { "text": "Buying food", "correct": true },
+      { "text": "Cooking food", "correct": false },
+      { "text": "Processing food", "correct": false },
+      { "text": "Preserving food", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Which of the following is a perishable food?",
+    "marks": 1,
+    "options": [
+      { "text": "Garri", "correct": false },
+      { "text": "Fish", "correct": true },
+      { "text": "Beans", "correct": false },
+      { "text": "Rice", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Perishable foods spoil:",
+    "marks": 1,
+    "options": [
+      { "text": "Monthly", "correct": false },
+      { "text": "Slowly", "correct": false },
+      { "text": "Quickly", "correct": true },
+      { "text": "Yearly", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Which of the following is a non-perishable food?",
+    "marks": 1,
+    "options": [
+      { "text": "Rice", "correct": true },
+      { "text": "Fish", "correct": false },
+      { "text": "Fresh milk", "correct": false },
+      { "text": "Meat", "correct": false }
+    ]
+  },
+  {
+    "questionText": "One risk factor in food purchasing is:",
+    "marks": 1,
+    "options": [
+      { "text": "Comparing prices", "correct": false },
+      { "text": "Buying expired foods", "correct": true },
+      { "text": "Making a list", "correct": false },
+      { "text": "Checking labels", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Before buying food, one should check the:",
+    "marks": 1,
+    "options": [
+      { "text": "Size", "correct": false },
+      { "text": "Expiry", "correct": true },
+      { "text": "Colour", "correct": false },
+      { "text": "Shape", "correct": false }
+    ]
+  },
+  {
+    "questionText": "A wise buyer always:",
+    "marks": 1,
+    "options": [
+      { "text": "Prepares a shopping list", "correct": true },
+      { "text": "Ignores quality", "correct": false },
+      { "text": "Buys on impulse", "correct": false },
+      { "text": "Wastes money", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Which of these is a factor to consider when buying food?",
+    "marks": 1,
+    "options": [
+      { "text": "Quality", "correct": false },
+      { "text": "Price", "correct": false },
+      { "text": "All of the above", "correct": true },
+      { "text": "Nutritional value", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Food processing is the:",
+    "marks": 1,
+    "options": [
+      { "text": "Preparation and preservation of food", "correct": true },
+      { "text": "Selling of food", "correct": false },
+      { "text": "Growing of crops", "correct": false },
+      { "text": "Transportation of food", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Which of the following is a food processing method?",
+    "marks": 1,
+    "options": [
+      { "text": "Sweeping", "correct": false },
+      { "text": "Drying", "correct": true },
+      { "text": "Ironing", "correct": false },
+      { "text": "Washing", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Smoking is used to:",
+    "marks": 1,
+    "options": [
+      { "text": "Destroy", "correct": false },
+      { "text": "Spoil", "correct": false },
+      { "text": "Preserve", "correct": true },
+      { "text": "Waste", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Which of the following helps to keep food safe?",
+    "marks": 1,
+    "options": [
+      { "text": "Dirty utensils", "correct": false },
+      { "text": "Leaving food uncovered", "correct": false },
+      { "text": "Proper storage", "correct": true },
+      { "text": "Dirty hands", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Food contamination can be caused by:",
+    "marks": 1,
+    "options": [
+      { "text": "Refrigeration", "correct": false },
+      { "text": "Proper storage", "correct": false },
+      { "text": "Germs", "correct": true },
+      { "text": "Clean water", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Refrigeration helps to:",
+    "marks": 1,
+    "options": [
+      { "text": "Dirty food", "correct": false },
+      { "text": "Preserve food", "correct": true },
+      { "text": "Spoil food", "correct": false },
+      { "text": "Waste food", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Which of these is a wise buying practice?",
+    "marks": 1,
+    "options": [
+      { "text": "Comparing prices", "correct": true },
+      { "text": "Buying damaged goods", "correct": false },
+      { "text": "Ignoring labels", "correct": false },
+      { "text": "Buying without planning", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Food safety helps to prevent:",
+    "marks": 1,
+    "options": [
+      { "text": "Shopping", "correct": false },
+      { "text": "Diseases", "correct": true },
+      { "text": "Transportation", "correct": false },
+      { "text": "Rainfall", "correct": false }
+    ]
+  }
+]

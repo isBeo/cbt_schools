@@ -1,0 +1,202 @@
+[
+  {
+    "questionText": "The degree of hotness or coldness of a body is called ________.",
+    "marks": 1,
+    "options": [
+      { "text": "Heat", "correct": false },
+      { "text": "Energy", "correct": false },
+      { "text": "Temperature", "correct": true },
+      { "text": "Pollution", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Heat energy from the sun can be converted into ________.",
+    "marks": 1,
+    "options": [
+      { "text": "Wind energy", "correct": false },
+      { "text": "Electrical energy", "correct": true },
+      { "text": "Sound energy", "correct": false },
+      { "text": "Nuclear energy", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Which of the following is a form of pollution?",
+    "marks": 1,
+    "options": [
+      { "text": "Irrigation", "correct": false },
+      { "text": "Air pollution", "correct": true },
+      { "text": "Cultivation", "correct": false },
+      { "text": "Recycling", "correct": false }
+    ]
+  },
+  {
+    "questionText": "A substance that causes pollution is called a ________.",
+    "marks": 1,
+    "options": [
+      { "text": "Pollutant", "correct": true },
+      { "text": "Solvent", "correct": false },
+      { "text": "Mixture", "correct": false },
+      { "text": "Nutrient", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Recycling helps to ________.",
+    "marks": 1,
+    "options": [
+      { "text": "Increase waste", "correct": false },
+      { "text": "Reduce environmental pollution", "correct": true },
+      { "text": "Destroy materials", "correct": false },
+      { "text": "Cause diseases", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Which of these is a proper method of waste disposal?",
+    "marks": 1,
+    "options": [
+      { "text": "Throwing refuse into rivers", "correct": false },
+      { "text": "Burning tyres openly", "correct": false },
+      { "text": "Burying waste in landfill sites", "correct": true },
+      { "text": "Dumping refuse on roads", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Planting trees helps to maintain a healthy ________.",
+    "marks": 1,
+    "options": [
+      { "text": "School", "correct": false },
+      { "text": "Environment", "correct": true },
+      { "text": "Road", "correct": false },
+      { "text": "Market", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Which of these human activities can damage the environment?",
+    "marks": 1,
+    "options": [
+      { "text": "Tree planting", "correct": false },
+      { "text": "Sweeping", "correct": false },
+      { "text": "Bush burning", "correct": true },
+      { "text": "Recycling", "correct": false }
+    ]
+  },
+  {
+    "questionText": "The organ that pumps blood round the human body is the ________.",
+    "marks": 1,
+    "options": [
+      { "text": "Brain", "correct": false },
+      { "text": "Heart", "correct": true },
+      { "text": "Kidney", "correct": false },
+      { "text": "Liver", "correct": false }
+    ]
+  },
+  {
+    "questionText": "A joint is a place where two or more ________ meet.",
+    "marks": 1,
+    "options": [
+      { "text": "Muscles", "correct": false },
+      { "text": "Bones", "correct": true },
+      { "text": "Veins", "correct": false },
+      { "text": "Tissues", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Which part of a flower produces pollen grains?",
+    "marks": 1,
+    "options": [
+      { "text": "Ovary", "correct": false },
+      { "text": "Petal", "correct": false },
+      { "text": "Stamen", "correct": true },
+      { "text": "Sepal", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Fertilization in plants is the joining of male and female ________.",
+    "marks": 1,
+    "options": [
+      { "text": "Seeds", "correct": false },
+      { "text": "Roots", "correct": false },
+      { "text": "Gametes", "correct": true },
+      { "text": "Leaves", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Rocks are naturally occurring solid materials found in the ________.",
+    "marks": 1,
+    "options": [
+      { "text": "Sky", "correct": false },
+      { "text": "Ground", "correct": true },
+      { "text": "Water", "correct": false },
+      { "text": "Air", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Which of these is an example of an acid?",
+    "marks": 1,
+    "options": [
+      { "text": "Soap water", "correct": false },
+      { "text": "Vinegar", "correct": true },
+      { "text": "Salt", "correct": false },
+      { "text": "Chalk", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Bases usually feel ________.",
+    "marks": 1,
+    "options": [
+      { "text": "Rough", "correct": false },
+      { "text": "Sticky", "correct": false },
+      { "text": "Slippery", "correct": true },
+      { "text": "Sharp", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Soap is mainly used for ________.",
+    "marks": 1,
+    "options": [
+      { "text": "Cooking", "correct": false },
+      { "text": "Cleaning", "correct": true },
+      { "text": "Painting", "correct": false },
+      { "text": "Digging", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Wood, metal, and plastic are examples of ________.",
+    "marks": 1,
+    "options": [
+      { "text": "Animals", "correct": false },
+      { "text": "Materials", "correct": true },
+      { "text": "Rocks", "correct": false },
+      { "text": "Pollutants", "correct": false }
+    ]
+  },
+  {
+    "questionText": "A ruler is an example of a ________ instrument.",
+    "marks": 1,
+    "options": [
+      { "text": "Cutting", "correct": false },
+      { "text": "Measuring", "correct": true },
+      { "text": "Cooking", "correct": false },
+      { "text": "Sewing", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Which part of a motor vehicle helps it to move?",
+    "marks": 1,
+    "options": [
+      { "text": "Mirror", "correct": false },
+      { "text": "Tyre", "correct": true },
+      { "text": "Seat", "correct": false },
+      { "text": "Door", "correct": false }
+    ]
+  },
+  {
+    "questionText": "The engine of a motor vehicle is used to ________.",
+    "marks": 1,
+    "options": [
+      { "text": "Wash the vehicle", "correct": false },
+      { "text": "Produce power", "correct": true },
+      { "text": "Carry passengers", "correct": false },
+      { "text": "Stop the vehicle", "correct": false }
+    ]
+  }
+]

@@ -1,0 +1,202 @@
+[
+  {
+    "questionText": "Fishery can best be defined as the science and business of:",
+    "marks": 1,
+    "options": [
+      { "text": "Forestry", "correct": false },
+      { "text": "Fish production and management", "correct": true },
+      { "text": "Poultry keeping", "correct": false },
+      { "text": "Crop production", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Fish found in rivers, lakes and ponds are classified as:",
+    "marks": 1,
+    "options": [
+      { "text": "Oceanic", "correct": false },
+      { "text": "Freshwater", "correct": true },
+      { "text": "Migratory", "correct": false },
+      { "text": "Marine", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Classification of fish based on body shape is known as classification based on:",
+    "marks": 1,
+    "options": [
+      { "text": "Ecology", "correct": false },
+      { "text": "Morphology", "correct": true },
+      { "text": "Habitat", "correct": false },
+      { "text": "Anatomy", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Which of the following is a marine fish?",
+    "marks": 1,
+    "options": [
+      { "text": "Mudfish", "correct": false },
+      { "text": "Croaker", "correct": true },
+      { "text": "Catfish", "correct": false },
+      { "text": "Tilapia", "correct": false }
+    ]
+  },
+  {
+    "questionText": "One major importance of fish is that it provides high-quality:",
+    "marks": 1,
+    "options": [
+      { "text": "Minerals only", "correct": false },
+      { "text": "Protein", "correct": true },
+      { "text": "Carbohydrate", "correct": false },
+      { "text": "Fats only", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Fish farming carried out in artificial water bodies is known as:",
+    "marks": 1,
+    "options": [
+      { "text": "Silviculture", "correct": false },
+      { "text": "Aquaculture", "correct": true },
+      { "text": "Apiculture", "correct": false },
+      { "text": "Horticulture", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Which of the following is a fish harvesting method?",
+    "marks": 1,
+    "options": [
+      { "text": "Mulching", "correct": false },
+      { "text": "Netting", "correct": true },
+      { "text": "Budding", "correct": false },
+      { "text": "Pruning", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Smoking fish is primarily a method of:",
+    "marks": 1,
+    "options": [
+      { "text": "Transportation", "correct": false },
+      { "text": "Preservation", "correct": true },
+      { "text": "Harvesting", "correct": false },
+      { "text": "Breeding", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Which of the following is NOT a method of fish preservation?",
+    "marks": 1,
+    "options": [
+      { "text": "Salting", "correct": false },
+      { "text": "Irrigation", "correct": true },
+      { "text": "Smoking", "correct": false },
+      { "text": "Drying", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Poor water quality in a fish pond may lead to:",
+    "marks": 1,
+    "options": [
+      { "text": "Fish mortality", "correct": true },
+      { "text": "Faster breeding", "correct": false },
+      { "text": "Higher profits", "correct": false },
+      { "text": "Increased growth", "correct": false }
+    ]
+  },
+  {
+    "questionText": "A forest is best described as a large area of land covered predominantly by:",
+    "marks": 1,
+    "options": [
+      { "text": "Shrubs", "correct": false },
+      { "text": "Trees", "correct": true },
+      { "text": "Grasses", "correct": false },
+      { "text": "Crops", "correct": false }
+    ]
+  },
+  {
+    "questionText": "The practice of establishing new forests on bare land is called:",
+    "marks": 1,
+    "options": [
+      { "text": "Conservation", "correct": false },
+      { "text": "Afforestation", "correct": true },
+      { "text": "Deforestation", "correct": false },
+      { "text": "Reforestation", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Which of the following is a forest product?",
+    "marks": 1,
+    "options": [
+      { "text": "Crude oil", "correct": false },
+      { "text": "Timber", "correct": true },
+      { "text": "Granite", "correct": false },
+      { "text": "Cement", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Forests help to conserve the environment by preventing:",
+    "marks": 1,
+    "options": [
+      { "text": "Pollination", "correct": false },
+      { "text": "Erosion", "correct": true },
+      { "text": "Photosynthesis", "correct": false },
+      { "text": "Germination", "correct": false }
+    ]
+  },
+  {
+    "questionText": "The indiscriminate cutting down of trees is known as:",
+    "marks": 1,
+    "options": [
+      { "text": "Silviculture", "correct": false },
+      { "text": "Deforestation", "correct": true },
+      { "text": "Afforestation", "correct": false },
+      { "text": "Cultivation", "correct": false }
+    ]
+  },
+  {
+    "questionText": "One economic importance of forests is the provision of:",
+    "marks": 1,
+    "options": [
+      { "text": "Employment", "correct": true },
+      { "text": "Flooding", "correct": false },
+      { "text": "Desertification", "correct": false },
+      { "text": "Pollution", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Areas of forest legally protected by the government are known as:",
+    "marks": 1,
+    "options": [
+      { "text": "Orchards", "correct": false },
+      { "text": "Forest reserves", "correct": true },
+      { "text": "Game parks", "correct": false },
+      { "text": "Ranches", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Which of the following is a cause of deforestation?",
+    "marks": 1,
+    "options": [
+      { "text": "Conservation", "correct": false },
+      { "text": "Bush burning", "correct": true },
+      { "text": "Tree planting", "correct": false },
+      { "text": "Reforestation", "correct": false }
+    ]
+  },
+  {
+    "questionText": "The process of replacing harvested trees with new ones is called:",
+    "marks": 1,
+    "options": [
+      { "text": "Logging", "correct": false },
+      { "text": "Reforestation", "correct": true },
+      { "text": "Afforestation", "correct": false },
+      { "text": "Pruning", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Sustainable management of forest resources ensures their:",
+    "marks": 1,
+    "options": [
+      { "text": "Overexploitation", "correct": false },
+      { "text": "Continuous availability", "correct": true },
+      { "text": "Destruction", "correct": false },
+      { "text": "Extinction", "correct": false }
+    ]
+  }
+]

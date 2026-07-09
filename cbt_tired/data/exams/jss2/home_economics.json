@@ -1,0 +1,202 @@
+[
+  {
+    "questionText": "Nutrition can be defined as the study of:",
+    "marks": 1,
+    "options": [
+      { "text": "Food and its effect on the body", "correct": true },
+      { "text": "Cooking methods", "correct": false },
+      { "text": "Food production", "correct": false },
+      { "text": "Food marketing", "correct": false }
+    ]
+  },
+  {
+    "questionText": "A nutrient is a substance in food that:",
+    "marks": 1,
+    "options": [
+      { "text": "Provides nourishment", "correct": true },
+      { "text": "Spoils food", "correct": false },
+      { "text": "Changes colour of food", "correct": false },
+      { "text": "Causes diseases", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Which of the following nutrients is mainly responsible for body building?",
+    "marks": 1,
+    "options": [
+      { "text": "Protein", "correct": true },
+      { "text": "Water", "correct": false },
+      { "text": "Carbohydrate", "correct": false },
+      { "text": "Fat", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Deficiency of Vitamin C causes:",
+    "marks": 1,
+    "options": [
+      { "text": "Scurvy", "correct": true },
+      { "text": "Anaemia", "correct": false },
+      { "text": "Goitre", "correct": false },
+      { "text": "Rickets", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Carbohydrates are mainly needed for:",
+    "marks": 1,
+    "options": [
+      { "text": "Energy", "correct": true },
+      { "text": "Protection", "correct": false },
+      { "text": "Growth", "correct": false },
+      { "text": "Reproduction", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Meal planning refers to:",
+    "marks": 1,
+    "options": [
+      { "text": "Buying food items", "correct": false },
+      { "text": "Preparing food only", "correct": false },
+      { "text": "Organizing meals to meet nutritional needs", "correct": true },
+      { "text": "Serving food only", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Which of the following influences meal planning?",
+    "marks": 1,
+    "options": [
+      { "text": "Age", "correct": false },
+      { "text": "Occupation", "correct": false },
+      { "text": "All of the above", "correct": true },
+      { "text": "Income", "correct": false }
+    ]
+  },
+  {
+    "questionText": "A balanced diet contains:",
+    "marks": 1,
+    "options": [
+      { "text": "Only vitamins", "correct": false },
+      { "text": "All nutrients in the correct proportion", "correct": true },
+      { "text": "Only proteins", "correct": false },
+      { "text": "Only carbohydrates", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Children require adequate __ for growth and development.",
+    "marks": 1,
+    "options": [
+      { "text": "Salt", "correct": false },
+      { "text": "Protein", "correct": true },
+      { "text": "Spices", "correct": false },
+      { "text": "Pepper", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Which group of people requires extra nutrients for fetal development?",
+    "marks": 1,
+    "options": [
+      { "text": "Pregnant women", "correct": true },
+      { "text": "Athletes", "correct": false },
+      { "text": "Teenagers", "correct": false },
+      { "text": "Traders", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Wise buying practices help consumers to:",
+    "marks": 1,
+    "options": [
+      { "text": "Make good purchasing decisions", "correct": true },
+      { "text": "Buy expensive items only", "correct": false },
+      { "text": "Avoid shopping", "correct": false },
+      { "text": "Waste money", "correct": false }
+    ]
+  },
+  {
+    "questionText": "One factor to consider when buying food is:",
+    "marks": 1,
+    "options": [
+      { "text": "Nutritional value", "correct": true },
+      { "text": "Distance to school", "correct": false },
+      { "text": "Owner's name", "correct": false },
+      { "text": "Colour of the shop", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Bulk purchasing is advantageous because it:",
+    "marks": 1,
+    "options": [
+      { "text": "Reduces cost per unit", "correct": true },
+      { "text": "Spoils food quickly", "correct": false },
+      { "text": "Increases waste", "correct": false },
+      { "text": "Reduces food quality", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Food preservation is the process of:",
+    "marks": 1,
+    "options": [
+      { "text": "Preparing food", "correct": false },
+      { "text": "Harvesting food", "correct": false },
+      { "text": "Preventing food spoilage", "correct": true },
+      { "text": "Serving food", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Which of the following is a method of food preservation?",
+    "marks": 1,
+    "options": [
+      { "text": "Smoking", "correct": true },
+      { "text": "Sweeping", "correct": false },
+      { "text": "Slicing", "correct": false },
+      { "text": "Washing", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Fermentation is a food processing method used in producing:",
+    "marks": 1,
+    "options": [
+      { "text": "Garri", "correct": true },
+      { "text": "Soap", "correct": false },
+      { "text": "Paint", "correct": false },
+      { "text": "Cement", "correct": false }
+    ]
+  },
+  {
+    "questionText": "One reason for preserving food is to:",
+    "marks": 1,
+    "options": [
+      { "text": "Encourage waste", "correct": false },
+      { "text": "Prolong shelf life", "correct": true },
+      { "text": "Reduce quality", "correct": false },
+      { "text": "Increase spoilage", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Kitchen utensils are tools used for:",
+    "marks": 1,
+    "options": [
+      { "text": "Transportation", "correct": false },
+      { "text": "Farming", "correct": false },
+      { "text": "Food preparation and cooking", "correct": true },
+      { "text": "Recreation", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Stainless steel is commonly used for making kitchen equipment because it is:",
+    "marks": 1,
+    "options": [
+      { "text": "Heavy", "correct": false },
+      { "text": "Rust-resistant", "correct": true },
+      { "text": "Expensive only", "correct": false },
+      { "text": "Fragile", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Proper care of kitchen equipment helps to:",
+    "marks": 1,
+    "options": [
+      { "text": "Reduce efficiency", "correct": false },
+      { "text": "Increase durability", "correct": true },
+      { "text": "Shorten its lifespan", "correct": false },
+      { "text": "Increase accidents", "correct": false }
+    ]
+  }
+]

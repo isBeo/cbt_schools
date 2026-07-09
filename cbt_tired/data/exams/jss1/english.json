@@ -1,0 +1,202 @@
+[
+  {
+    "questionText": "Read the following passage carefully and answer the question that follows:\n\nLong time ago, I was born in a certain country near Bida and the name of our town was Kagara, my father was a tall, light skinned man whose craft was leather-working. My mother was a native of Fatika. Now when my mother was carrying me, my father died and left me an inheritance of six cows, three sheep and his riding mare, at this time the mare was foal. All these were handed over to my mother, who was told to keep them for until in God's time she should give birth to. They were the properties of her son, since her husband had no other relatives to claim the inheritance.\n\nSo things went on well until one day I was born, and I turned out to be a boy. Now when the name day came around, my mother had one of my rams caught and slaughtered and the name 'Umar' was whispered into my ear, then I began a life of adventure such as the World has rarely seen.\n\nWhen the father died, the writer of the passage was",
+    "marks": 1,
+    "options": [
+      { "text": "In Bida", "correct": false },
+      { "text": "In Fatika", "correct": false },
+      { "text": "Not yet born", "correct": true },
+      { "text": "Still a baby", "correct": false }
+    ]
+  },
+  {
+    "questionText": "The writer's father left him an inheritance of",
+    "marks": 1,
+    "options": [
+      { "text": "A light colored skin", "correct": false },
+      { "text": "Mother's property", "correct": false },
+      { "text": "Six cows only", "correct": true },
+      { "text": "Leather", "correct": false }
+    ]
+  },
+  {
+    "questionText": "The writer's mother was told to keep everything for",
+    "marks": 1,
+    "options": [
+      { "text": "Her husband's relatives", "correct": false },
+      { "text": "Herself", "correct": false },
+      { "text": "Her sister", "correct": false },
+      { "text": "The unborn child", "correct": true }
+    ]
+  },
+  {
+    "questionText": "A ram was killed for a feast on the date that the writer",
+    "marks": 1,
+    "options": [
+      { "text": "Was born", "correct": false },
+      { "text": "Remembered his father", "correct": false },
+      { "text": "Was told his father's name", "correct": false },
+      { "text": "Was given his name", "correct": true }
+    ]
+  },
+  {
+    "questionText": "When he grew up, the writer",
+    "marks": 1,
+    "options": [
+      { "text": "Disappeared", "correct": false },
+      { "text": "Lived a life of adventures", "correct": true },
+      { "text": "Lived a life of a hero", "correct": false },
+      { "text": "Travelled out", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Oprah is one of the ____ women in the world.",
+    "marks": 1,
+    "options": [
+      { "text": "Wealthy", "correct": false },
+      { "text": "Wealthiest", "correct": true },
+      { "text": "Wealthier", "correct": false },
+      { "text": "More Wealthier", "correct": false }
+    ]
+  },
+  {
+    "questionText": "The Poor man has seen _____ days.",
+    "marks": 1,
+    "options": [
+      { "text": "Happy", "correct": false },
+      { "text": "Happiest", "correct": false },
+      { "text": "Most happy", "correct": false },
+      { "text": "Happier", "correct": true }
+    ]
+  },
+  {
+    "questionText": "The child ____ ate the food.",
+    "marks": 1,
+    "options": [
+      { "text": "Quickly", "correct": true },
+      { "text": "Quick", "correct": false },
+      { "text": "Quicklier", "correct": false },
+      { "text": "Quickliest", "correct": false }
+    ]
+  },
+  {
+    "questionText": "The children were tired ____ excited.",
+    "marks": 1,
+    "options": [
+      { "text": "and", "correct": true },
+      { "text": "or", "correct": false },
+      { "text": "yet", "correct": false },
+      { "text": "if", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Fola can sing _____ can't dance.",
+    "marks": 1,
+    "options": [
+      { "text": "and", "correct": false },
+      { "text": "yet", "correct": false },
+      { "text": "or", "correct": false },
+      { "text": "but", "correct": true }
+    ]
+  },
+  {
+    "questionText": "At thirteen, Ibe already had thirty-two ____",
+    "marks": 1,
+    "options": [
+      { "text": "Tooths", "correct": false },
+      { "text": "Teeth", "correct": true },
+      { "text": "Teeths", "correct": false },
+      { "text": "Tooth", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Alhaji Bako has fifty-two ____",
+    "marks": 1,
+    "options": [
+      { "text": "Oxen", "correct": true },
+      { "text": "Oxes", "correct": false },
+      { "text": "Oxs", "correct": false },
+      { "text": "Oxens", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Rats and ____ are closely related.",
+    "marks": 1,
+    "options": [
+      { "text": "Mouse", "correct": false },
+      { "text": "Mouses", "correct": false },
+      { "text": "Mice", "correct": true },
+      { "text": "Mices", "correct": false }
+    ]
+  },
+  {
+    "questionText": "The bags contain ____ rice.",
+    "marks": 1,
+    "options": [
+      { "text": "an", "correct": false },
+      { "text": "some", "correct": true },
+      { "text": "any", "correct": false },
+      { "text": "a", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Choose the word that does not have the same initial sound as the others in the group.",
+    "marks": 1,
+    "options": [
+      { "text": "King", "correct": false },
+      { "text": "Kite", "correct": false },
+      { "text": "Cup", "correct": false },
+      { "text": "Knife", "correct": true }
+    ]
+  },
+  {
+    "questionText": "Choose the word that does not have the same initial sound as the others in the group.",
+    "marks": 1,
+    "options": [
+      { "text": "Though", "correct": true },
+      { "text": "Thing", "correct": false },
+      { "text": "Think", "correct": false },
+      { "text": "Thank", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Choose the word that has the same vowel sound as the one underlined: Employ",
+    "marks": 1,
+    "options": [
+      { "text": "Shout", "correct": false },
+      { "text": "Tooth", "correct": false },
+      { "text": "Coil", "correct": true },
+      { "text": "Plum", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Choose the word that has the same vowel sound as the one underlined: Height",
+    "marks": 1,
+    "options": [
+      { "text": "Fight", "correct": true },
+      { "text": "Tick", "correct": false },
+      { "text": "Pin", "correct": false },
+      { "text": "Fish", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Choose the word which does not contain the vowel sound /i/.",
+    "marks": 1,
+    "options": [
+      { "text": "High", "correct": true },
+      { "text": "Him", "correct": false },
+      { "text": "Hill", "correct": false },
+      { "text": "Hiss", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Choose the word which does not contain the vowel sound /i/.",
+    "marks": 1,
+    "options": [
+      { "text": "Trick", "correct": false },
+      { "text": "Tribe", "correct": true },
+      { "text": "Prick", "correct": false },
+      { "text": "Brick", "correct": false }
+    ]
+  }
+]
