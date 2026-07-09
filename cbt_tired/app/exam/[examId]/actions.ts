@@ -1,8 +1,9 @@
 "use server"
-import { AttemptStatus } from "@/generated/prisma/client"
-
+import { Prisma } from "@/generated/prisma/client"
+// import { prisma } from "@/lib/prisma"
 import { prisma } from "@/lib/prisma"
 import { redirect } from "next/navigation"
+import { AttemptStatus } from "@/generated/prisma/client"
 
 export async function submitExam(formData: FormData) {
   const examId = Number(formData.get("examId"))
