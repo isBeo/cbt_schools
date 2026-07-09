@@ -1,9 +1,7 @@
 "use server"
-import { Prisma } from "@/generated/prisma/client"
-// import { prisma } from "@/lib/prisma"
+import { AttemptStatus } from "@/generated/prisma/client"
 import { prisma } from "@/lib/prisma"
 import { redirect } from "next/navigation"
-import { AttemptStatus } from "@/generated/prisma/client"
 
 export async function submitExam(formData: FormData) {
   const examId = Number(formData.get("examId"))
@@ -34,7 +32,8 @@ export async function submitExam(formData: FormData) {
   for (const question of exam.questions) {
     totalMarks += question.marks
 
-    const selectedOption = Number(formData.get(`question-${question.id}`))
+    const rawValue = formData.get(`question-${question.id}`)
+    const selectedOption = rawValue ? Number(rawValue) : null
 
     const correctOption = question.options.find((option) => option.isCorrect)
 
