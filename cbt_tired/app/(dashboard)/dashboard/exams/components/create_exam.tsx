@@ -104,7 +104,9 @@ export default function CreateExam({ classes, subjects }: Props) {
 
           <div>
             <Label>Class</Label>
-
+            <SelectTrigger>
+              <SelectValue placeholder="Select class" />
+            </SelectTrigger>
             <Select
               value={classId}
               onValueChange={(value) => setClassId(value)}
