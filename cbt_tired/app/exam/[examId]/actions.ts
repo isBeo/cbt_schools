@@ -1,5 +1,5 @@
 "use server"
-import { AttemptStatus } from "@/generated/prisma"
+import { AttemptStatus } from '@prisma/client';
 import { prisma } from "@/lib/prisma"
 import { redirect } from "next/navigation"
 
