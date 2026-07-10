@@ -1,7 +1,7 @@
 "use server"
 
 import { revalidatePath } from "next/cache"
-import { Prisma } from "@/generated/prisma/client"
+import { Prisma } from "@/lib/generated/prisma/client"
 
 import { prisma } from "@/lib/prisma"
 import { schoolSchema, type SchoolInput } from "@/lib/validations/school"

@@ -57,7 +57,8 @@ export async function importExamQuestions(examId: number) {
       },
     })
   }
-  revalidatePath("/dashboard/exams")
+ revalidatePath("/dashboard/exams")
+ revalidatePath(`/dashboard/exams/${exam.id}/questions`)
   return
 }
 

@@ -18,6 +18,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
+import Link from "next/link"
 
 export default async function ExamTable() {
   const exams = await prisma.exam.findMany({
@@ -63,11 +64,11 @@ export default async function ExamTable() {
             <TableCell>
               <div className="flex flex-wrap gap-2">
                 {exam.status === "DRAFT" && (
-                  <form action={publishExam.bind(null, exam.id)}>
+                  <Link href={`/dashboard/exams/${exam.id}/questions`}>
                     <Button size="sm" variant="secondary">
-                      Publish
+                      Manage Questions
                     </Button>
-                  </form>
+                  </Link>
                 )}
 
                 {exam.status === "PUBLISHED" && (

@@ -12,14 +12,7 @@ import { Input } from "@/components/ui/input"
 
 import { Label } from "@/components/ui/label"
 
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
-
+ 
 import { useState, useRef } from "react"
 
 type Props = {
@@ -35,12 +28,14 @@ type Props = {
 }
 
 export default function CreateExam({ classes, subjects }: Props) {
-  const [classId, setClassId] = useState<string | null>(null)
-  const [subjectId, setSubjectId] = useState<string | null>(null)
-  const [questionSource, setQuestionSource] = useState<string | null>(null)
+const [classId, setClassId] = useState("")
+const [subjectId, setSubjectId] = useState("")
+const [questionSource, setQuestionSource] = useState("")
   const formRef = useRef<HTMLFormElement>(null)
 
-  const isFormValid = classId && subjectId && questionSource
+  // const isFormValid = classId && subjectId && questionSource
+  const isFormValid =
+    classId !== "" && subjectId !== "" && questionSource !== ""
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -52,11 +47,8 @@ export default function CreateExam({ classes, subjects }: Props) {
       return
     }
 
+   
     const formData = new FormData(e.currentTarget)
-    formData.set("classId", classId)
-    formData.set("subjectId", subjectId)
-    formData.set("questionSource", questionSource)
-
     await createExam(formData)
   }
 
@@ -103,68 +95,66 @@ export default function CreateExam({ classes, subjects }: Props) {
           </div>
 
           <div>
-            <Label>Class</Label>
-            <SelectTrigger>
-              <SelectValue placeholder="Select class" />
-            </SelectTrigger>
-            <Select
+            <Label htmlFor="classId">Class</Label>
+
+            <select
+              id="classId"
+              name="classId"
+              className="w-full rounded-md border border-input bg-background px-3 py-2"
               value={classId}
-              onValueChange={(value) => setClassId(value)}
+              onChange={(e) => setClassId(e.target.value)}
+              required
             >
-              <SelectTrigger>
-                <SelectValue placeholder="Select class" />
-              </SelectTrigger>
+              <option value="">Select Class</option>
 
-              <SelectContent>
-                {classes.map((item) => (
-                  <SelectItem key={item.id} value={item.id.toString()}>
-                    {item.name}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+              {classes.map((item) => (
+                <option key={item.id} value={item.id.toString()}>
+                  {item.name}
+                </option>
+              ))}
+            </select>
           </div>
 
           <div>
-            <Label>Subject</Label>
+            <Label htmlFor="subjectId">Subject</Label>
 
-            <Select
+            <select
+              id="subjectId"
+              name="subjectId"
+              className="w-full rounded-md border border-input bg-background px-3 py-2"
               value={subjectId}
-              onValueChange={(value) => setSubjectId(value)}
+              onChange={(e) => setSubjectId(e.target.value)}
+              required
             >
-              <SelectTrigger>
-                <SelectValue placeholder="Select subject" />
-              </SelectTrigger>
+              <option value="">Select Subject</option>
 
-              <SelectContent>
-                {subjects.map((item) => (
-                  <SelectItem key={item.id} value={item.id.toString()}>
-                    {item.name}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+              {subjects.map((item) => (
+                <option key={item.id} value={item.id.toString()}>
+                  {item.name}
+                </option>
+              ))}
+            </select>
           </div>
 
           <div>
-            <Label>Question Bank</Label>
+            <Label htmlFor="questionSource">Question Bank</Label>
 
-            <Select
+            <select
+              id="questionSource"
+              name="questionSource"
+              className="w-full rounded-md border border-input bg-background px-3 py-2"
               value={questionSource}
-              onValueChange={(value) => setQuestionSource(value)}
+              onChange={(e) => setQuestionSource(e.target.value)}
+              required
             >
-              <SelectTrigger>
-                <SelectValue placeholder="Select Question Bank" />
-              </SelectTrigger>
+              <option value="">Select Question Bank</option>
 
-              <SelectContent>
-                {QUESTION_BANKS.map((bank) => (
-                  <SelectItem key={bank.value} value={bank.value}>
-                    {bank.label}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+              {QUESTION_BANKS.map((bank) => (
+                <option key={bank.value} value={bank.value}>
+                  {bank.label}
+                </option>
+              ))}
+            </select>
           </div>
 
           <div className="md:col-span-2">

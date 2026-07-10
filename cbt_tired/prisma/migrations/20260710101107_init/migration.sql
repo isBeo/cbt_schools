@@ -1,11 +1,20 @@
+-- CreateEnum
+CREATE TYPE "ExamStatus" AS ENUM ('DRAFT', 'PUBLISHED', 'ACTIVE', 'CLOSED');
+
+-- CreateEnum
+CREATE TYPE "AttemptStatus" AS ENUM ('IN_PROGRESS', 'SUBMITTED', 'GRADED');
+
+-- CreateEnum
+CREATE TYPE "Role" AS ENUM ('SUPER_ADMIN', 'SCHOOL_ADMIN', 'TEACHER');
+
 -- CreateTable
-CREATE TABLE "schools" (
+CREATE TABLE "school" (
     "id" SERIAL NOT NULL,
     "name" TEXT NOT NULL,
     "address" TEXT,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
-    CONSTRAINT "schools_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "school_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -29,10 +38,10 @@ CREATE TABLE "Subject" (
 -- CreateTable
 CREATE TABLE "Student" (
     "id" SERIAL NOT NULL,
-    "admissionNo" TEXT NOT NULL,
     "firstName" TEXT NOT NULL,
     "lastName" TEXT NOT NULL,
-    "gender" TEXT NOT NULL,
+    "gender" TEXT,
+    "admissionNo" TEXT,
     "email" TEXT,
     "schoolId" INTEGER NOT NULL,
     "classId" INTEGER NOT NULL,
@@ -47,11 +56,16 @@ CREATE TABLE "Exam" (
     "title" TEXT NOT NULL,
     "term" TEXT NOT NULL,
     "session" TEXT NOT NULL,
+    "questionSource" TEXT,
     "durationMinutes" INTEGER NOT NULL,
+    "startTime" TIMESTAMP(3),
+    "endTime" TIMESTAMP(3),
     "totalMarks" INTEGER NOT NULL,
-    "status" TEXT NOT NULL,
+    "status" "ExamStatus" NOT NULL DEFAULT 'DRAFT',
     "subjectId" INTEGER NOT NULL,
     "classId" INTEGER NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "Exam_pkey" PRIMARY KEY ("id")
 );
@@ -84,7 +98,7 @@ CREATE TABLE "ExamAttempt" (
     "id" SERIAL NOT NULL,
     "startedAt" TIMESTAMP(3) NOT NULL,
     "submittedAt" TIMESTAMP(3),
-    "status" TEXT NOT NULL,
+    "status" "AttemptStatus" NOT NULL DEFAULT 'IN_PROGRESS',
     "studentId" INTEGER NOT NULL,
     "examId" INTEGER NOT NULL,
 
@@ -116,6 +130,20 @@ CREATE TABLE "Result" (
 );
 
 -- CreateTable
+CREATE TABLE "User" (
+    "id" SERIAL NOT NULL,
+    "name" TEXT NOT NULL,
+    "email" TEXT NOT NULL,
+    "passwordHash" TEXT NOT NULL,
+    "role" "Role" NOT NULL,
+    "schoolId" INTEGER,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "User_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
 CREATE TABLE "ResultDetail" (
     "id" SERIAL NOT NULL,
     "resultId" INTEGER NOT NULL,
@@ -125,6 +153,9 @@ CREATE TABLE "ResultDetail" (
 
     CONSTRAINT "ResultDetail_pkey" PRIMARY KEY ("id")
 );
+
+-- CreateIndex
+CREATE UNIQUE INDEX "school_name_key" ON "school"("name");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Class_name_key" ON "Class"("name");
@@ -144,8 +175,11 @@ CREATE UNIQUE INDEX "Student_email_key" ON "Student"("email");
 -- CreateIndex
 CREATE UNIQUE INDEX "Result_attemptId_key" ON "Result"("attemptId");
 
+-- CreateIndex
+CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
+
 -- AddForeignKey
-ALTER TABLE "Student" ADD CONSTRAINT "Student_schoolId_fkey" FOREIGN KEY ("schoolId") REFERENCES "schools"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Student" ADD CONSTRAINT "Student_schoolId_fkey" FOREIGN KEY ("schoolId") REFERENCES "school"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Student" ADD CONSTRAINT "Student_classId_fkey" FOREIGN KEY ("classId") REFERENCES "Class"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
@@ -163,10 +197,10 @@ ALTER TABLE "Question" ADD CONSTRAINT "Question_examId_fkey" FOREIGN KEY ("examI
 ALTER TABLE "Option" ADD CONSTRAINT "Option_questionId_fkey" FOREIGN KEY ("questionId") REFERENCES "Question"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "ExamAttempt" ADD CONSTRAINT "ExamAttempt_studentId_fkey" FOREIGN KEY ("studentId") REFERENCES "Student"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "ExamAttempt" ADD CONSTRAINT "ExamAttempt_examId_fkey" FOREIGN KEY ("examId") REFERENCES "Exam"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "ExamAttempt" ADD CONSTRAINT "ExamAttempt_examId_fkey" FOREIGN KEY ("examId") REFERENCES "Exam"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "ExamAttempt" ADD CONSTRAINT "ExamAttempt_studentId_fkey" FOREIGN KEY ("studentId") REFERENCES "Student"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "StudentAnswer" ADD CONSTRAINT "StudentAnswer_attemptId_fkey" FOREIGN KEY ("attemptId") REFERENCES "ExamAttempt"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
@@ -179,6 +213,9 @@ ALTER TABLE "StudentAnswer" ADD CONSTRAINT "StudentAnswer_selectedOptionId_fkey"
 
 -- AddForeignKey
 ALTER TABLE "Result" ADD CONSTRAINT "Result_attemptId_fkey" FOREIGN KEY ("attemptId") REFERENCES "ExamAttempt"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "User" ADD CONSTRAINT "User_schoolId_fkey" FOREIGN KEY ("schoolId") REFERENCES "school"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "ResultDetail" ADD CONSTRAINT "ResultDetail_resultId_fkey" FOREIGN KEY ("resultId") REFERENCES "Result"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

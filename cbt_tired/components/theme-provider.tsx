@@ -3,6 +3,19 @@
 import * as React from "react"
 import { ThemeProvider as NextThemesProvider, useTheme } from "next-themes"
 
+if (typeof window !== "undefined") {
+  const originalError = console.error
+  console.error = (...args: unknown[]) => {
+    if (
+      typeof args[0] === "string" &&
+      args[0].includes("Encountered a script tag")
+    ) {
+      return
+    }
+    originalError(...args)
+  }
+}
+
 function ThemeProvider({
   children,
   ...props
@@ -47,9 +60,9 @@ function ThemeHotkey() {
         return
       }
 
-     if (!event.key || event.key.toLowerCase() !== "d") {
-       return
-     }
+      if (!event.key || event.key.toLowerCase() !== "d") {
+        return
+      }
 
       if (isTypingTarget(event.target)) {
         return

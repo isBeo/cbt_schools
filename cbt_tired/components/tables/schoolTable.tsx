@@ -1,4 +1,4 @@
-import type { School } from "@/generated/prisma/client"
+import type { School } from "@/lib/generated/prisma/client"
 
 import {
   Table,
