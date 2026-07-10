@@ -27,7 +27,7 @@ export default async function ResultPage({ params }: Props) {
 
   return (
     <main className="mx-auto max-w-2xl p-6">
-      <div className="rounded-xl border bg-white p-8 shadow">
+      <div className="rounded-xl border bg-background text-foreground p-8 shadow">
         <h1 className="mb-8 text-center text-3xl font-bold text-green-600">
           Exam Completed
         </h1>

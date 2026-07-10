@@ -14,8 +14,6 @@ export default async function ExamsPage() {
       name: "asc",
     },
   })
-console.log("Classes:", classes)
-console.log("Subjects:", subjects)
   return (
     <div className="space-y-8 p-8">
       <div>

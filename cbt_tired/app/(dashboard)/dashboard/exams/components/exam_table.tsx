@@ -2,7 +2,6 @@ import {
   activateExam,
   closeExam,
   draftExam,
-  publishExam,
   importExamQuestions,
 } from "@/app/actions/exam"
 import { prisma } from "@/lib/prisma"
