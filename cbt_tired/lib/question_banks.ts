@@ -118,4 +118,10 @@ export const QUESTION_BANKS = [
     label: "National Values (Basic 3)",
     value: "basic_3/national-values.json",
   },
+  {
+    class: "Basic 4",
+    subject: "National Values",
+    label: "National Values (Basic 4)",
+    value: "basic_4/national-values.json",
+  },
 ] as const

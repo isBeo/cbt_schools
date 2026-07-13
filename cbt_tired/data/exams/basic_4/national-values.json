@@ -1,0 +1,202 @@
+[
+  {
+    "questionText": "Loyalty means ____.",
+    "marks": 1,
+    "options": [
+      { "text": "Telling lies", "correct": false },
+      { "text": "Being faithful and committed", "correct": true },
+      { "text": "Fighting others", "correct": false },
+      { "text": "Being rude", "correct": false }
+    ]
+  },
+  {
+    "questionText": "One way to show loyalty in school is by ____.",
+    "marks": 1,
+    "options": [
+      { "text": "Obeying school rules", "correct": true },
+      { "text": "Destroying property", "correct": false },
+      { "text": "Stealing", "correct": false },
+      { "text": "Fighting classmates", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Man depends on the environment for ____.",
+    "marks": 1,
+    "options": [
+      { "text": "Air and water", "correct": true },
+      { "text": "Television", "correct": false },
+      { "text": "Music", "correct": false },
+      { "text": "Fashion", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Which of these is part of the natural physical environment?",
+    "marks": 1,
+    "options": [
+      { "text": "Building", "correct": false },
+      { "text": "Bridge", "correct": false },
+      { "text": "River", "correct": true },
+      { "text": "Road", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Transportation is the movement of people and goods from one place to ____.",
+    "marks": 1,
+    "options": [
+      { "text": "School", "correct": false },
+      { "text": "Another", "correct": true },
+      { "text": "Market", "correct": false },
+      { "text": "Home", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Which of the following is a means of land transportation?",
+    "marks": 1,
+    "options": [
+      { "text": "Ship", "correct": false },
+      { "text": "Canoe", "correct": false },
+      { "text": "Car", "correct": true },
+      { "text": "Aeroplane", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Members of a family include father, mother and ____.",
+    "marks": 1,
+    "options": [
+      { "text": "Traders", "correct": false },
+      { "text": "Children", "correct": true },
+      { "text": "Drivers", "correct": false },
+      { "text": "Teachers", "correct": false }
+    ]
+  },
+  {
+    "questionText": "A good leader should be ____.",
+    "marks": 1,
+    "options": [
+      { "text": "Wicked", "correct": false },
+      { "text": "Honest", "correct": true },
+      { "text": "Proud", "correct": false },
+      { "text": "Lazy", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Leadership at home is mainly performed by the ____.",
+    "marks": 1,
+    "options": [
+      { "text": "Children", "correct": false },
+      { "text": "Visitors", "correct": false },
+      { "text": "Parents", "correct": true },
+      { "text": "Friends", "correct": false }
+    ]
+  },
+  {
+    "questionText": "The three arms of government are Legislature, Executive and ____.",
+    "marks": 1,
+    "options": [
+      { "text": "Police", "correct": false },
+      { "text": "Judiciary", "correct": true },
+      { "text": "Customs", "correct": false },
+      { "text": "Military", "correct": false }
+    ]
+  },
+  {
+    "questionText": "The main duty of government is to provide ____.",
+    "marks": 1,
+    "options": [
+      { "text": "Entertainment", "correct": false },
+      { "text": "Security and welfare", "correct": true },
+      { "text": "Fashion", "correct": false },
+      { "text": "Games", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Injustice means ____.",
+    "marks": 1,
+    "options": [
+      { "text": "Fair treatment", "correct": false },
+      { "text": "Equal opportunity", "correct": false },
+      { "text": "Unfair treatment", "correct": true },
+      { "text": "Hard work", "correct": false }
+    ]
+  },
+  {
+    "questionText": "A pressure group is formed to ____.",
+    "marks": 1,
+    "options": [
+      { "text": "Entertain people", "correct": false },
+      { "text": "Influence government decisions", "correct": true },
+      { "text": "Sell goods", "correct": false },
+      { "text": "Build houses", "correct": false }
+    ]
+  },
+  {
+    "questionText": "One way to ensure personal security is by ____.",
+    "marks": 1,
+    "options": [
+      { "text": "Walking alone at night", "correct": false },
+      { "text": "Keeping emergency numbers", "correct": true },
+      { "text": "Following strangers", "correct": false },
+      { "text": "Sharing secrets with strangers", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Hard work leads to ____.",
+    "marks": 1,
+    "options": [
+      { "text": "Failure", "correct": false },
+      { "text": "Success", "correct": true },
+      { "text": "Laziness", "correct": false },
+      { "text": "Poverty", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Social injustice can lead to ____.",
+    "marks": 1,
+    "options": [
+      { "text": "Peace", "correct": false },
+      { "text": "Unity", "correct": false },
+      { "text": "Conflict", "correct": true },
+      { "text": "Happiness", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Which of these can hinder growth in children?",
+    "marks": 1,
+    "options": [
+      { "text": "Balanced diet", "correct": false },
+      { "text": "Exercise", "correct": false },
+      { "text": "Malnutrition", "correct": true },
+      { "text": "Rest", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Personal hygiene helps to prevent ____.",
+    "marks": 1,
+    "options": [
+      { "text": "Wealth", "correct": false },
+      { "text": "Diseases", "correct": true },
+      { "text": "Education", "correct": false },
+      { "text": "Farming", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Fake drugs can cause ____.",
+    "marks": 1,
+    "options": [
+      { "text": "Good health", "correct": false },
+      { "text": "Quick recovery", "correct": false },
+      { "text": "Serious health problems", "correct": true },
+      { "text": "Happiness", "correct": false }
+    ]
+  },
+  {
+    "questionText": "One physical change in boys during puberty is the ____.",
+    "marks": 1,
+    "options": [
+      { "text": "Growth of beard", "correct": true },
+      { "text": "Development of breasts", "correct": false },
+      { "text": "Menstruation", "correct": false },
+      { "text": "High-pitched voice", "correct": false }
+    ]
+  }
+]
