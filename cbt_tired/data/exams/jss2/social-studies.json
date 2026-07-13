@@ -1,0 +1,202 @@
+[
+  {
+    "questionText": "A school community consists of the following except ______.",
+    "marks": 1,
+    "options": [
+      { "text": "Teachers", "correct": false },
+      { "text": "Students", "correct": false },
+      { "text": "Traders in another town", "correct": true },
+      { "text": "Non-teaching staff", "correct": false }
+    ]
+  },
+  {
+    "questionText": "The head of a secondary school is usually called the ______.",
+    "marks": 1,
+    "options": [
+      { "text": "Governor", "correct": false },
+      { "text": "Principal", "correct": true },
+      { "text": "Chairman", "correct": false },
+      { "text": "Mayor", "correct": false }
+    ]
+  },
+  {
+    "questionText": "One important function of the school community is to ______.",
+    "marks": 1,
+    "options": [
+      { "text": "Promote learning", "correct": true },
+      { "text": "Sell goods", "correct": false },
+      { "text": "Make laws", "correct": false },
+      { "text": "Collect taxes", "correct": false }
+    ]
+  },
+  {
+    "questionText": "School rules help to maintain ______.",
+    "marks": 1,
+    "options": [
+      { "text": "Disorder", "correct": false },
+      { "text": "Discipline", "correct": true },
+      { "text": "Fighting", "correct": false },
+      { "text": "Confusion", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Self-confidence helps an individual to ______.",
+    "marks": 1,
+    "options": [
+      { "text": "Fear challenges", "correct": false },
+      { "text": "Believe in his or her abilities", "correct": true },
+      { "text": "Avoid learning", "correct": false },
+      { "text": "Depend on others always", "correct": false }
+    ]
+  },
+  {
+    "questionText": "A person who develops good character is likely to be ______.",
+    "marks": 1,
+    "options": [
+      { "text": "Responsible", "correct": true },
+      { "text": "Dishonest", "correct": false },
+      { "text": "Violent", "correct": false },
+      { "text": "Careless", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Which of the following is a sign of positive development?",
+    "marks": 1,
+    "options": [
+      { "text": "Respect for others", "correct": true },
+      { "text": "Stealing", "correct": false },
+      { "text": "Fighting", "correct": false },
+      { "text": "Bullying", "correct": false }
+    ]
+  },
+  {
+    "questionText": "A school counsellor helps students to ______.",
+    "marks": 1,
+    "options": [
+      { "text": "Commit crimes", "correct": false },
+      { "text": "Solve personal and academic problems", "correct": true },
+      { "text": "Sell goods", "correct": false },
+      { "text": "Avoid school", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Asking for help is a sign of ______.",
+    "marks": 1,
+    "options": [
+      { "text": "Weakness", "correct": false },
+      { "text": "Wisdom", "correct": true },
+      { "text": "Laziness", "correct": false },
+      { "text": "Fear", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Stealing another person's property is called ______.",
+    "marks": 1,
+    "options": [
+      { "text": "Honesty", "correct": false },
+      { "text": "Theft", "correct": true },
+      { "text": "Respect", "correct": false },
+      { "text": "Loyalty", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Which of the following is a common crime?",
+    "marks": 1,
+    "options": [
+      { "text": "Robbery", "correct": true },
+      { "text": "Cooperation", "correct": false },
+      { "text": "Kindness", "correct": false },
+      { "text": "Obedience", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Which agency helps in fighting crime in Nigeria?",
+    "marks": 1,
+    "options": [
+      { "text": "Police", "correct": true },
+      { "text": "School club", "correct": false },
+      { "text": "Market union", "correct": false },
+      { "text": "Football team", "correct": false }
+    ]
+  },
+  {
+    "questionText": "An emergency is a situation that requires ______.",
+    "marks": 1,
+    "options": [
+      { "text": "Immediate action", "correct": true },
+      { "text": "Delay", "correct": false },
+      { "text": "Celebration", "correct": false },
+      { "text": "Relaxation", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Which of the following is an emergency situation?",
+    "marks": 1,
+    "options": [
+      { "text": "Fire outbreak", "correct": true },
+      { "text": "Classroom lesson", "correct": false },
+      { "text": "Morning assembly", "correct": false },
+      { "text": "Break period", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Emergency management involves ______.",
+    "marks": 1,
+    "options": [
+      { "text": "Preparing for and responding to disasters", "correct": true },
+      { "text": "Committing crimes", "correct": false },
+      { "text": "Avoiding responsibilities", "correct": false },
+      { "text": "Selling goods", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Which of the following can help during a fire emergency?",
+    "marks": 1,
+    "options": [
+      { "text": "Fire extinguisher", "correct": true },
+      { "text": "Television", "correct": false },
+      { "text": "Radio", "correct": false },
+      { "text": "Blackboard", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Flooding is an example of a ______.",
+    "marks": 1,
+    "options": [
+      { "text": "Natural disaster", "correct": true },
+      { "text": "School activity", "correct": false },
+      { "text": "Social event", "correct": false },
+      { "text": "Festival", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Emergency phone numbers are important because they help people ______.",
+    "marks": 1,
+    "options": [
+      { "text": "Play games", "correct": false },
+      { "text": "Get quick assistance", "correct": true },
+      { "text": "Buy food", "correct": false },
+      { "text": "Attend parties", "correct": false }
+    ]
+  },
+  {
+    "questionText": "One way to prevent crime in the school community is by ______.",
+    "marks": 1,
+    "options": [
+      { "text": "Reporting suspicious activities", "correct": true },
+      { "text": "Keeping silent", "correct": false },
+      { "text": "Encouraging theft", "correct": false },
+      { "text": "Fighting others", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Respecting school rules promotes ______.",
+    "marks": 1,
+    "options": [
+      { "text": "Indiscipline", "correct": false },
+      { "text": "Peace and order", "correct": true },
+      { "text": "Crime", "correct": false },
+      { "text": "Violence", "correct": false }
+    ]
+  }
+]

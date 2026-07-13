@@ -90,6 +90,12 @@ export const QUESTION_BANKS = [
     label: "Literature (JSS2)",
     value: "jss2/literature.json",
   },
+  {
+    class: "JSS2",
+    subject: "Social Studies",
+    label: "Social Studies (JSS2)",
+    value: "jss2/social-studies.json",
+  },
 
   // ==========================
   // BASIC 5
