@@ -1,0 +1,223 @@
+[
+  {
+    "questionText": "Personal security helps to:",
+    "marks": 1,
+    "options": [
+      { "text": "Reduce risks and dangers", "correct": true },
+      { "text": "Increase crime", "correct": false },
+      { "text": "Create conflicts", "correct": false },
+      { "text": "Encourage unsafe behavior", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Theft means:",
+    "marks": 1,
+    "options": [
+      {
+        "text": "Taking another person's property without permission",
+        "correct": true
+      },
+      { "text": "Borrowing with permission", "correct": false },
+      { "text": "Giving gifts", "correct": false },
+      { "text": "Helping others", "correct": false }
+    ]
+  },
+  {
+    "questionText": "One way foreign culture is introduced into a society is through:",
+    "marks": 1,
+    "options": [
+      { "text": "Communication and travel", "correct": true },
+      { "text": "Farming only", "correct": false },
+      { "text": "Fishing only", "correct": false },
+      { "text": "Hunting only", "correct": false }
+    ]
+  },
+  {
+    "questionText": "A crime is:",
+    "marks": 1,
+    "options": [
+      { "text": "An act that violates the law", "correct": true },
+      { "text": "A school activity", "correct": false },
+      { "text": "A cultural practice", "correct": false },
+      { "text": "A sporting event", "correct": false }
+    ]
+  },
+  {
+    "questionText": "One advantage of foreign culture is that it:",
+    "marks": 1,
+    "options": [
+      { "text": "Promotes learning and exchange of ideas", "correct": true },
+      { "text": "Prevents development", "correct": false },
+      { "text": "Discourages education", "correct": false },
+      { "text": "Destroys communication", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Which of the following may be a punishment for committing a crime?",
+    "marks": 1,
+    "options": [
+      { "text": "Fine", "correct": true },
+      { "text": "Award", "correct": false },
+      { "text": "Scholarship", "correct": false },
+      { "text": "Promotion", "correct": false }
+    ]
+  },
+  {
+    "questionText": "One disadvantage of foreign culture is that it may:",
+    "marks": 1,
+    "options": [
+      {
+        "text": "Cause people to neglect their cultural values",
+        "correct": true
+      },
+      { "text": "Improve education", "correct": false },
+      { "text": "Encourage innovation", "correct": false },
+      { "text": "Promote understanding", "correct": false }
+    ]
+  },
+  {
+    "questionText": "To preserve our culture, we should:",
+    "marks": 1,
+    "options": [
+      {
+        "text": "Value and practise our positive cultural traditions",
+        "correct": true
+      },
+      { "text": "Abandon all local customs", "correct": false },
+      { "text": "Reject our languages", "correct": false },
+      { "text": "Ignore cultural festivals", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Gender discrimination means:",
+    "marks": 1,
+    "options": [
+      {
+        "text": "Treating people unfairly because of their gender",
+        "correct": true
+      },
+      { "text": "Treating everyone equally", "correct": false },
+      { "text": "Respecting all individuals", "correct": false },
+      { "text": "Helping others", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Which of the following is an example of gender discrimination?",
+    "marks": 1,
+    "options": [
+      {
+        "text": "Giving equal opportunities to boys and girls",
+        "correct": false
+      },
+      {
+        "text": "Denying a child education because of gender",
+        "correct": true
+      },
+      { "text": "Respecting individual abilities", "correct": false },
+      { "text": "Encouraging participation by everyone", "correct": false }
+    ]
+  },
+  {
+    "questionText": "In an emergency, a child should:",
+    "marks": 1,
+    "options": [
+      { "text": "Seek help from a trusted adult", "correct": true },
+      { "text": "Hide important information from parents", "correct": false },
+      { "text": "Run away without direction", "correct": false },
+      { "text": "Ignore the situation", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Gender equality promotes:",
+    "marks": 1,
+    "options": [
+      { "text": "Fairness and equal opportunities", "correct": true },
+      { "text": "Discrimination", "correct": false },
+      { "text": "Injustice", "correct": false },
+      { "text": "Conflict", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Which government institution is mainly responsible for enforcing laws and preventing crime?",
+    "marks": 1,
+    "options": [
+      { "text": "Police", "correct": true },
+      { "text": "Hospital", "correct": false },
+      { "text": "Market", "correct": false },
+      { "text": "Library", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Conflict occurs when:",
+    "marks": 1,
+    "options": [
+      { "text": "People disagree or quarrel", "correct": true },
+      { "text": "People work together peacefully", "correct": false },
+      { "text": "People obey rules", "correct": false },
+      { "text": "People show kindness", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Which of the following can cause conflict?",
+    "marks": 1,
+    "options": [
+      { "text": "Misunderstanding", "correct": true },
+      { "text": "Cooperation", "correct": false },
+      { "text": "Tolerance", "correct": false },
+      { "text": "Respect", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Cooperation means:",
+    "marks": 1,
+    "options": [
+      { "text": "Working together to achieve a common goal", "correct": true },
+      { "text": "Fighting one another", "correct": false },
+      { "text": "Ignoring responsibilities", "correct": false },
+      { "text": "Refusing assistance", "correct": false }
+    ]
+  },
+  {
+    "questionText": "One benefit of cooperation is:",
+    "marks": 1,
+    "options": [
+      { "text": "Peaceful coexistence", "correct": true },
+      { "text": "Disunity", "correct": false },
+      { "text": "Violence", "correct": false },
+      { "text": "Misunderstanding", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Conflict can be resolved through:",
+    "marks": 1,
+    "options": [
+      { "text": "Dialogue and peaceful discussion", "correct": true },
+      { "text": "Violence", "correct": false },
+      { "text": "Revenge", "correct": false },
+      { "text": "Destruction of property", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Personal security management involves:",
+    "marks": 1,
+    "options": [
+      { "text": "Protecting oneself from danger and harm", "correct": true },
+      { "text": "Causing harm to others", "correct": false },
+      { "text": "Ignoring safety rules", "correct": false },
+      { "text": "Taking unnecessary risks", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Which of the following is a good personal security practice?",
+    "marks": 1,
+    "options": [
+      {
+        "text": "Sharing personal information with strangers",
+        "correct": false
+      },
+      { "text": "Being aware of one's surroundings", "correct": true },
+      { "text": "Accepting gifts from strangers", "correct": false },
+      { "text": "Following unknown persons", "correct": false }
+    ]
+  }
+]
