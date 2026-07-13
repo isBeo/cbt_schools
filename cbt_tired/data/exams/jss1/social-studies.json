@@ -1,0 +1,192 @@
+[
+  {
+    "questionText": "Abstinence means ______.",
+    "marks": 1,
+    "options": [
+      { "text": "Taking drugs", "correct": false },
+      { "text": "Avoiding risky sexual activities", "correct": true },
+      { "text": "Fighting with friends", "correct": false },
+      { "text": "Stealing money", "correct": false }
+    ]
+  },
+  {
+    "questionText": "One benefit of abstinence is ______.",
+    "marks": 1,
+    "options": [
+      { "text": "Poor health", "correct": false },
+      { "text": "Prevention of unwanted pregnancy", "correct": true },
+      { "text": "Drug abuse", "correct": false },
+      { "text": "Crime", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Which of the following is a social issue?",
+    "marks": 1,
+    "options": [
+      { "text": "Honesty", "correct": false },
+      { "text": "Drug abuse", "correct": true },
+      { "text": "Kindness", "correct": false },
+      { "text": "Respect", "correct": false }
+    ]
+  },
+  {
+    "questionText": "HIV/AIDS is an example of a ______ issue.",
+    "marks": 1,
+    "options": [
+      { "text": "Cultural", "correct": false },
+      { "text": "Religious", "correct": false },
+      { "text": "Health", "correct": true },
+      { "text": "Political", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Which of the following is a health issue?",
+    "marks": 1,
+    "options": [
+      { "text": "Malaria", "correct": true },
+      { "text": "Honesty", "correct": false },
+      { "text": "Patriotism", "correct": false },
+      { "text": "Cooperation", "correct": false }
+    ]
+  },
+  {
+    "questionText": "A clean environment helps to prevent ______.",
+    "marks": 1,
+    "options": [
+      { "text": "Diseases", "correct": true },
+      { "text": "Education", "correct": false },
+      { "text": "Employment", "correct": false },
+      { "text": "Recreation", "correct": false }
+    ]
+  },
+  {
+    "questionText": "One role of citizens in promoting safety is ______.",
+    "marks": 1,
+    "options": [
+      { "text": "Reporting crimes", "correct": true },
+      { "text": "Encouraging violence", "correct": false },
+      { "text": "Destroying property", "correct": false },
+      { "text": "Spreading rumours", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Safety in the community is the responsibility of ______.",
+    "marks": 1,
+    "options": [
+      { "text": "Police only", "correct": false },
+      { "text": "Parents only", "correct": false },
+      { "text": "Government only", "correct": false },
+      { "text": "Everyone", "correct": true }
+    ]
+  },
+  {
+    "questionText": "Theft is the act of ______.",
+    "marks": 1,
+    "options": [
+      { "text": "Borrowing", "correct": false },
+      { "text": "Stealing", "correct": true },
+      { "text": "Sharing", "correct": false },
+      { "text": "Helping", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Armed robbery is a crime involving ______.",
+    "marks": 1,
+    "options": [
+      { "text": "Books", "correct": false },
+      { "text": "Weapons", "correct": true },
+      { "text": "Food", "correct": false },
+      { "text": "Games", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Kidnapping means ______.",
+    "marks": 1,
+    "options": [
+      { "text": "Helping people", "correct": false },
+      { "text": "Taking someone illegally", "correct": true },
+      { "text": "Teaching students", "correct": false },
+      { "text": "Guiding visitors", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Which of the following is a common crime?",
+    "marks": 1,
+    "options": [
+      { "text": "Honesty", "correct": false },
+      { "text": "Cooperation", "correct": false },
+      { "text": "Cultism", "correct": true },
+      { "text": "Respect", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Which of these is a security agency in Nigeria?",
+    "marks": 1,
+    "options": [
+      { "text": "Police", "correct": true },
+      { "text": "Market Union", "correct": false },
+      { "text": "Drama Club", "correct": false },
+      { "text": "Debate Society", "correct": false }
+    ]
+  },
+  {
+    "questionText": "The main duty of security personnel is to ______.",
+    "marks": 1,
+    "options": [
+      { "text": "Maintain law and order", "correct": true },
+      { "text": "Sell goods", "correct": false },
+      { "text": "Teach students", "correct": false },
+      { "text": "Farm crops", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Which of the following is NOT a crime?",
+    "marks": 1,
+    "options": [
+      { "text": "Theft", "correct": false },
+      { "text": "Fraud", "correct": false },
+      { "text": "Respect", "correct": true },
+      { "text": "Kidnapping", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Fraud involves ______.",
+    "marks": 1,
+    "options": [
+      { "text": "Honesty", "correct": false },
+      { "text": "Deception for personal gain", "correct": true },
+      { "text": "Farming", "correct": false },
+      { "text": "Teaching", "correct": false }
+    ]
+  },
+  {
+    "questionText": "The first step in ensuring personal safety is to ______.",
+    "marks": 1,
+    "options": [
+      { "text": "Be alert", "correct": true },
+      { "text": "Be careless", "correct": false },
+      { "text": "Break rules", "correct": false },
+      { "text": "Fight everyone", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Abstinence helps young people to develop ______.",
+    "marks": 1,
+    "options": [
+      { "text": "Self-control", "correct": true },
+      { "text": "Laziness", "correct": false },
+      { "text": "Dishonesty", "correct": false },
+      { "text": "Violence", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Drug abuse affects a person's ______.",
+    "marks": 1,
+    "options": [
+      { "text": "Health", "correct": true },
+      { "text": "Height only", "correct": false },
+      { "text": "Clothing", "correct": false },
+      { "text": "Language", "correct": false }
+    ]
+  }
+]

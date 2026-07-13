@@ -44,6 +44,12 @@ export const QUESTION_BANKS = [
     label: "Literature (JSS1)",
     value: "jss1/literature.json",
   },
+  {
+    class: "JSS1",
+    subject: "Social Studies",
+    label: "Social Studies (JSS1)",
+    value: "jss1/social-studies.json",
+  },
 
   // ==========================
   // JSS2
