@@ -18,3 +18,14 @@ export async function loginStudent(formData: FormData) {
 
   redirect(`/student/${student.id}/exams`)
 }
+
+export async function allStudent() {
+  const students = await prisma.student.findMany({
+    select: {
+      id: true,
+      firstName: true,
+      lastName: true,
+    },
+  })
+  return students
+}

@@ -1,0 +1,202 @@
+[
+  {
+    "questionText": "God called ______ to leave his father's house.",
+    "marks": 1,
+    "options": [
+      { "text": "Abraham", "correct": true },
+      { "text": "Moses", "correct": false },
+      { "text": "Joseph", "correct": false },
+      { "text": "David", "correct": false }
+    ]
+  },
+  {
+    "questionText": "God promised Abraham that he would become a great ______.",
+    "marks": 1,
+    "options": [
+      { "text": "Nation", "correct": true },
+      { "text": "Farmer", "correct": false },
+      { "text": "Trader", "correct": false },
+      { "text": "King", "correct": false }
+    ]
+  },
+  {
+    "questionText": "God fulfilled His promise to Abraham by giving him a ______.",
+    "marks": 1,
+    "options": [
+      { "text": "Son", "correct": true },
+      { "text": "House", "correct": false },
+      { "text": "Car", "correct": false },
+      { "text": "Book", "correct": false }
+    ]
+  },
+  {
+    "questionText": "The name of Abraham's son was ______.",
+    "marks": 1,
+    "options": [
+      { "text": "Isaac", "correct": true },
+      { "text": "Jacob", "correct": false },
+      { "text": "Joseph", "correct": false },
+      { "text": "Aaron", "correct": false }
+    ]
+  },
+  {
+    "questionText": "God's promises always come to ______.",
+    "marks": 1,
+    "options": [
+      { "text": "Pass", "correct": true },
+      { "text": "Nothing", "correct": false },
+      { "text": "An end", "correct": false },
+      { "text": "People only", "correct": false }
+    ]
+  },
+  {
+    "questionText": "God chose ______ to lead the Israelites out of Egypt.",
+    "marks": 1,
+    "options": [
+      { "text": "Moses", "correct": true },
+      { "text": "Abraham", "correct": false },
+      { "text": "David", "correct": false },
+      { "text": "Samuel", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Moses' mother hid him in a ______.",
+    "marks": 1,
+    "options": [
+      { "text": "Basket", "correct": true },
+      { "text": "Box", "correct": false },
+      { "text": "Bag", "correct": false },
+      { "text": "Pot", "correct": false }
+    ]
+  },
+  {
+    "questionText": "The basket was placed among the reeds by the ______.",
+    "marks": 1,
+    "options": [
+      { "text": "River", "correct": true },
+      { "text": "Mountain", "correct": false },
+      { "text": "Road", "correct": false },
+      { "text": "Market", "correct": false }
+    ]
+  },
+  {
+    "questionText": "God protected Moses when he was a ______.",
+    "marks": 1,
+    "options": [
+      { "text": "Baby", "correct": true },
+      { "text": "King", "correct": false },
+      { "text": "Soldier", "correct": false },
+      { "text": "Farmer", "correct": false }
+    ]
+  },
+  {
+    "questionText": "The Egyptians suffered because they did not obey ______.",
+    "marks": 1,
+    "options": [
+      { "text": "God", "correct": true },
+      { "text": "Moses", "correct": false },
+      { "text": "Aaron", "correct": false },
+      { "text": "Job", "correct": false }
+    ]
+  },
+  {
+    "questionText": "The Promised Land was also called ______.",
+    "marks": 1,
+    "options": [
+      { "text": "Canaan", "correct": true },
+      { "text": "Egypt", "correct": false },
+      { "text": "Jordan", "correct": false },
+      { "text": "Moab", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Joshua became the leader of Israel after ______.",
+    "marks": 1,
+    "options": [
+      { "text": "Moses", "correct": true },
+      { "text": "Abraham", "correct": false },
+      { "text": "Isaac", "correct": false },
+      { "text": "Jacob", "correct": false }
+    ]
+  },
+  {
+    "questionText": "God stopped the waters of River Jordan so the people could cross on ______.",
+    "marks": 1,
+    "options": [
+      { "text": "Dry ground", "correct": true },
+      { "text": "Boats", "correct": false },
+      { "text": "Bridges", "correct": false },
+      { "text": "Rafts", "correct": false }
+    ]
+  },
+  {
+    "questionText": "How many men were chosen to pick stones from the Jordan?",
+    "marks": 1,
+    "options": [
+      { "text": "Twelve", "correct": true },
+      { "text": "Ten", "correct": false },
+      { "text": "Seven", "correct": false },
+      { "text": "Five", "correct": false }
+    ]
+  },
+  {
+    "questionText": "The twelve stones were set up as a ______.",
+    "marks": 1,
+    "options": [
+      { "text": "Memorial", "correct": true },
+      { "text": "House", "correct": false },
+      { "text": "Fence", "correct": false },
+      { "text": "Road", "correct": false }
+    ]
+  },
+  {
+    "questionText": "The twelve stones reminded the Israelites of God's ______.",
+    "marks": 1,
+    "options": [
+      { "text": "Power", "correct": true },
+      { "text": "Weakness", "correct": false },
+      { "text": "Silence", "correct": false },
+      { "text": "Fear", "correct": false }
+    ]
+  },
+  {
+    "questionText": "God kept His promise to Abraham by giving his descendants the ______ Land.",
+    "marks": 1,
+    "options": [
+      { "text": "Promised", "correct": true },
+      { "text": "Desert", "correct": false },
+      { "text": "Foreign", "correct": false },
+      { "text": "Empty", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Moses trusted and obeyed ______.",
+    "marks": 1,
+    "options": [
+      { "text": "God", "correct": true },
+      { "text": "Pharaoh", "correct": false },
+      { "text": "Soldiers", "correct": false },
+      { "text": "Traders", "correct": false }
+    ]
+  },
+  {
+    "questionText": "The Israelites thanked God for their ______ from Egypt.",
+    "marks": 1,
+    "options": [
+      { "text": "Deliverance", "correct": true },
+      { "text": "Punishment", "correct": false },
+      { "text": "Sickness", "correct": false },
+      { "text": "Loss", "correct": false }
+    ]
+  },
+  {
+    "questionText": "The stories of Abraham, Moses, and Joshua teach us to ______ God.",
+    "marks": 1,
+    "options": [
+      { "text": "Trust and obey", "correct": true },
+      { "text": "Ignore", "correct": false },
+      { "text": "Fear only", "correct": false },
+      { "text": "Avoid", "correct": false }
+    ]
+  }
+]

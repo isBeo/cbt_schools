@@ -1,0 +1,202 @@
+[
+  {
+    "questionText": "Love means ______.",
+    "marks": 1,
+    "options": [
+      { "text": "Hating others", "correct": false },
+      { "text": "Caring for others", "correct": true },
+      { "text": "Fighting others", "correct": false },
+      { "text": "Ignoring others", "correct": false }
+    ]
+  },
+  {
+    "questionText": "According to the Bible, the greatest commandment is to ______.",
+    "marks": 1,
+    "options": [
+      { "text": "Love God", "correct": true },
+      { "text": "Make money", "correct": false },
+      { "text": "Travel abroad", "correct": false },
+      { "text": "Build houses", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Jesus showed His love for us by ______.",
+    "marks": 1,
+    "options": [
+      { "text": "Running away", "correct": false },
+      { "text": "Giving His life on the cross", "correct": true },
+      { "text": "Hiding Himself", "correct": false },
+      { "text": "Fighting His enemies", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Jesus died on the cross to ______.",
+    "marks": 1,
+    "options": [
+      { "text": "Save us from sin", "correct": true },
+      { "text": "Become famous", "correct": false },
+      { "text": "Build a kingdom", "correct": false },
+      { "text": "Win a battle", "correct": false }
+    ]
+  },
+  {
+    "questionText": "The cross reminds Christians of God's ______.",
+    "marks": 1,
+    "options": [
+      { "text": "Anger", "correct": false },
+      { "text": "Love and sacrifice", "correct": true },
+      { "text": "Wealth", "correct": false },
+      { "text": "Power only", "correct": false }
+    ]
+  },
+  {
+    "questionText": "New life in Christ means ______.",
+    "marks": 1,
+    "options": [
+      { "text": "Living in sin", "correct": false },
+      { "text": "A changed life that follows Jesus", "correct": true },
+      { "text": "Changing schools", "correct": false },
+      { "text": "Wearing new clothes", "correct": false }
+    ]
+  },
+  {
+    "questionText": "A person receives a new life by ______.",
+    "marks": 1,
+    "options": [
+      { "text": "Following Jesus", "correct": true },
+      { "text": "Fighting others", "correct": false },
+      { "text": "Stealing", "correct": false },
+      { "text": "Lying", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Which of these is a sign of a new life?",
+    "marks": 1,
+    "options": [
+      { "text": "Hatred", "correct": false },
+      { "text": "Disobedience", "correct": false },
+      { "text": "Love", "correct": true },
+      { "text": "Pride", "correct": false }
+    ]
+  },
+  {
+    "questionText": "The fruit of a new life includes ______.",
+    "marks": 1,
+    "options": [
+      { "text": "Kindness", "correct": true },
+      { "text": "Jealousy", "correct": false },
+      { "text": "Anger", "correct": false },
+      { "text": "Greed", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Which of these is NOT a fruit of a new life?",
+    "marks": 1,
+    "options": [
+      { "text": "Love", "correct": false },
+      { "text": "Peace", "correct": false },
+      { "text": "Kindness", "correct": false },
+      { "text": "Hatred", "correct": true }
+    ]
+  },
+  {
+    "questionText": "God gives talents to people so that they can ______.",
+    "marks": 1,
+    "options": [
+      { "text": "Help others and serve Him", "correct": true },
+      { "text": "Boast", "correct": false },
+      { "text": "Fight", "correct": false },
+      { "text": "Waste time", "correct": false }
+    ]
+  },
+  {
+    "questionText": "A talent is ______.",
+    "marks": 1,
+    "options": [
+      { "text": "A special gift or ability", "correct": true },
+      { "text": "A toy", "correct": false },
+      { "text": "A book", "correct": false },
+      { "text": "A game", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Which of these is an example of a talent?",
+    "marks": 1,
+    "options": [
+      { "text": "Singing", "correct": true },
+      { "text": "Sleeping", "correct": false },
+      { "text": "Fighting", "correct": false },
+      { "text": "Gossiping", "correct": false }
+    ]
+  },
+  {
+    "questionText": "We should use our talents ______.",
+    "marks": 1,
+    "options": [
+      { "text": "Wisely", "correct": true },
+      { "text": "Carelessly", "correct": false },
+      { "text": "Proudly", "correct": false },
+      { "text": "Selfishly", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Kindness means ______.",
+    "marks": 1,
+    "options": [
+      { "text": "Being helpful and caring", "correct": true },
+      { "text": "Being rude", "correct": false },
+      { "text": "Being selfish", "correct": false },
+      { "text": "Being dishonest", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Which of these shows kindness?",
+    "marks": 1,
+    "options": [
+      { "text": "Sharing with others", "correct": true },
+      { "text": "Stealing", "correct": false },
+      { "text": "Quarrelling", "correct": false },
+      { "text": "Bullying", "correct": false }
+    ]
+  },
+  {
+    "questionText": "The story of the Good Samaritan teaches us to ______.",
+    "marks": 1,
+    "options": [
+      { "text": "Be kind to others", "correct": true },
+      { "text": "Hate strangers", "correct": false },
+      { "text": "Ignore people", "correct": false },
+      { "text": "Tell lies", "correct": false }
+    ]
+  },
+  {
+    "questionText": "A Christian should show kindness to ______.",
+    "marks": 1,
+    "options": [
+      { "text": "Friends only", "correct": false },
+      { "text": "Family only", "correct": false },
+      { "text": "Everyone", "correct": true },
+      { "text": "Rich people only", "correct": false }
+    ]
+  },
+  {
+    "questionText": "One fruit of a new life is ______.",
+    "marks": 1,
+    "options": [
+      { "text": "Patience", "correct": true },
+      { "text": "Envy", "correct": false },
+      { "text": "Pride", "correct": false },
+      { "text": "Laziness", "correct": false }
+    ]
+  },
+  {
+    "questionText": "When we use our talents well, we ______ God.",
+    "marks": 1,
+    "options": [
+      { "text": "Glorify", "correct": true },
+      { "text": "Disobey", "correct": false },
+      { "text": "Ignore", "correct": false },
+      { "text": "Reject", "correct": false }
+    ]
+  }
+]

@@ -1,0 +1,202 @@
+[
+  {
+    "questionText": "Entrepreneurship involves the ability to ____.",
+    "marks": 1,
+    "options": [
+      { "text": "Sleep all day", "correct": false },
+      { "text": "Start and manage a business", "correct": true },
+      { "text": "Fight in the market", "correct": false },
+      { "text": "Borrow money only", "correct": false }
+    ]
+  },
+  {
+    "questionText": "A person who works with metals to produce tools is called a ____.",
+    "marks": 1,
+    "options": [
+      { "text": "Farmer", "correct": false },
+      { "text": "Carpenter", "correct": false },
+      { "text": "Metal worker", "correct": true },
+      { "text": "Tailor", "correct": false }
+    ]
+  },
+  {
+    "questionText": "A blacksmith mainly works with ____.",
+    "marks": 1,
+    "options": [
+      { "text": "Cloth", "correct": false },
+      { "text": "Iron and steel", "correct": true },
+      { "text": "Leather", "correct": false },
+      { "text": "Wood", "correct": false }
+    ]
+  },
+  {
+    "questionText": "A goldsmith is a person who makes objects from ____.",
+    "marks": 1,
+    "options": [
+      { "text": "Clay", "correct": false },
+      { "text": "Gold", "correct": true },
+      { "text": "Plastic", "correct": false },
+      { "text": "Glass", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Laundry and dry cleaning involve the cleaning of ____.",
+    "marks": 1,
+    "options": [
+      { "text": "Vehicles", "correct": false },
+      { "text": "Buildings", "correct": false },
+      { "text": "Clothes and fabrics", "correct": true },
+      { "text": "Shoes only", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Sculpture is the art of making objects from materials such as ____.",
+    "marks": 1,
+    "options": [
+      { "text": "Clay and stone", "correct": true },
+      { "text": "Water and oil", "correct": false },
+      { "text": "Sand and salt", "correct": false },
+      { "text": "Milk and sugar", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Catering deals with the preparation and serving of ____.",
+    "marks": 1,
+    "options": [
+      { "text": "Books", "correct": false },
+      { "text": "Food and drinks", "correct": true },
+      { "text": "Wood", "correct": false },
+      { "text": "Machines", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Poultry farming involves the rearing of ____.",
+    "marks": 1,
+    "options": [
+      { "text": "Fish", "correct": false },
+      { "text": "Birds such as chickens", "correct": true },
+      { "text": "Goats", "correct": false },
+      { "text": "Rabbits", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Calabash decoration is mainly done to make calabashes more ____.",
+    "marks": 1,
+    "options": [
+      { "text": "Bitter", "correct": false },
+      { "text": "Attractive", "correct": true },
+      { "text": "Heavy", "correct": false },
+      { "text": "Dirty", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Printing and publishing are related to the production of ____.",
+    "marks": 1,
+    "options": [
+      { "text": "Shoes", "correct": false },
+      { "text": "Books and newspapers", "correct": true },
+      { "text": "Furniture", "correct": false },
+      { "text": "Buildings", "correct": false }
+    ]
+  },
+  {
+    "questionText": "A building contractor is responsible for ____.",
+    "marks": 1,
+    "options": [
+      { "text": "Selling food", "correct": false },
+      { "text": "Constructing buildings", "correct": true },
+      { "text": "Washing clothes", "correct": false },
+      { "text": "Treating patients", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Electricity can be used for ____.",
+    "marks": 1,
+    "options": [
+      { "text": "Cooking only", "correct": false },
+      { "text": "Lighting and operating machines", "correct": true },
+      { "text": "Sleeping", "correct": false },
+      { "text": "Washing plates only", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Health science is the study of how to maintain good ____.",
+    "marks": 1,
+    "options": [
+      { "text": "Farming", "correct": false },
+      { "text": "Transport", "correct": false },
+      { "text": "Health", "correct": true },
+      { "text": "Trading", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Palm oil is produced from the fruits of the ____ tree.",
+    "marks": 1,
+    "options": [
+      { "text": "Mango", "correct": false },
+      { "text": "Palm", "correct": true },
+      { "text": "Orange", "correct": false },
+      { "text": "Coconut", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Fashion designing involves making and designing ____.",
+    "marks": 1,
+    "options": [
+      { "text": "Furniture", "correct": false },
+      { "text": "Clothing styles", "correct": true },
+      { "text": "Motor parts", "correct": false },
+      { "text": "Pots", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Cosmetology is related to the care and beautification of the ____.",
+    "marks": 1,
+    "options": [
+      { "text": "Environment", "correct": false },
+      { "text": "Human body and skin", "correct": true },
+      { "text": "Animals", "correct": false },
+      { "text": "Buildings", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Leather craft involves making items from ____.",
+    "marks": 1,
+    "options": [
+      { "text": "Rubber", "correct": false },
+      { "text": "Animal skin", "correct": true },
+      { "text": "Wood", "correct": false },
+      { "text": "Clay", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Logging is the process of cutting down ____.",
+    "marks": 1,
+    "options": [
+      { "text": "Fish", "correct": false },
+      { "text": "Trees", "correct": true },
+      { "text": "Metals", "correct": false },
+      { "text": "Flowers", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Woodwork involves making objects from ____.",
+    "marks": 1,
+    "options": [
+      { "text": "Iron", "correct": false },
+      { "text": "Plastic", "correct": false },
+      { "text": "Wood", "correct": true },
+      { "text": "Glass", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Floristry is the art of arranging and selling ____.",
+    "marks": 1,
+    "options": [
+      { "text": "Stones", "correct": false },
+      { "text": "Flowers", "correct": true },
+      { "text": "Food", "correct": false },
+      { "text": "Shoes", "correct": false }
+    ]
+  }
+]

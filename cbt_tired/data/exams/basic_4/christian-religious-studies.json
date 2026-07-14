@@ -1,0 +1,202 @@
+[
+  {
+    "questionText": "God supplies our needs according to His ____.",
+    "marks": 1,
+    "options": [
+      { "text": "Anger", "correct": false },
+      { "text": "Riches", "correct": true },
+      { "text": "Silence", "correct": false },
+      { "text": "Punishment", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Which of these is an example of a need?",
+    "marks": 1,
+    "options": [
+      { "text": "Toy", "correct": false },
+      { "text": "Food", "correct": true },
+      { "text": "Gold chain", "correct": false },
+      { "text": "Video game", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Hannah prayed to God for a ____.",
+    "marks": 1,
+    "options": [
+      { "text": "House", "correct": false },
+      { "text": "Car", "correct": false },
+      { "text": "Child", "correct": true },
+      { "text": "Crown", "correct": false }
+    ]
+  },
+  {
+    "questionText": "God answered Hannah's prayer by giving her ____.",
+    "marks": 1,
+    "options": [
+      { "text": "David", "correct": false },
+      { "text": "Samuel", "correct": true },
+      { "text": "Peter", "correct": false },
+      { "text": "John", "correct": false }
+    ]
+  },
+  {
+    "questionText": "God wants us to ____.",
+    "marks": 1,
+    "options": [
+      { "text": "Be lazy", "correct": false },
+      { "text": "Sleep always", "correct": false },
+      { "text": "Work hard", "correct": true },
+      { "text": "Fight others", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Which of these is a type of work?",
+    "marks": 1,
+    "options": [
+      { "text": "Farming", "correct": true },
+      { "text": "Fighting", "correct": false },
+      { "text": "Stealing", "correct": false },
+      { "text": "Gossiping", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Daniel was thrown into the den of ____.",
+    "marks": 1,
+    "options": [
+      { "text": "Tigers", "correct": false },
+      { "text": "Lions", "correct": true },
+      { "text": "Goats", "correct": false },
+      { "text": "Snakes", "correct": false }
+    ]
+  },
+  {
+    "questionText": "God saved Daniel because he was ____.",
+    "marks": 1,
+    "options": [
+      { "text": "Wicked", "correct": false },
+      { "text": "Proud", "correct": false },
+      { "text": "Faithful", "correct": true },
+      { "text": "Lazy", "correct": false }
+    ]
+  },
+  {
+    "questionText": "The three Hebrew boys refused to bow to the golden ____.",
+    "marks": 1,
+    "options": [
+      { "text": "Crown", "correct": false },
+      { "text": "Sword", "correct": false },
+      { "text": "Image", "correct": true },
+      { "text": "Table", "correct": false }
+    ]
+  },
+  {
+    "questionText": "The names of the three Hebrew boys include ____.",
+    "marks": 1,
+    "options": [
+      { "text": "Peter, James, and John", "correct": false },
+      { "text": "Shadrach, Meshach, and Abednego", "correct": true },
+      { "text": "Cain, Abel, and Seth", "correct": false },
+      { "text": "Saul, David, and Solomon", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Mercy means showing ____ to others.",
+    "marks": 1,
+    "options": [
+      { "text": "Wickedness", "correct": false },
+      { "text": "Kindness and forgiveness", "correct": true },
+      { "text": "Pride", "correct": false },
+      { "text": "Anger", "correct": false }
+    ]
+  },
+  {
+    "questionText": "In the parable of the unmerciful servant, the servant refused to ____ another servant.",
+    "marks": 1,
+    "options": [
+      { "text": "Help", "correct": false },
+      { "text": "Forgive", "correct": true },
+      { "text": "Feed", "correct": false },
+      { "text": "Teach", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Jesus teaches us to be ____.",
+    "marks": 1,
+    "options": [
+      { "text": "Cruel", "correct": false },
+      { "text": "Jealous", "correct": false },
+      { "text": "Merciful", "correct": true },
+      { "text": "Proud", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Pentecost happened after Jesus ____.",
+    "marks": 1,
+    "options": [
+      { "text": "Was born", "correct": false },
+      { "text": "Ascended into heaven", "correct": true },
+      { "text": "Slept", "correct": false },
+      { "text": "Fasted", "correct": false }
+    ]
+  },
+  {
+    "questionText": "On the day of Pentecost, the disciples were filled with the ____.",
+    "marks": 1,
+    "options": [
+      { "text": "Firewood", "correct": false },
+      { "text": "Holy Spirit", "correct": true },
+      { "text": "Rain", "correct": false },
+      { "text": "Oil", "correct": false }
+    ]
+  },
+  {
+    "questionText": "The Holy Spirit gives believers ____.",
+    "marks": 1,
+    "options": [
+      { "text": "Fear", "correct": false },
+      { "text": "Wisdom and power", "correct": true },
+      { "text": "Weakness", "correct": false },
+      { "text": "Hunger", "correct": false }
+    ]
+  },
+  {
+    "questionText": "One influence of the Holy Spirit is helping us to ____.",
+    "marks": 1,
+    "options": [
+      { "text": "Lie", "correct": false },
+      { "text": "Do evil", "correct": false },
+      { "text": "Obey God", "correct": true },
+      { "text": "Fight people", "correct": false }
+    ]
+  },
+  {
+    "questionText": "The Holy Spirit helps Christians in their daily ____.",
+    "marks": 1,
+    "options": [
+      { "text": "Games", "correct": false },
+      { "text": "Life", "correct": true },
+      { "text": "Journey only", "correct": false },
+      { "text": "Sleep", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Those who work in the Holy Spirit will receive ____.",
+    "marks": 1,
+    "options": [
+      { "text": "Punishment", "correct": false },
+      { "text": "Rewards from God", "correct": true },
+      { "text": "Trouble", "correct": false },
+      { "text": "Sickness", "correct": false }
+    ]
+  },
+  {
+    "questionText": "One reward of obeying the Holy Spirit is ____.",
+    "marks": 1,
+    "options": [
+      { "text": "Peace", "correct": true },
+      { "text": "Hatred", "correct": false },
+      { "text": "Confusion", "correct": false },
+      { "text": "Fear", "correct": false }
+    ]
+  }
+]

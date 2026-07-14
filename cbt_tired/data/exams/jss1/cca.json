@@ -1,0 +1,252 @@
+[
+  {
+    "questionText": "Drama is a form of art that is mainly presented through:",
+    "marks": 1,
+    "options": [
+      { "text": "Painting", "correct": false },
+      { "text": "Acting", "correct": true },
+      { "text": "Singing only", "correct": false },
+      { "text": "Drawing", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Which of the following is an element of drama?",
+    "marks": 1,
+    "options": [
+      { "text": "Texture", "correct": false },
+      { "text": "Plot", "correct": true },
+      { "text": "Shape", "correct": false },
+      { "text": "Colour", "correct": false }
+    ]
+  },
+  {
+    "questionText": "The people who perform roles in a play are called:",
+    "marks": 1,
+    "options": [
+      { "text": "Authors", "correct": false },
+      { "text": "Sculptors", "correct": false },
+      { "text": "Actors", "correct": true },
+      { "text": "Designers", "correct": false }
+    ]
+  },
+  {
+    "questionText": "The setting of a drama refers to the:",
+    "marks": 1,
+    "options": [
+      { "text": "Costumes used", "correct": false },
+      { "text": "Place and time of the story", "correct": true },
+      { "text": "Audience", "correct": false },
+      { "text": "Sound effects", "correct": false }
+    ]
+  },
+  {
+    "questionText": "A playwright is a person who:",
+    "marks": 1,
+    "options": [
+      { "text": "Sings songs", "correct": false },
+      { "text": "Directs a play", "correct": false },
+      { "text": "Writes plays", "correct": true },
+      { "text": "Sells costumes", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Which of the following is the main duty of a playwright?",
+    "marks": 1,
+    "options": [
+      { "text": "Applying makeup", "correct": false },
+      { "text": "Writing the script", "correct": true },
+      { "text": "Selling tickets", "correct": false },
+      { "text": "Designing the stage", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Costumes in drama help to show a character's:",
+    "marks": 1,
+    "options": [
+      { "text": "Favourite food", "correct": false },
+      { "text": "Age, occupation, and status", "correct": true },
+      { "text": "School subjects", "correct": false },
+      { "text": "Examination results", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Makeup in drama is mainly used to:",
+    "marks": 1,
+    "options": [
+      { "text": "Decorate the stage", "correct": false },
+      { "text": "Change or improve the appearance of actors", "correct": true },
+      { "text": "Entertain the audience", "correct": false },
+      { "text": "Design costumes", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Which of the following is NOT a purpose of costume in drama?",
+    "marks": 1,
+    "options": [
+      { "text": "Identifying characters", "correct": false },
+      { "text": "Showing social status", "correct": false },
+      { "text": "Revealing the period of the play", "correct": false },
+      { "text": "Replacing the script", "correct": true }
+    ]
+  },
+  {
+    "questionText": "The art of moving the body rhythmically to music is called:",
+    "marks": 1,
+    "options": [
+      { "text": "Drama", "correct": false },
+      { "text": "Drawing", "correct": false },
+      { "text": "Dance", "correct": true },
+      { "text": "Painting", "correct": false }
+    ]
+  },
+  {
+    "questionText": "One important use of dance is to:",
+    "marks": 1,
+    "options": [
+      { "text": "Repair machines", "correct": false },
+      { "text": "Express feelings and ideas", "correct": true },
+      { "text": "Build houses", "correct": false },
+      { "text": "Prepare food", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Which of the following is an element of dance?",
+    "marks": 1,
+    "options": [
+      { "text": "Time", "correct": true },
+      { "text": "Market", "correct": false },
+      { "text": "Climate", "correct": false },
+      { "text": "Soil", "correct": false }
+    ]
+  },
+  {
+    "questionText": "The element of dance that deals with the speed of movement is:",
+    "marks": 1,
+    "options": [
+      { "text": "Energy", "correct": false },
+      { "text": "Time", "correct": true },
+      { "text": "Costume", "correct": false },
+      { "text": "Plot", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Teamwork means:",
+    "marks": 1,
+    "options": [
+      { "text": "Working alone", "correct": false },
+      { "text": "Working together to achieve a common goal", "correct": true },
+      { "text": "Competing against one another", "correct": false },
+      { "text": "Giving orders to everyone", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Which of the following is a benefit of teamwork?",
+    "marks": 1,
+    "options": [
+      { "text": "Conflict", "correct": false },
+      { "text": "Laziness", "correct": false },
+      { "text": "Cooperation", "correct": true },
+      { "text": "Isolation", "correct": false }
+    ]
+  },
+  {
+    "questionText": "In drama and dance, teamwork is important because it helps to:",
+    "marks": 1,
+    "options": [
+      { "text": "Reduce performance quality", "correct": false },
+      { "text": "Achieve success through cooperation", "correct": true },
+      { "text": "Delay rehearsals", "correct": false },
+      { "text": "Create confusion", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Fake goods are products that:",
+    "marks": 1,
+    "options": [
+      { "text": "Meet approved standards", "correct": false },
+      { "text": "Are genuine and original", "correct": false },
+      { "text": "Imitate genuine products illegally", "correct": true },
+      { "text": "Are produced by government agencies", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Adulterated goods are products that have been:",
+    "marks": 1,
+    "options": [
+      { "text": "Properly packaged", "correct": false },
+      { "text": "Mixed with inferior or harmful substances", "correct": true },
+      { "text": "Imported legally", "correct": false },
+      { "text": "Advertised on television", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Which organization in Nigeria helps to control fake and adulterated goods?",
+    "marks": 1,
+    "options": [
+      { "text": "WAEC", "correct": false },
+      { "text": "JAMB", "correct": false },
+      { "text": "NAFDAC", "correct": true },
+      { "text": "NNPC", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Consumers should always buy products that:",
+    "marks": 1,
+    "options": [
+      { "text": "Have expired", "correct": false },
+      { "text": "Are certified and properly labelled", "correct": true },
+      { "text": "Have no manufacturer", "correct": false },
+      { "text": "Are damaged", "correct": false }
+    ]
+  },
+  {
+    "questionText": "One way to identify fake goods is by checking the:",
+    "marks": 1,
+    "options": [
+      { "text": "Colour of the shop", "correct": false },
+      { "text": "NAFDAC registration number", "correct": true },
+      { "text": "Size of the market", "correct": false },
+      { "text": "Number of customers", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Using fake or adulterated goods can:",
+    "marks": 1,
+    "options": [
+      { "text": "Improve health", "correct": false },
+      { "text": "Cause harm to consumers", "correct": true },
+      { "text": "Increase product quality", "correct": false },
+      { "text": "Reduce production costs", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Before buying packaged goods, consumers should check the:",
+    "marks": 1,
+    "options": [
+      { "text": "Expiry date", "correct": true },
+      { "text": "Shop owner's name", "correct": false },
+      { "text": "Weather", "correct": false },
+      { "text": "Colour of the shelf", "correct": false }
+    ]
+  },
+  {
+    "questionText": "The audience in a drama is made up of people who:",
+    "marks": 1,
+    "options": [
+      { "text": "Write the script", "correct": false },
+      { "text": "Watch the performance", "correct": true },
+      { "text": "Design costumes", "correct": false },
+      { "text": "Play musical instruments only", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Rehearsal is important because it helps performers to:",
+    "marks": 1,
+    "options": [
+      { "text": "Forget their roles", "correct": false },
+      { "text": "Improve their performance", "correct": true },
+      { "text": "Avoid teamwork", "correct": false },
+      { "text": "Change the audience", "correct": false }
+    ]
+  }
+]

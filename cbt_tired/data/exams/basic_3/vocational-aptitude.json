@@ -1,0 +1,202 @@
+[
+  {
+    "questionText": "Bead making is the process of making ________.",
+    "marks": 1,
+    "options": [
+      { "text": "Furniture", "correct": false },
+      { "text": "Beads for decoration", "correct": true },
+      { "text": "Baskets", "correct": false },
+      { "text": "Bricks", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Which of the following materials can be used for bead making?",
+    "marks": 1,
+    "options": [
+      { "text": "Glass", "correct": true },
+      { "text": "Cement", "correct": false },
+      { "text": "Clay pot", "correct": false },
+      { "text": "Iron rod", "correct": false }
+    ]
+  },
+  {
+    "questionText": "One important use of beads is for ________.",
+    "marks": 1,
+    "options": [
+      { "text": "Decoration", "correct": true },
+      { "text": "Farming", "correct": false },
+      { "text": "Cooking", "correct": false },
+      { "text": "Hunting", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Hunting is the activity of ________.",
+    "marks": 1,
+    "options": [
+      { "text": "Planting crops", "correct": false },
+      { "text": "Catching wild animals", "correct": true },
+      { "text": "Making clothes", "correct": false },
+      { "text": "Building houses", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Which of the following is a hunting tool?",
+    "marks": 1,
+    "options": [
+      { "text": "Needle", "correct": false },
+      { "text": "Bow and arrow", "correct": true },
+      { "text": "Spoon", "correct": false },
+      { "text": "Ruler", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Fish farming is the practice of ________.",
+    "marks": 1,
+    "options": [
+      { "text": "Selling fish", "correct": false },
+      { "text": "Drying fish", "correct": false },
+      { "text": "Raising fish in ponds or tanks", "correct": true },
+      { "text": "Catching fish in rivers", "correct": false }
+    ]
+  },
+  {
+    "questionText": "A fish pond is used for ________.",
+    "marks": 1,
+    "options": [
+      { "text": "Storing water only", "correct": false },
+      { "text": "Raising fish", "correct": true },
+      { "text": "Growing vegetables", "correct": false },
+      { "text": "Keeping poultry birds", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Cookery is the skill of ________.",
+    "marks": 1,
+    "options": [
+      { "text": "Sewing clothes", "correct": false },
+      { "text": "Making beads", "correct": false },
+      { "text": "Preparing and cooking food", "correct": true },
+      { "text": "Hunting animals", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Which of the following is a cooking utensil?",
+    "marks": 1,
+    "options": [
+      { "text": "Hammer", "correct": false },
+      { "text": "Chisel", "correct": false },
+      { "text": "Pot", "correct": true },
+      { "text": "Pliers", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Proper hand washing before cooking helps to ________.",
+    "marks": 1,
+    "options": [
+      { "text": "Waste water", "correct": false },
+      { "text": "Prevent diseases", "correct": true },
+      { "text": "Spoil food", "correct": false },
+      { "text": "Increase cooking time", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Welding is the process of ________.",
+    "marks": 1,
+    "options": [
+      { "text": "Joining metals together", "correct": true },
+      { "text": "Cutting paper", "correct": false },
+      { "text": "Planting crops", "correct": false },
+      { "text": "Cooking food", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Which equipment is commonly used in welding?",
+    "marks": 1,
+    "options": [
+      { "text": "Sewing machine", "correct": false },
+      { "text": "Welding machine", "correct": true },
+      { "text": "Blender", "correct": false },
+      { "text": "Broom", "correct": false }
+    ]
+  },
+  {
+    "questionText": "A security worker is responsible for ________.",
+    "marks": 1,
+    "options": [
+      { "text": "Teaching students", "correct": false },
+      { "text": "Protecting lives and property", "correct": true },
+      { "text": "Growing crops", "correct": false },
+      { "text": "Repairing roads", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Which of the following is a duty of a security guard?",
+    "marks": 1,
+    "options": [
+      { "text": "Monitoring premises", "correct": true },
+      { "text": "Harvesting crops", "correct": false },
+      { "text": "Cooking food", "correct": false },
+      { "text": "Making beads", "correct": false }
+    ]
+  },
+  {
+    "questionText": "A worker is a person who ________.",
+    "marks": 1,
+    "options": [
+      { "text": "Performs a job or task", "correct": true },
+      { "text": "Sleeps all day", "correct": false },
+      { "text": "Owns a company only", "correct": false },
+      { "text": "Plays games", "correct": false }
+    ]
+  },
+  {
+    "questionText": "The nature of work done by a farmer is ________.",
+    "marks": 1,
+    "options": [
+      { "text": "Teaching", "correct": false },
+      { "text": "Farming", "correct": true },
+      { "text": "Welding", "correct": false },
+      { "text": "Guarding", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Tools are items used to ________.",
+    "marks": 1,
+    "options": [
+      { "text": "Decorate houses", "correct": false },
+      { "text": "Perform work", "correct": true },
+      { "text": "Play games", "correct": false },
+      { "text": "Store food", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Which of the following is a hand tool?",
+    "marks": 1,
+    "options": [
+      { "text": "Hammer", "correct": true },
+      { "text": "Television", "correct": false },
+      { "text": "Refrigerator", "correct": false },
+      { "text": "Radio", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Metal work involves working mainly with ________.",
+    "marks": 1,
+    "options": [
+      { "text": "Wood", "correct": false },
+      { "text": "Paper", "correct": false },
+      { "text": "Metal", "correct": true },
+      { "text": "Cloth", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Safety goggles are worn during welding to protect the ________.",
+    "marks": 1,
+    "options": [
+      { "text": "Hands", "correct": false },
+      { "text": "Eyes", "correct": true },
+      { "text": "Legs", "correct": false },
+      { "text": "Ears", "correct": false }
+    ]
+  }
+]

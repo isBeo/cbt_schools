@@ -1,0 +1,208 @@
+[
+  {
+    "questionText": "Good friends can help a person to:",
+    "marks": 1,
+    "options": [
+      { "text": "Resist temptation", "correct": true },
+      { "text": "Engage in wrongdoing", "correct": false },
+      { "text": "Develop bad habits", "correct": false },
+      { "text": "Avoid responsibility", "correct": false }
+    ]
+  },
+  {
+    "questionText": "A hardworking person is usually:",
+    "marks": 1,
+    "options": [
+      { "text": "Diligent and responsible", "correct": true },
+      { "text": "Lazy and careless", "correct": false },
+      { "text": "Dishonest and rude", "correct": false },
+      { "text": "Wasteful and impatient", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Which of the following best describes hard work?",
+    "marks": 1,
+    "options": [
+      { "text": "Commitment to duty", "correct": true },
+      { "text": "Refusal to learn", "correct": false },
+      { "text": "Carelessness", "correct": false },
+      { "text": "Dishonesty", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Hard work helps a person to:",
+    "marks": 1,
+    "options": [
+      { "text": "Achieve success", "correct": true },
+      { "text": "Develop bad habits", "correct": false },
+      { "text": "Avoid responsibilities", "correct": false },
+      { "text": "Lose opportunities", "correct": false }
+    ]
+  },
+  {
+    "questionText": "One value of hard work is:",
+    "marks": 1,
+    "options": [
+      { "text": "Laziness", "correct": false },
+      { "text": "Discipline", "correct": true },
+      { "text": "Dishonesty", "correct": false },
+      { "text": "Wastefulness", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Which of the following is an advantage of hard work?",
+    "marks": 1,
+    "options": [
+      { "text": "Success in life", "correct": true },
+      { "text": "Poor performance", "correct": false },
+      { "text": "Failure in tasks", "correct": false },
+      { "text": "Lack of progress", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Hard work promotes:",
+    "marks": 1,
+    "options": [
+      { "text": "Productivity and excellence", "correct": true },
+      { "text": "Corruption", "correct": false },
+      { "text": "Indiscipline", "correct": false },
+      { "text": "Idleness", "correct": false }
+    ]
+  },
+  {
+    "questionText": "A student who studies regularly is demonstrating:",
+    "marks": 1,
+    "options": [
+      { "text": "Stubbornness", "correct": false },
+      { "text": "Hard work", "correct": true },
+      { "text": "Disobedience", "correct": false },
+      { "text": "Carelessness", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Which of the following rewards may result from hard work?",
+    "marks": 1,
+    "options": [
+      { "text": "Achievement and recognition", "correct": true },
+      { "text": "Punishment only", "correct": false },
+      { "text": "Failure", "correct": false },
+      { "text": "Rejection", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Moderation means:",
+    "marks": 1,
+    "options": [
+      { "text": "Doing things excessively", "correct": false },
+      {
+        "text": "Doing things in a balanced and reasonable way",
+        "correct": true
+      },
+      { "text": "Avoiding all activities", "correct": false },
+      { "text": "Acting carelessly", "correct": false }
+    ]
+  },
+  {
+    "questionText": "A person who practises moderation:",
+    "marks": 1,
+    "options": [
+      { "text": "Avoids excesses", "correct": true },
+      { "text": "Wastes resources", "correct": false },
+      { "text": "Behaves recklessly", "correct": false },
+      { "text": "Ignores advice", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Which of the following shows moderation?",
+    "marks": 1,
+    "options": [
+      { "text": "Eating a balanced amount of food", "correct": true },
+      { "text": "Eating excessively at every meal", "correct": false },
+      { "text": "Spending all one's money carelessly", "correct": false },
+      { "text": "Playing all day without studying", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Moderation helps people to:",
+    "marks": 1,
+    "options": [
+      { "text": "Maintain self-discipline", "correct": true },
+      { "text": "Become irresponsible", "correct": false },
+      { "text": "Encourage wastefulness", "correct": false },
+      { "text": "Develop bad habits", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Self-control is the ability to:",
+    "marks": 1,
+    "options": [
+      { "text": "Manage one's actions and emotions", "correct": true },
+      { "text": "Control other people's lives", "correct": false },
+      { "text": "Avoid responsibilities", "correct": false },
+      { "text": "Force others to obey", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Temptation may lead a person to:",
+    "marks": 1,
+    "options": [
+      { "text": "Make wrong decisions", "correct": true },
+      { "text": "Become more disciplined", "correct": false },
+      { "text": "Improve honesty", "correct": false },
+      { "text": "Develop good habits", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Controlling anger is an example of:",
+    "marks": 1,
+    "options": [
+      { "text": "Self-control", "correct": true },
+      { "text": "Dishonesty", "correct": false },
+      { "text": "Corruption", "correct": false },
+      { "text": "Laziness", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Exercising control over spending helps to:",
+    "marks": 1,
+    "options": [
+      { "text": "Encourage savings", "correct": true },
+      { "text": "Increase wastefulness", "correct": false },
+      { "text": "Create debt unnecessarily", "correct": false },
+      { "text": "Discourage planning", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Temptation is:",
+    "marks": 1,
+    "options": [
+      { "text": "The desire to do something wrong or unwise", "correct": true },
+      { "text": "A reward for good behaviour", "correct": false },
+      { "text": "A form of education", "correct": false },
+      { "text": "A type of celebration", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Corruption is:",
+    "marks": 1,
+    "options": [
+      { "text": "Honest behaviour", "correct": false },
+      {
+        "text": "Misuse of power or position for personal gain",
+        "correct": true
+      },
+      { "text": "Respect for rules", "correct": false },
+      { "text": "Obedience to authority", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Which of the following is an example of corruption?",
+    "marks": 1,
+    "options": [
+      { "text": "Bribery", "correct": true },
+      { "text": "Honesty", "correct": false },
+      { "text": "Fairness", "correct": false },
+      { "text": "Integrity", "correct": false }
+    ]
+  }
+]

@@ -1,0 +1,202 @@
+[
+  {
+    "questionText": "Cotton is used in the ______ industry.",
+    "marks": 1,
+    "options": [
+      { "text": "Textile", "correct": true },
+      { "text": "Transport", "correct": false },
+      { "text": "Banking", "correct": false },
+      { "text": "Fishing", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Rubber is obtained from the ______ tree.",
+    "marks": 1,
+    "options": [
+      { "text": "Mango", "correct": false },
+      { "text": "Orange", "correct": false },
+      { "text": "Rubber", "correct": true },
+      { "text": "Guava", "correct": false }
+    ]
+  },
+  {
+    "questionText": "One product made from rubber is a ______.",
+    "marks": 1,
+    "options": [
+      { "text": "Tyre", "correct": true },
+      { "text": "Pencil", "correct": false },
+      { "text": "Spoon", "correct": false },
+      { "text": "Book", "correct": false }
+    ]
+  },
+  {
+    "questionText": "A farmer uses a ______ to dig the soil.",
+    "marks": 1,
+    "options": [
+      { "text": "Hoe", "correct": true },
+      { "text": "Ruler", "correct": false },
+      { "text": "Comb", "correct": false },
+      { "text": "Chalk", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Which tool is used by a tailor?",
+    "marks": 1,
+    "options": [
+      { "text": "Cutlass", "correct": false },
+      { "text": "Scissors", "correct": true },
+      { "text": "Hammer", "correct": false },
+      { "text": "Spoon", "correct": false }
+    ]
+  },
+  {
+    "questionText": "A carpenter uses a ______ to drive nails.",
+    "marks": 1,
+    "options": [
+      { "text": "Broom", "correct": false },
+      { "text": "Hammer", "correct": true },
+      { "text": "Bucket", "correct": false },
+      { "text": "Cup", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Which of these is used by a farmer?",
+    "marks": 1,
+    "options": [
+      { "text": "Hoe", "correct": true },
+      { "text": "Needle", "correct": false },
+      { "text": "Eraser", "correct": false },
+      { "text": "Stapler", "correct": false }
+    ]
+  },
+  {
+    "questionText": "A doctor works in the field of ______ science.",
+    "marks": 1,
+    "options": [
+      { "text": "Health", "correct": true },
+      { "text": "Textile", "correct": false },
+      { "text": "Transport", "correct": false },
+      { "text": "Music", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Health science helps us to stay ______.",
+    "marks": 1,
+    "options": [
+      { "text": "Dirty", "correct": false },
+      { "text": "Healthy", "correct": true },
+      { "text": "Hungry", "correct": false },
+      { "text": "Tired", "correct": false }
+    ]
+  },
+  {
+    "questionText": "We should wash our hands to remain ______.",
+    "marks": 1,
+    "options": [
+      { "text": "Sick", "correct": false },
+      { "text": "Healthy", "correct": true },
+      { "text": "Weak", "correct": false },
+      { "text": "Lazy", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Which of these helps good health?",
+    "marks": 1,
+    "options": [
+      { "text": "Eating dirty food", "correct": false },
+      { "text": "Sleeping late always", "correct": false },
+      { "text": "Eating balanced meals", "correct": true },
+      { "text": "Refusing to bathe", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Cotton is used to make ______.",
+    "marks": 1,
+    "options": [
+      { "text": "Clothing materials", "correct": true },
+      { "text": "Tyres", "correct": false },
+      { "text": "Blocks", "correct": false },
+      { "text": "Bottles", "correct": false }
+    ]
+  },
+  {
+    "questionText": "A person who sews clothes is called a ______.",
+    "marks": 1,
+    "options": [
+      { "text": "Tailor", "correct": true },
+      { "text": "Doctor", "correct": false },
+      { "text": "Farmer", "correct": false },
+      { "text": "Driver", "correct": false }
+    ]
+  },
+  {
+    "questionText": "A person who grows crops is called a ______.",
+    "marks": 1,
+    "options": [
+      { "text": "Teacher", "correct": false },
+      { "text": "Tailor", "correct": false },
+      { "text": "Farmer", "correct": true },
+      { "text": "Nurse", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Which of these is a farm crop?",
+    "marks": 1,
+    "options": [
+      { "text": "Cassava", "correct": true },
+      { "text": "Television", "correct": false },
+      { "text": "Chair", "correct": false },
+      { "text": "Fan", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Farmers help to provide ______.",
+    "marks": 1,
+    "options": [
+      { "text": "Food", "correct": true },
+      { "text": "Music", "correct": false },
+      { "text": "Fuel", "correct": false },
+      { "text": "Toys", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Which of these is used for planting?",
+    "marks": 1,
+    "options": [
+      { "text": "Hoe", "correct": true },
+      { "text": "Spoon", "correct": false },
+      { "text": "Pen", "correct": false },
+      { "text": "Brush", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Rubber can be used to make ______.",
+    "marks": 1,
+    "options": [
+      { "text": "Tyres", "correct": true },
+      { "text": "Chalk", "correct": false },
+      { "text": "Books", "correct": false },
+      { "text": "Desks", "correct": false }
+    ]
+  },
+  {
+    "questionText": "A nurse helps to care for ______.",
+    "marks": 1,
+    "options": [
+      { "text": "Patients", "correct": true },
+      { "text": "Houses", "correct": false },
+      { "text": "Roads", "correct": false },
+      { "text": "Farms", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Which tool is used by a doctor?",
+    "marks": 1,
+    "options": [
+      { "text": "Stethoscope", "correct": true },
+      { "text": "Cutlass", "correct": false },
+      { "text": "Hoe", "correct": false },
+      { "text": "Hammer", "correct": false }
+    ]
+  }
+]
