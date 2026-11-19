@@ -1,5 +1,6 @@
 "use server"
 
+import { auth } from "@/auth"
 import { revalidatePath } from "next/cache"
 import { Prisma } from "@/lib/generated/prisma/client"
 
@@ -7,8 +8,17 @@ import { prisma } from "@/lib/prisma"
 import { schoolSchema, type SchoolInput } from "@/lib/validations/school"
 
 export async function createSchool(data: SchoolInput) {
-  const validated = schoolSchema.safeParse(data)
+  const session = await auth()
 
+  if (!session?.user || session.user.role !== "SUPER_ADMIN") {
+    return {
+      success: false,
+      message: "You are not authorized to create a school.",
+    }
+  }
+
+  const validated = schoolSchema.safeParse(data)
+  
   if (!validated.success) {
     return {
       success: false,

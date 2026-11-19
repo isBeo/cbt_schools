@@ -1,20 +1,37 @@
+
 "use client"
+
 import { submitExam } from "@/app/actions/exam"
 import { useRouter } from "next/navigation"
-
 import { useState, useEffect } from "react"
-
 import { Button } from "@/components/ui/button"
 
+type ExamWithQuestions = {
+  id: number
+  title: string
+  questions: {
+    id: number
+    questionText: string
+    options: {
+      id: number
+      optionText: string
+    }[]
+  }[]
+}
+
 type ExamFormProps = {
-  exam: any
+  exam: ExamWithQuestions
   studentId: number
   duration: number
 }
+
 export function ExamForm({ exam, studentId, duration }: ExamFormProps) {
   const [currentQuestion, setCurrentQuestion] = useState(0)
+  const [answers, setAnswers] = useState<Record<number, number>>({})
+  const [timeLeft, setTimeLeft] = useState(duration * 60)
 
   const router = useRouter()
+  const question = exam.questions[currentQuestion]
 
   const handleSubmit = async () => {
     const result = await submitExam({
@@ -27,16 +44,13 @@ export function ExamForm({ exam, studentId, duration }: ExamFormProps) {
       router.push(`/result/${result.attemptId}`)
     }
   }
-  const question = exam.questions[currentQuestion]
-  const [answers, setAnswers] = useState<Record<number, number>>({})
-  const [timeLeft, setTimeLeft] = useState(duration * 60)
 
   useEffect(() => {
     if (timeLeft <= 0) return
 
     const timer = setInterval(() => {
       setTimeLeft((prev) => prev - 1)
-    }, 900)
+    }, 1000)
 
     return () => clearInterval(timer)
   }, [timeLeft])
@@ -44,11 +58,13 @@ export function ExamForm({ exam, studentId, duration }: ExamFormProps) {
   if (!question) {
     return <div className="p-6">No questions have been added to this exam.</div>
   }
+
   return (
     <div className="space-y-6">
       <Button type="button" onClick={handleSubmit}>
         Submit Exam
       </Button>
+
       <div>
         <h1 className="text-2xl font-bold">{exam.title}</h1>
 
@@ -66,7 +82,7 @@ export function ExamForm({ exam, studentId, duration }: ExamFormProps) {
         <h2 className="mb-6 text-lg font-semibold">{question.questionText}</h2>
 
         <div className="space-y-3">
-          {question.options.map((option: any) => (
+          {question.options.map((option) => (
             <label
               key={option.id}
               className="flex cursor-pointer items-center gap-3 rounded border p-3"
@@ -82,7 +98,6 @@ export function ExamForm({ exam, studentId, duration }: ExamFormProps) {
                   }))
                 }
               />
-
               {option.optionText}
             </label>
           ))}
@@ -111,11 +126,12 @@ export function ExamForm({ exam, studentId, duration }: ExamFormProps) {
           </Button>
         )}
       </div>
+
       <div className="rounded-lg border p-4">
         <h3 className="mb-4 font-semibold">Question Palette</h3>
 
         <div className="grid grid-cols-5 gap-2">
-          {exam.questions.map((q: any, index: number) => {
+          {exam.questions.map((q, index) => {
             const current = index === currentQuestion
             const answered = answers[q.id]
 
