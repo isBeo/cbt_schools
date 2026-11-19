@@ -59,6 +59,16 @@ const examItems = [
     icon: RiGroupLine,
   },
   {
+  title: "Question Bank",
+  url: "/dashboard/questions",
+  icon: RiQuestionLine,
+},
+{
+  title: "Teacher Activity",
+  url: "/dashboard/audit-logs",
+  icon: RiFileList3Line,
+},
+  {
     title: "Exams",
     url: "/dashboard/exams",
     icon: RiFileList3Line,

@@ -49,6 +49,9 @@ model School {
   createdAt DateTime  @default(now())
   students  Student[]
 
+  bankQuestions BankQuestion[]
+  auditLogs     AuditLog[]
+
   @@map("school")
 }
 
@@ -59,6 +62,8 @@ model Class {
   exams    Exam[]
   students Student[]
 
+  bankQuestions BankQuestion[]
+
   teacherAssignments TeacherAssignment[]
 }
 
@@ -67,6 +72,8 @@ model Subject {
   name  String @unique
   code  String @unique
   exams Exam[]
+
+  bankQuestions BankQuestion[]
 
   teacherAssignments TeacherAssignment[]
 }
@@ -138,6 +145,9 @@ model Question {
   options       Option[]
   exam          Exam            @relation(fields: [examId], references: [id])
   answers       StudentAnswer[]
+
+  sourceBankQuestionId Int?
+  sourceBankQuestion   BankQuestion? @relation(fields: [sourceBankQuestionId], references: [id], onDelete: SetNull)
 }
 
 enum ExamStatus {
@@ -211,6 +221,9 @@ model User {
 
   role Role
 
+  createdBankQuestions BankQuestion[] @relation("BankQuestionCreator")
+  auditLogs            AuditLog[]     @relation("AuditLogActor")
+
   schoolId Int?
   school   School? @relation(fields: [schoolId], references: [id])
 
@@ -240,3 +253,71 @@ model ResultDetail {
   marksAwarded Decimal
   result       Result  @relation(fields: [resultId], references: [id])
 }
+
+model BankQuestion {
+  id           Int     @id @default(autoincrement())
+  questionText String
+  questionType String  @default("OBJECTIVE")
+  marks        Int
+  isActive     Boolean @default(true)
+
+  schoolId    Int
+  classId     Int
+  subjectId   Int
+  createdById Int
+
+  school    School  @relation(fields: [schoolId], references: [id])
+  class     Class   @relation(fields: [classId], references: [id])
+  subject   Subject @relation(fields: [subjectId], references: [id])
+  createdBy User    @relation("BankQuestionCreator", fields: [createdById], references: [id])
+
+  options       BankOption[]
+  examQuestions Question[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([schoolId, classId, subjectId])
+  @@index([createdById])
+}
+
+model BankOption {
+  id             Int     @id @default(autoincrement())
+  optionText     String
+  optionOrder    Int
+  isCorrect      Boolean @default(false)
+  bankQuestionId Int
+
+  bankQuestion BankQuestion @relation(fields: [bankQuestionId], references: [id], onDelete: Cascade)
+
+  @@index([bankQuestionId])
+}
+
+model AuditLog {
+  id       Int  @id @default(autoincrement())
+  userId   Int?
+  schoolId Int?
+
+  // Historical identity of the person who performed the action
+  actorName String
+  actorRole String
+
+  action      String
+  entity      String
+  entityId    String?
+  description String
+  metadata    Json?
+
+  user   User?   @relation("AuditLogActor", fields: [userId], references: [id], onDelete: SetNull)
+  school School? @relation(fields: [schoolId], references: [id], onDelete: SetNull)
+
+  createdAt DateTime @default(now())
+
+  @@index([schoolId, createdAt])
+  @@index([userId, createdAt])
+  @@index([entity, entityId])
+  @@index([action, createdAt])
+}
+
+
+
