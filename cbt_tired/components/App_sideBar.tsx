@@ -55,6 +55,16 @@ const academicItems = [
     url: "/dashboard/subjects",
     icon: RiBook2Line,
   },
+  {
+    title: "Teacher Management",
+    url: "/dashboard/teachers",
+    icon: RiGroupLine,
+  },
+  {
+    title: "Teacher Assignments",
+    url: "/dashboard/teacher-assignments",
+    icon: RiGraduationCapLine,
+  },
 ]
 
 const examItems = [
