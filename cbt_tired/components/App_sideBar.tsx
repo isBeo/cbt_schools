@@ -36,6 +36,11 @@ const mainItems = [
 
 const academicItems = [
   {
+    title: "Academic Setup",
+    url: "/dashboard/academic-setup",
+    icon: RiSettings4Line,
+  },
+  {
     title: "Schools",
     url: "/dashboard/schools",
     icon: RiSchoolLine,

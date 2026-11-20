@@ -1,8 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Get a free hosted Postgres database in seconds: `npx create-db`
-
 generator client {
   provider = "prisma-client"
   output   = "../lib/generated/prisma"
@@ -39,6 +34,8 @@ model TeacherAssignment {
   createdAt DateTime @default(now())
 
   @@unique([teacherId, classId, subjectId])
+  @@index([teacherId])
+  @@index([classId, subjectId])
 }
 
 model School {
@@ -52,30 +49,87 @@ model School {
   bankQuestions BankQuestion[]
   auditLogs     AuditLog[]
 
+  academicSessions AcademicSession[]
+  academicTerms    AcademicTerm[]
+  classes          Class[]
+  subjects         Subject[]
+
   @@map("school")
 }
 
+model AcademicSession {
+  id        Int     @id @default(autoincrement())
+  name      String
+  isCurrent Boolean @default(false)
+  schoolId  Int
+
+  school School         @relation(fields: [schoolId], references: [id], onDelete: Cascade)
+  terms  AcademicTerm[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([schoolId, name])
+  @@index([schoolId])
+}
+
+model AcademicTerm {
+  id        Int     @id @default(autoincrement())
+  name      String
+  order     Int
+  isCurrent Boolean @default(false)
+  sessionId Int
+  schoolId  Int
+
+  session AcademicSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  school  School          @relation(fields: [schoolId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([sessionId, name])
+  @@unique([sessionId, order])
+  @@index([schoolId])
+}
+
 model Class {
-  id       Int       @id @default(autoincrement())
-  name     String    @unique
+  id       Int    @id @default(autoincrement())
+  name     String
   level    String
-  exams    Exam[]
-  students Student[]
+  schoolId Int
 
-  bankQuestions BankQuestion[]
+  school School @relation(fields: [schoolId], references: [id], onDelete: Cascade)
 
+  exams              Exam[]
+  students           Student[]
+  bankQuestions      BankQuestion[]
   teacherAssignments TeacherAssignment[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([schoolId, name])
+  @@index([schoolId])
 }
 
 model Subject {
-  id    Int    @id @default(autoincrement())
-  name  String @unique
-  code  String @unique
-  exams Exam[]
+  id       Int    @id @default(autoincrement())
+  name     String
+  code     String
+  schoolId Int
 
-  bankQuestions BankQuestion[]
+  school School @relation(fields: [schoolId], references: [id], onDelete: Cascade)
 
+  exams              Exam[]
+  bankQuestions      BankQuestion[]
   teacherAssignments TeacherAssignment[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([schoolId, name])
+  @@unique([schoolId, code])
+  @@index([schoolId])
 }
 
 model Student {
@@ -96,8 +150,7 @@ model Student {
   class  Class  @relation(fields: [classId], references: [id])
   user   User?  @relation(fields: [userId], references: [id])
 
-  parents ParentStudent[] @relation("StudentParents")
-
+  parents      ParentStudent[] @relation("StudentParents")
   examAttempts ExamAttempt[]
 }
 
@@ -136,15 +189,16 @@ model Exam {
 }
 
 model Question {
-  id            Int             @id @default(autoincrement())
+  id            Int    @id @default(autoincrement())
   questionText  String
   questionType  String
   marks         Int
   questionOrder Int
   examId        Int
-  options       Option[]
-  exam          Exam            @relation(fields: [examId], references: [id])
-  answers       StudentAnswer[]
+
+  options Option[]
+  exam    Exam            @relation(fields: [examId], references: [id])
+  answers StudentAnswer[]
 
   sourceBankQuestionId Int?
   sourceBankQuestion   BankQuestion? @relation(fields: [sourceBankQuestionId], references: [id], onDelete: SetNull)
@@ -158,13 +212,14 @@ enum ExamStatus {
 }
 
 model Option {
-  id          Int             @id @default(autoincrement())
+  id          Int     @id @default(autoincrement())
   optionText  String
   optionOrder Int
   isCorrect   Boolean
   questionId  Int
-  question    Question        @relation(fields: [questionId], references: [id])
-  answers     StudentAnswer[]
+
+  question Question        @relation(fields: [questionId], references: [id])
+  answers  StudentAnswer[]
 }
 
 model ExamAttempt {
@@ -191,26 +246,28 @@ enum AttemptStatus {
 }
 
 model StudentAnswer {
-  id               Int         @id @default(autoincrement())
+  id               Int      @id @default(autoincrement())
   attemptId        Int
   questionId       Int
   selectedOptionId Int?
   answerText       String?
   answeredAt       DateTime
-  attempt          ExamAttempt @relation(fields: [attemptId], references: [id])
-  question         Question    @relation(fields: [questionId], references: [id])
-  selectedOption   Option?     @relation(fields: [selectedOptionId], references: [id])
+
+  attempt        ExamAttempt @relation(fields: [attemptId], references: [id])
+  question       Question    @relation(fields: [questionId], references: [id])
+  selectedOption Option?     @relation(fields: [selectedOptionId], references: [id])
 }
 
 model Result {
-  id          Int            @id @default(autoincrement())
-  attemptId   Int            @unique
+  id          Int      @id @default(autoincrement())
+  attemptId   Int      @unique
   score       Decimal
   percentage  Decimal
   grade       String
-  generatedAt DateTime       @default(now())
-  attempt     ExamAttempt    @relation(fields: [attemptId], references: [id])
-  details     ResultDetail[]
+  generatedAt DateTime @default(now())
+
+  attempt ExamAttempt    @relation(fields: [attemptId], references: [id])
+  details ResultDetail[]
 }
 
 model User {
@@ -251,7 +308,8 @@ model ResultDetail {
   questionId   Int
   isCorrect    Boolean
   marksAwarded Decimal
-  result       Result  @relation(fields: [resultId], references: [id])
+
+  result Result @relation(fields: [resultId], references: [id])
 }
 
 model BankQuestion {
@@ -318,6 +376,3 @@ model AuditLog {
   @@index([entity, entityId])
   @@index([action, createdAt])
 }
-
-
-
