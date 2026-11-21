@@ -3,6 +3,7 @@
 
 import { useEffect } from "react"
 import { usePathname, useRouter } from "next/navigation"
+import type { Role } from "@/lib/generated/prisma/client"
 import { useSidebar } from "@/components/ui/sidebar"
 import { RiGraduationCapLine } from "@remixicon/react"
 
@@ -29,91 +30,111 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
 
-const mainItems = [
+type AppSidebarProps = {
+  role: Role
+  schoolName?: string
+}
+
+type MenuItem = {
+  title: string
+  url: string
+  icon: React.ElementType
+  roles: Role[]
+}
+
+const allRoles: Role[] = [
+  "SUPER_ADMIN",
+  "SCHOOL_ADMIN",
+  "TEACHER",
+  "STUDENT",
+  "PARENT",
+]
+
+const mainItems: MenuItem[] = [
   {
     title: "Dashboard",
     url: "/dashboard",
     icon: RiDashboardLine,
+    roles: allRoles,
   },
 ]
 
-const academicItems = [
+const academicItems: MenuItem[] = [
   {
     title: "Academic Setup",
     url: "/dashboard/academic-setup",
     icon: RiSettings4Line,
+    roles: ["SCHOOL_ADMIN"],
   },
   {
     title: "Schools",
     url: "/dashboard/schools",
     icon: RiSchoolLine,
+    roles: ["SUPER_ADMIN"],
   },
   {
     title: "Classes",
     url: "/dashboard/classes",
     icon: RiBook2Line,
+    roles: ["SCHOOL_ADMIN"],
   },
   {
-  title: "Students",
-  url: "/dashboard/students",
-  icon: RiGroupLine,
-},
+    title: "Students",
+    url: "/dashboard/students",
+    icon: RiGroupLine,
+    roles: ["SCHOOL_ADMIN"],
+  },
   {
     title: "Subjects",
     url: "/dashboard/subjects",
     icon: RiBook2Line,
+    roles: ["SCHOOL_ADMIN"],
   },
   {
-    title: "Teacher Management",
+    title: "Teachers",
     url: "/dashboard/teachers",
     icon: RiGroupLine,
+    roles: ["SCHOOL_ADMIN"],
   },
   {
     title: "Teacher Assignments",
     url: "/dashboard/teacher-assignments",
     icon: RiGraduationCapLine,
+    roles: ["SCHOOL_ADMIN"],
   },
 ]
 
-const examItems = [
+const examinationItems: MenuItem[] = [
   {
     title: "Student Registration",
     url: "/register",
     icon: RiGroupLine,
+    roles: ["SCHOOL_ADMIN"],
   },
   {
     title: "Question Bank",
     url: "/dashboard/questions",
     icon: RiQuestionLine,
-  },
-  {
-    title: "Teacher Activity",
-    url: "/dashboard/audit-logs",
-    icon: RiFileList3Line,
+    roles: ["SCHOOL_ADMIN", "TEACHER"],
   },
   {
     title: "Exams",
     url: "/dashboard/exams",
     icon: RiFileList3Line,
-  },
-  {
-    title: "Upload Questions",
-    url: "/dashboard/exams/import",
-    icon: RiQuestionLine,
+    roles: ["SCHOOL_ADMIN", "TEACHER"],
   },
   {
     title: "Results",
     url: "/dashboard/results",
     icon: RiBarChartLine,
-  },
-  {
-    title: "Settings",
-    url: "/dashboard/settings",
-    icon: RiSettings4Line,
+    roles: ["SCHOOL_ADMIN", "TEACHER"],
   },
 ]
 
-export function AppSidebar() {
+export function AppSidebar({
+  role,
+  schoolName,
+}: AppSidebarProps) {
   const pathname = usePathname()
   const router = useRouter()
 
@@ -123,16 +144,31 @@ export function AppSidebar() {
     setOpenMobile,
   } = useSidebar()
 
-  // Close the mobile drawer after navigation.
-  // Desktop sidebar remains open.
   useEffect(() => {
     if (isMobile) {
       setOpenMobile(false)
     }
   }, [pathname, isMobile, setOpenMobile])
 
-  function navigateTo(url: string) {
-    router.push(url)
+  function renderItems(items: MenuItem[]) {
+    return items
+      .filter((item) => item.roles.includes(role))
+      .map((item) => (
+        <SidebarMenuItem key={item.title}>
+          <SidebarMenuButton
+            isActive={
+              pathname === item.url ||
+              (item.url !== "/dashboard" &&
+                pathname.startsWith(`${item.url}/`))
+            }
+            onClick={() => router.push(item.url)}
+            tooltip={item.title}
+          >
+            <item.icon className="size-5" />
+            <span>{item.title}</span>
+          </SidebarMenuButton>
+        </SidebarMenuItem>
+      ))
   }
 
   return (
@@ -144,12 +180,13 @@ export function AppSidebar() {
           <div className="flex items-center gap-3">
             <RiGraduationCapLine className="size-7 text-primary" />
 
-            <div>
-              <h2 className="my-1 font-bold leading-none">
-                Eagle Crest
+            <div className="min-w-0">
+              <h2 className="my-1 truncate font-bold leading-none">
+                {schoolName || "Ace-Schools"}
               </h2>
+
               <p className="text-xs text-muted-foreground">
-                CBT System
+                {role.replace("_", " ")}
               </p>
             </div>
           </div>
@@ -158,67 +195,42 @@ export function AppSidebar() {
 
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel>Panel</SidebarGroupLabel>
+          <SidebarGroupLabel>OVERVIEW</SidebarGroupLabel>
 
           <SidebarGroupContent>
             <SidebarMenu>
-              {mainItems.map((item) => (
-                <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton
-                    isActive={pathname === item.url}
-                    onClick={() => navigateTo(item.url)}
-                    tooltip={item.title}
-                  >
-                    <item.icon className="size-5" />
-                    <span>{item.title}</span>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
+              {renderItems(mainItems)}
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
 
-        <SidebarGroup>
-          <SidebarGroupLabel>ACADEMICS</SidebarGroupLabel>
+        {academicItems.some((item) =>
+          item.roles.includes(role)
+        ) && (
+          <SidebarGroup>
+            <SidebarGroupLabel>ACADEMICS</SidebarGroupLabel>
 
-          <SidebarGroupContent>
-            <SidebarMenu>
-              {academicItems.map((item) => (
-                <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton
-                    isActive={pathname === item.url}
-                    onClick={() => navigateTo(item.url)}
-                    tooltip={item.title}
-                  >
-                    <item.icon className="size-5" />
-                    <span>{item.title}</span>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
-            </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
+            <SidebarGroupContent>
+              <SidebarMenu>
+                {renderItems(academicItems)}
+              </SidebarMenu>
+            </SidebarGroupContent>
+          </SidebarGroup>
+        )}
 
-        <SidebarGroup>
-          <SidebarGroupLabel>EXAMINATION</SidebarGroupLabel>
+        {examinationItems.some((item) =>
+          item.roles.includes(role)
+        ) && (
+          <SidebarGroup>
+            <SidebarGroupLabel>EXAMINATIONS</SidebarGroupLabel>
 
-          <SidebarGroupContent>
-            <SidebarMenu>
-              {examItems.map((item) => (
-                <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton
-                    isActive={pathname === item.url}
-                    onClick={() => navigateTo(item.url)}
-                    tooltip={item.title}
-                  >
-                    <item.icon className="size-5" />
-                    <span>{item.title}</span>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
-            </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
+            <SidebarGroupContent>
+              <SidebarMenu>
+                {renderItems(examinationItems)}
+              </SidebarMenu>
+            </SidebarGroupContent>
+          </SidebarGroup>
+        )}
       </SidebarContent>
     </Sidebar>
   )
