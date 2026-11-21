@@ -2,7 +2,7 @@
 type Teacher = {
   id: number
   name: string
-  email: string
+  email: string | null
   createdAt: Date
 }
 

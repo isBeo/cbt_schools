@@ -31,6 +31,7 @@ export async function createSchool(data: SchoolInput) {
 
   const {
     name,
+    code,
     address,
     adminName,
     adminEmail,
@@ -40,30 +41,31 @@ export async function createSchool(data: SchoolInput) {
   try {
     const passwordHash = await bcrypt.hash(adminPassword, 12)
 
-   await prisma.$transaction(
-  async (tx) => {
-    const school = await tx.school.create({
-      data: {
-        name,
-        address,
-      },
-    })
+    await prisma.$transaction(
+      async (tx) => {
+        const school = await tx.school.create({
+          data: {
+            name,
+            code,
+            address,
+          },
+        })
 
-    await tx.user.create({
-      data: {
-        name: adminName,
-        email: adminEmail,
-        passwordHash,
-        role: "SCHOOL_ADMIN",
-        schoolId: school.id,
+        await tx.user.create({
+          data: {
+            name: adminName,
+            email: adminEmail,
+            passwordHash,
+            role: "SCHOOL_ADMIN",
+            schoolId: school.id,
+          },
+        })
       },
-    })
-  },
-  {
-    maxWait: 10000,
-    timeout: 20000,
-  }
-)
+      {
+        maxWait: 10000,
+        timeout: 20000,
+      }
+    )
 
     revalidatePath("/dashboard/schools")
     revalidatePath("/dashboard/academic-setup")
@@ -87,6 +89,13 @@ export async function createSchool(data: SchoolInput) {
           }
         }
 
+        if (targetText.toLowerCase().includes("code")) {
+          return {
+            success: false,
+            message: "This school code is already in use.",
+          }
+        }
+
         if (targetText.toLowerCase().includes("name")) {
           return {
             success: false,
@@ -106,6 +115,94 @@ export async function createSchool(data: SchoolInput) {
     return {
       success: false,
       message: "Unable to register school. Please try again.",
+    }
+  }
+}
+
+
+
+
+export async function updateSchoolCode(schoolId: number, code: string) {
+  const session = await auth()
+
+  if (!session?.user || session.user.role !== "SUPER_ADMIN") {
+    return {
+      success: false,
+      message: "You are not authorized to update school details.",
+    }
+  }
+
+  const normalizedCode = code.trim().toUpperCase()
+
+  if (!/^[A-Z0-9]{2,10}$/.test(normalizedCode)) {
+    return {
+      success: false,
+      message: "School code must contain 2–10 letters or numbers.",
+    }
+  }
+
+  try {
+    const school = await prisma.school.findUnique({
+      where: { id: schoolId },
+      select: { id: true, code: true },
+    })
+
+    if (!school) {
+      return { success: false, message: "School not found." }
+    }
+
+    // Once an existing code has been used for admission numbers,
+    // it cannot be changed.
+    if (school.code && school.code !== normalizedCode) {
+      const [studentCount, sequenceCount] = await Promise.all([
+        prisma.student.count({
+          where: {
+            schoolId,
+            admissionNo: { not: null },
+          },
+        }),
+        prisma.admissionSequence.count({
+          where: { schoolId },
+        }),
+      ])
+
+      if (studentCount > 0 || sequenceCount > 0) {
+        return {
+          success: false,
+          message:
+            "This school code cannot be changed because admission numbers have already been issued.",
+        }
+      }
+    }
+
+    await prisma.school.update({
+      where: { id: schoolId },
+      data: { code: normalizedCode },
+    })
+
+    revalidatePath("/dashboard/schools")
+    revalidatePath(`/dashboard/schools/${schoolId}/edit`)
+
+    return {
+      success: true,
+      message: "School code updated successfully.",
+    }
+  } catch (error) {
+    if (
+      error instanceof Prisma.PrismaClientKnownRequestError &&
+      error.code === "P2002"
+    ) {
+      return {
+        success: false,
+        message: "This school code is already assigned to another school.",
+      }
+    }
+
+    console.error("School code update error:", error)
+
+    return {
+      success: false,
+      message: "Unable to update school code.",
     }
   }
 }

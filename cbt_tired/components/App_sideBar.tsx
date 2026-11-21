@@ -1,7 +1,11 @@
+
 "use client"
 
-import {  useSidebar } from "@/components/ui/sidebar"
+import { useEffect } from "react"
+import { usePathname, useRouter } from "next/navigation"
+import { useSidebar } from "@/components/ui/sidebar"
 import { RiGraduationCapLine } from "@remixicon/react"
+
 import {
   RiDashboardLine,
   RiSchoolLine,
@@ -24,7 +28,6 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
-import Link from "next/link"
 
 const mainItems = [
   {
@@ -51,6 +54,11 @@ const academicItems = [
     icon: RiBook2Line,
   },
   {
+  title: "Students",
+  url: "/dashboard/students",
+  icon: RiGroupLine,
+},
+  {
     title: "Subjects",
     url: "/dashboard/subjects",
     icon: RiBook2Line,
@@ -74,15 +82,15 @@ const examItems = [
     icon: RiGroupLine,
   },
   {
-  title: "Question Bank",
-  url: "/dashboard/questions",
-  icon: RiQuestionLine,
-},
-{
-  title: "Teacher Activity",
-  url: "/dashboard/audit-logs",
-  icon: RiFileList3Line,
-},
+    title: "Question Bank",
+    url: "/dashboard/questions",
+    icon: RiQuestionLine,
+  },
+  {
+    title: "Teacher Activity",
+    url: "/dashboard/audit-logs",
+    icon: RiFileList3Line,
+  },
   {
     title: "Exams",
     url: "/dashboard/exams",
@@ -106,7 +114,26 @@ const examItems = [
 ]
 
 export function AppSidebar() {
-  const { state } = useSidebar()
+  const pathname = usePathname()
+  const router = useRouter()
+
+  const {
+    state,
+    isMobile,
+    setOpenMobile,
+  } = useSidebar()
+
+  // Close the mobile drawer after navigation.
+  // Desktop sidebar remains open.
+  useEffect(() => {
+    if (isMobile) {
+      setOpenMobile(false)
+    }
+  }, [pathname, isMobile, setOpenMobile])
+
+  function navigateTo(url: string) {
+    router.push(url)
+  }
 
   return (
     <Sidebar collapsible="icon">
@@ -118,13 +145,17 @@ export function AppSidebar() {
             <RiGraduationCapLine className="size-7 text-primary" />
 
             <div>
-              <h2 className="leading-none my-1 font-bold">Eagle Crest</h2>
-
-              <p className="text-xs text-muted-foreground">CBT System</p>
+              <h2 className="my-1 font-bold leading-none">
+                Eagle Crest
+              </h2>
+              <p className="text-xs text-muted-foreground">
+                CBT System
+              </p>
             </div>
           </div>
         )}
       </SidebarHeader>
+
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupLabel>Panel</SidebarGroupLabel>
@@ -133,14 +164,13 @@ export function AppSidebar() {
             <SidebarMenu>
               {mainItems.map((item) => (
                 <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton>
-                    <Link
-                      href={item.url}
-                      className="flex items-center gap-3 p-2"
-                    >
-                      <item.icon className="size-5" />
-                      <span>{item.title}</span>
-                    </Link>
+                  <SidebarMenuButton
+                    isActive={pathname === item.url}
+                    onClick={() => navigateTo(item.url)}
+                    tooltip={item.title}
+                  >
+                    <item.icon className="size-5" />
+                    <span>{item.title}</span>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}
@@ -155,14 +185,13 @@ export function AppSidebar() {
             <SidebarMenu>
               {academicItems.map((item) => (
                 <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton>
-                    <Link
-                      href={item.url}
-                      className="flex items-center gap-3 p-2"
-                    >
-                      <item.icon className="size-5" />
-                      <span>{item.title}</span>
-                    </Link>
+                  <SidebarMenuButton
+                    isActive={pathname === item.url}
+                    onClick={() => navigateTo(item.url)}
+                    tooltip={item.title}
+                  >
+                    <item.icon className="size-5" />
+                    <span>{item.title}</span>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}
@@ -177,14 +206,13 @@ export function AppSidebar() {
             <SidebarMenu>
               {examItems.map((item) => (
                 <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton>
-                    <Link
-                      href={item.url}
-                      className="flex items-center gap-3 p-2"
-                    >
-                      <item.icon className="size-5" />
-                      <span>{item.title}</span>
-                    </Link>
+                  <SidebarMenuButton
+                    isActive={pathname === item.url}
+                    onClick={() => navigateTo(item.url)}
+                    tooltip={item.title}
+                  >
+                    <item.icon className="size-5" />
+                    <span>{item.title}</span>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}

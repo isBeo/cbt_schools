@@ -8,10 +8,10 @@ import { deleteTeacherAssignment } from "../actions"
 type Assignment = {
   id: number
   createdAt: Date
-  teacher: {
-    name: string
-    email: string
-  }
+ teacher: {
+  name: string
+  email: string | null
+}
   class: {
     name: string
   }
