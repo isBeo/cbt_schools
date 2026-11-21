@@ -3,7 +3,7 @@
 
 import { submitExam } from "@/app/actions/exam"
 import { useRouter } from "next/navigation"
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef, useCallback } from "react"
 import { Button } from "@/components/ui/button"
 
 type ExamWithQuestions = {
@@ -21,65 +21,120 @@ type ExamWithQuestions = {
 
 type ExamFormProps = {
   exam: ExamWithQuestions
-  studentId: number
   duration: number
 }
 
-export function ExamForm({ exam, studentId, duration }: ExamFormProps) {
+export function ExamForm({ exam, duration }: ExamFormProps) {
   const [currentQuestion, setCurrentQuestion] = useState(0)
   const [answers, setAnswers] = useState<Record<number, number>>({})
   const [timeLeft, setTimeLeft] = useState(duration * 60)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [error, setError] = useState("")
 
   const router = useRouter()
+
+  // Prevent two submissions from starting at the same time.
+  const submittingRef = useRef(false)
+
+  // Prevent automatic submission from repeatedly retrying after an error.
+  const autoSubmitAttemptedRef = useRef(false)
+
   const question = exam.questions[currentQuestion]
 
-  const handleSubmit = async () => {
-    const result = await submitExam({
-      studentId,
-      examId: exam.id,
-      answers,
-    })
+  const handleSubmit = useCallback(async () => {
+    if (submittingRef.current) return
 
-    if (result.success) {
-      router.push(`/result/${result.attemptId}`)
+    submittingRef.current = true
+    setIsSubmitting(true)
+    setError("")
+
+    try {
+      const result = await submitExam({
+        examId: exam.id,
+        answers,
+      })
+
+      if (result.success) {
+        router.push(`/result/${result.attemptId}`)
+      } else {
+        submittingRef.current = false
+        setIsSubmitting(false)
+        setError("Unable to submit your exam. Please try again.")
+      }
+    } catch (err) {
+      submittingRef.current = false
+      setIsSubmitting(false)
+
+      setError(
+        err instanceof Error
+          ? err.message
+          : "Unable to submit your exam. Please try again."
+      )
     }
-  }
+  }, [exam.id, answers, router])
 
+  // Countdown timer.
   useEffect(() => {
-    if (timeLeft <= 0) return
+    if (timeLeft <= 0 || isSubmitting) return
 
-    const timer = setInterval(() => {
-      setTimeLeft((prev) => prev - 1)
+    const timer = setTimeout(() => {
+      setTimeLeft((previous) => Math.max(0, previous - 1))
     }, 1000)
 
-    return () => clearInterval(timer)
-  }, [timeLeft])
+    return () => clearTimeout(timer)
+  }, [timeLeft, isSubmitting])
+
+  // Automatically submit when the countdown reaches zero.
+  useEffect(() => {
+    if (
+      timeLeft === 0 &&
+      !isSubmitting &&
+      !autoSubmitAttemptedRef.current
+    ) {
+      autoSubmitAttemptedRef.current = true
+      void handleSubmit()
+    }
+  }, [timeLeft, isSubmitting, handleSubmit])
 
   if (!question) {
-    return <div className="p-6">No questions have been added to this exam.</div>
+    return (
+      <div className="p-6">
+        No questions have been added to this exam.
+      </div>
+    )
   }
 
   return (
     <div className="space-y-6">
-      <Button type="button" onClick={handleSubmit}>
-        Submit Exam
-      </Button>
-
       <div>
-        <h1 className="text-2xl font-bold">{exam.title}</h1>
+        <h1 className="mb-3 text-2xl font-bold">{exam.title}</h1>
 
         <p className="rounded bg-red-600 px-4 py-2 text-center text-xl font-bold text-white">
           {Math.floor(timeLeft / 60)}:
           {(timeLeft % 60).toString().padStart(2, "0")}
         </p>
 
-        <p className="text-sm text-muted-foreground">
+        <p className="mt-2 text-sm text-muted-foreground">
           Answered {Object.keys(answers).length} of {exam.questions.length}
         </p>
       </div>
 
+      {error && (
+        <p className="rounded-md bg-destructive/10 p-3 text-sm text-destructive">
+          {error}
+        </p>
+      )}
+
+      {timeLeft === 0 && (
+        <p className="text-sm font-medium text-red-600">
+          Time is up. Your exam is being submitted.
+        </p>
+      )}
+
       <div className="rounded-lg border p-6">
-        <h2 className="mb-6 text-lg font-semibold">{question.questionText}</h2>
+        <h2 className="mb-6 text-lg font-semibold">
+          {question.questionText}
+        </h2>
 
         <div className="space-y-3">
           {question.options.map((option) => (
@@ -91,9 +146,10 @@ export function ExamForm({ exam, studentId, duration }: ExamFormProps) {
                 type="radio"
                 name={`question-${question.id}`}
                 checked={answers[question.id] === option.id}
+                disabled={isSubmitting || timeLeft === 0}
                 onChange={() =>
-                  setAnswers((prev) => ({
-                    ...prev,
+                  setAnswers((previous) => ({
+                    ...previous,
                     [question.id]: option.id,
                   }))
                 }
@@ -107,8 +163,8 @@ export function ExamForm({ exam, studentId, duration }: ExamFormProps) {
       <div className="flex justify-between">
         <Button
           type="button"
-          disabled={currentQuestion === 0}
-          onClick={() => setCurrentQuestion((prev) => prev - 1)}
+          disabled={currentQuestion === 0 || isSubmitting || timeLeft === 0}
+          onClick={() => setCurrentQuestion((previous) => previous - 1)}
         >
           Previous
         </Button>
@@ -116,13 +172,18 @@ export function ExamForm({ exam, studentId, duration }: ExamFormProps) {
         {currentQuestion < exam.questions.length - 1 ? (
           <Button
             type="button"
-            onClick={() => setCurrentQuestion((prev) => prev + 1)}
+            disabled={isSubmitting || timeLeft === 0}
+            onClick={() => setCurrentQuestion((previous) => previous + 1)}
           >
             Next
           </Button>
         ) : (
-          <Button type="button" onClick={handleSubmit}>
-            Submit Exam
+          <Button
+            type="button"
+            onClick={handleSubmit}
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? "Submitting..." : "Submit Exam"}
           </Button>
         )}
       </div>
@@ -139,6 +200,7 @@ export function ExamForm({ exam, studentId, duration }: ExamFormProps) {
               <button
                 key={q.id}
                 type="button"
+                disabled={isSubmitting || timeLeft === 0}
                 onClick={() => setCurrentQuestion(index)}
                 className={`rounded p-2 text-sm font-medium ${
                   current
@@ -160,6 +222,15 @@ export function ExamForm({ exam, studentId, duration }: ExamFormProps) {
           <span>⬜ Not Answered</span>
         </div>
       </div>
+
+      <Button
+        type="button"
+        onClick={handleSubmit}
+        disabled={isSubmitting}
+        className="w-full"
+      >
+        {isSubmitting ? "Submitting..." : "Submit Exam"}
+      </Button>
     </div>
   )
 }

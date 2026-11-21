@@ -253,7 +253,11 @@ model ExamAttempt {
 
   result  Result?
   answers StudentAnswer[]
+
+  @@unique([studentId, examId])
 }
+
+
 
 enum AttemptStatus {
   IN_PROGRESS

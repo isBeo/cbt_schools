@@ -1,5 +1,7 @@
-import { notFound } from "next/navigation"
+
+import { auth } from "@/auth"
 import { prisma } from "@/lib/prisma"
+import { notFound, redirect } from "next/navigation"
 
 type Props = {
   params: Promise<{
@@ -8,14 +10,40 @@ type Props = {
 }
 
 export default async function ResultPage({ params }: Props) {
-  const { attemptId } = await params
+  const session = await auth()
 
-  const attempt = await prisma.examAttempt.findUnique({
+  if (!session?.user || session.user.role !== "STUDENT") {
+    redirect("/login")
+  }
+
+  const userId = Number(session.user.id)
+  const { attemptId } = await params
+  const id = Number(attemptId)
+
+  if (
+    !Number.isInteger(userId) ||
+    !Number.isInteger(id) ||
+    id <= 0
+  ) {
+    notFound()
+  }
+
+  const student = await prisma.student.findUnique({
     where: {
-      id: Number(attemptId),
+      userId,
+    },
+  })
+
+  if (!student) {
+    notFound()
+  }
+
+  const attempt = await prisma.examAttempt.findFirst({
+    where: {
+      id,
+      studentId: student.id,
     },
     include: {
-      student: true,
       exam: true,
       result: true,
     },
@@ -27,7 +55,7 @@ export default async function ResultPage({ params }: Props) {
 
   return (
     <main className="mx-auto max-w-2xl p-6">
-      <div className="rounded-xl border bg-background text-foreground p-8 shadow">
+      <div className="rounded-xl border bg-background p-8 text-foreground shadow">
         <h1 className="mb-8 text-center text-3xl font-bold text-green-600">
           Exam Completed
         </h1>
@@ -36,7 +64,7 @@ export default async function ResultPage({ params }: Props) {
           <div className="flex justify-between border-b pb-2">
             <span className="font-medium">Student</span>
             <span>
-              {attempt.student.firstName} {attempt.student.lastName}
+              {student.firstName} {student.lastName}
             </span>
           </div>
 
@@ -52,7 +80,7 @@ export default async function ResultPage({ params }: Props) {
 
           <div className="flex justify-between border-b pb-2">
             <span className="font-medium">Percentage</span>
-            <span>{attempt.result.percentage.toFixed(2)}%</span>
+            <span>{Number(attempt.result.percentage).toFixed(2)}%</span>
           </div>
 
           <div className="flex justify-between border-b pb-2">

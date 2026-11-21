@@ -1,10 +1,15 @@
+import DeleteExam from "./delete_exam"
+import { auth } from "@/auth"
+import { prisma } from "@/lib/prisma"
+import { redirect } from "next/navigation"
+
 import {
   activateExam,
   closeExam,
   draftExam,
   importExamQuestions,
+  publishExam,
 } from "@/app/actions/exam"
-import { prisma } from "@/lib/prisma"
 
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -17,10 +22,61 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
+
 import Link from "next/link"
 
 export default async function ExamTable() {
+  const session = await auth()
+
+  if (!session?.user) {
+    redirect("/login")
+  }
+
+  const { id, role, schoolId } = session.user
+
+  let where = {}
+
+  if (role === "SUPER_ADMIN") {
+    // Super Admin can see every school's exams.
+  } else if (role === "SCHOOL_ADMIN") {
+    if (!schoolId) {
+      redirect("/dashboard")
+    }
+
+    where = {
+      class: {
+        is: {
+          schoolId,
+        },
+      },
+    }
+  } else if (role === "TEACHER") {
+    const teacherId = Number(id)
+
+    if (!Number.isInteger(teacherId)) {
+      redirect("/dashboard")
+    }
+
+    const assignments = await prisma.teacherAssignment.findMany({
+      where: { teacherId },
+      select: {
+        classId: true,
+        subjectId: true,
+      },
+    })
+
+    where = {
+      OR: assignments.map((assignment) => ({
+        classId: assignment.classId,
+        subjectId: assignment.subjectId,
+      })),
+    }
+  } else {
+    redirect("/dashboard")
+  }
+
   const exams = await prisma.exam.findMany({
+    where,
     include: {
       subject: true,
       class: true,
@@ -50,7 +106,9 @@ export default async function ExamTable() {
       <TableBody>
         {exams.map((exam) => (
           <TableRow key={exam.id}>
-            <TableCell className="font-medium">{exam.title}</TableCell>
+            <TableCell className="font-medium">
+              {exam.title}
+            </TableCell>
 
             <TableCell>{exam.subject.name}</TableCell>
 
@@ -62,13 +120,29 @@ export default async function ExamTable() {
 
             <TableCell>
               <div className="flex flex-wrap gap-2">
-                {exam.status === "DRAFT" && (
-                  <Link href={`/dashboard/exams/${exam.id}/questions`}>
-                    <Button size="sm" variant="secondary">
-                      Manage Questions
-                    </Button>
-                  </Link>
-                )}
+
+{exam.status === "DRAFT" && (
+  <>
+    <Link href={`/dashboard/exams/${exam.id}/questions`}>
+      <Button size="sm" variant="secondary">
+        Manage Questions
+      </Button>
+    </Link>
+
+    <form action={publishExam.bind(null, exam.id)}>
+      <Button size="sm">
+        Publish
+      </Button>
+    </form>
+
+    {(role === "SUPER_ADMIN" || role === "SCHOOL_ADMIN") && (
+      <DeleteExam
+        examId={exam.id}
+        examTitle={exam.title}
+      />
+    )}
+  </>
+)}
 
                 {exam.status === "PUBLISHED" && (
                   <>
@@ -101,6 +175,7 @@ export default async function ExamTable() {
                     </form>
                   </>
                 )}
+
                 {exam.status === "ACTIVE" && (
                   <form action={closeExam.bind(null, exam.id)}>
                     <Button size="sm" variant="destructive">

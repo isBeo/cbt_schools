@@ -1,5 +1,7 @@
+
+import { auth } from "@/auth"
 import { prisma } from "@/lib/prisma"
-import { notFound } from "next/navigation"
+import { notFound, redirect } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { importExamQuestions } from "@/app/actions/exam"
 
@@ -10,13 +12,38 @@ type Props = {
 }
 
 export default async function QuestionsPage({ params }: Props) {
+  const session = await auth()
+
+  if (!session?.user) {
+    redirect("/login")
+  }
+
+  const { id: userId, role, schoolId } = session.user
   const { id } = await params
+  const examId = Number(id)
+
+  if (!Number.isInteger(examId) || examId <= 0) {
+    notFound()
+  }
+
+  if (
+    role !== "SUPER_ADMIN" &&
+    role !== "SCHOOL_ADMIN" &&
+    role !== "TEACHER"
+  ) {
+    notFound()
+  }
 
   const exam = await prisma.exam.findUnique({
     where: {
-      id: Number(id),
+      id: examId,
     },
     include: {
+      class: {
+        select: {
+          schoolId: true,
+        },
+      },
       questions: {
         include: {
           options: true,
@@ -30,6 +57,35 @@ export default async function QuestionsPage({ params }: Props) {
 
   if (!exam) {
     notFound()
+  }
+
+  // Super Admin can manage exams across all schools.
+  if (role === "SUPER_ADMIN") {
+    // No additional school restriction.
+  } else if (role === "SCHOOL_ADMIN") {
+    if (!schoolId || exam.class.schoolId !== schoolId) {
+      notFound()
+    }
+  } else if (role === "TEACHER") {
+    const teacherId = Number(userId)
+
+    if (!Number.isInteger(teacherId)) {
+      notFound()
+    }
+
+    const assignment = await prisma.teacherAssignment.findUnique({
+      where: {
+        teacherId_classId_subjectId: {
+          teacherId,
+          classId: exam.classId,
+          subjectId: exam.subjectId,
+        },
+      },
+    })
+
+    if (!assignment) {
+      notFound()
+    }
   }
 
   return (
