@@ -1,12 +1,12 @@
-import {
-  ExamActivityChart,
-  type ExamActivityPoint,
-} from "./components/ExamActivityChart"
 
 import { redirect } from "next/navigation"
 import { auth } from "@/auth"
 import { prisma } from "@/lib/prisma"
 import { StatCard } from "./components/StatCard"
+import {
+  ExamActivityChart,
+  type ExamActivityPoint,
+} from "./components/ExamActivityChart"
 
 import {
   School,
@@ -35,8 +35,77 @@ export default async function Dashboard() {
 
   const firstName = name?.trim().split(/\s+/)[0]
 
+  // Prepare the last seven calendar days
+  const today = new Date()
+  const sevenDaysAgo = new Date(today)
+
+  sevenDaysAgo.setDate(today.getDate() - 6)
+  sevenDaysAgo.setHours(0, 0, 0, 0)
+
+  // Prepare empty chart data
+  const examActivity: ExamActivityPoint[] = Array.from(
+    { length: 7 },
+    (_, index) => {
+      const date = new Date(sevenDaysAgo)
+      date.setDate(sevenDaysAgo.getDate() + index)
+
+      return {
+        date: date.toLocaleDateString("en-NG", {
+          weekday: "short",
+        }),
+        attempts: 0,
+      }
+    }
+  )
+
+  // Date filter for exam activity
+  const activityWhere = {
+    startedAt: {
+      gte: sevenDaysAgo,
+      lt: new Date(
+        today.getFullYear(),
+        today.getMonth(),
+        today.getDate() + 1
+      ),
+    },
+  }
+
+  // Fetch exam activity according to role
+  let activityAttempts: { startedAt: Date }[] = []
+
+  if (role === "SUPER_ADMIN") {
+    activityAttempts = await prisma.examAttempt.findMany({
+      where: activityWhere,
+      select: { startedAt: true },
+    })
+  } else if (role === "SCHOOL_ADMIN" && schoolId !== null) {
+    activityAttempts = await prisma.examAttempt.findMany({
+      where: {
+        ...activityWhere,
+        student: { schoolId },
+      },
+      select: { startedAt: true },
+    })
+  }
+
+  // Populate the chart with actual exam attempts
+  for (const attempt of activityAttempts) {
+    const attemptDate = new Date(attempt.startedAt)
+    attemptDate.setHours(0, 0, 0, 0)
+
+    const dayIndex = Math.round(
+      (attemptDate.getTime() - sevenDaysAgo.getTime()) /
+        (24 * 60 * 60 * 1000)
+    )
+
+    if (dayIndex >= 0 && dayIndex < examActivity.length) {
+      examActivity[dayIndex].attempts += 1
+    }
+  }
+
   let heading = "Dashboard"
   let description = "Your school management overview."
+
   let stats: {
     title: string
     value: number
@@ -114,10 +183,18 @@ export default async function Dashboard() {
 
     const [classes, subjects, exams] = await Promise.all([
       prisma.class.count({
-        where: { teacherAssignments: { some: { teacherId: userId } } },
+        where: {
+          teacherAssignments: {
+            some: { teacherId: userId },
+          },
+        },
       }),
       prisma.subject.count({
-        where: { teacherAssignments: { some: { teacherId: userId } } },
+        where: {
+          teacherAssignments: {
+            some: { teacherId: userId },
+          },
+        },
       }),
       assignments.length
         ? prisma.exam.count({
@@ -155,7 +232,7 @@ export default async function Dashboard() {
     ]
   }
 
-  // STUDENT: Only the logged-in student's academic information
+  // STUDENT: Logged-in student's academic information
   else if (role === "STUDENT") {
     heading = "My Learning Overview"
     description = "Your examinations and academic progress."
@@ -256,6 +333,7 @@ export default async function Dashboard() {
         </p>
       </div>
 
+      {/* Statistics */}
       {stats.length > 0 ? (
         <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
           {stats.map((stat) => (
@@ -272,6 +350,11 @@ export default async function Dashboard() {
           No dashboard information is available yet. Please contact your
           school administrator if you think this is an error.
         </p>
+      )}
+
+      {/* Exam Activity Chart */}
+      {(role === "SUPER_ADMIN" || role === "SCHOOL_ADMIN") && (
+        <ExamActivityChart data={examActivity} />
       )}
     </div>
   )
