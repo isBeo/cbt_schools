@@ -1,4 +1,3 @@
-
 "use server"
 
 import { auth } from "@/auth"
@@ -21,10 +20,7 @@ async function getSchoolAdmin() {
   return { schoolId: session.user.schoolId }
 }
 
-export async function createSubject(data: {
-  name: string
-  code: string
-}) {
+export async function createSubject(data: { name: string; code: string }) {
   const admin = await getSchoolAdmin()
 
   if (!admin) {
@@ -44,7 +40,8 @@ export async function createSubject(data: {
   if (!/^[A-Z0-9-]{2,15}$/.test(code)) {
     return {
       success: false,
-      message: "Subject code must be 2–15 characters (letters, numbers or hyphens).",
+      message:
+        "Subject code must be 2–15 characters (letters, numbers or hyphens).",
     }
   }
 

@@ -1,4 +1,3 @@
-
 "use client"
 
 import { useEffect } from "react"
@@ -131,18 +130,11 @@ const examinationItems: MenuItem[] = [
   },
 ]
 
-export function AppSidebar({
-  role,
-  schoolName,
-}: AppSidebarProps) {
+export function AppSidebar({ role, schoolName }: AppSidebarProps) {
   const pathname = usePathname()
   const router = useRouter()
 
-  const {
-    state,
-    isMobile,
-    setOpenMobile,
-  } = useSidebar()
+  const { state, isMobile, setOpenMobile } = useSidebar()
 
   useEffect(() => {
     if (isMobile) {
@@ -158,8 +150,7 @@ export function AppSidebar({
           <SidebarMenuButton
             isActive={
               pathname === item.url ||
-              (item.url !== "/dashboard" &&
-                pathname.startsWith(`${item.url}/`))
+              (item.url !== "/dashboard" && pathname.startsWith(`${item.url}/`))
             }
             onClick={() => router.push(item.url)}
             tooltip={item.title}
@@ -181,7 +172,7 @@ export function AppSidebar({
             <RiGraduationCapLine className="size-7 text-primary" />
 
             <div className="min-w-0">
-              <h2 className="my-1 truncate font-bold leading-none">
+              <h2 className="my-1 truncate leading-none font-bold">
                 {schoolName || "Ace-Schools"}
               </h2>
 
@@ -198,36 +189,26 @@ export function AppSidebar({
           <SidebarGroupLabel>OVERVIEW</SidebarGroupLabel>
 
           <SidebarGroupContent>
-            <SidebarMenu>
-              {renderItems(mainItems)}
-            </SidebarMenu>
+            <SidebarMenu>{renderItems(mainItems)}</SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
 
-        {academicItems.some((item) =>
-          item.roles.includes(role)
-        ) && (
+        {academicItems.some((item) => item.roles.includes(role)) && (
           <SidebarGroup>
             <SidebarGroupLabel>ACADEMICS</SidebarGroupLabel>
 
             <SidebarGroupContent>
-              <SidebarMenu>
-                {renderItems(academicItems)}
-              </SidebarMenu>
+              <SidebarMenu>{renderItems(academicItems)}</SidebarMenu>
             </SidebarGroupContent>
           </SidebarGroup>
         )}
 
-        {examinationItems.some((item) =>
-          item.roles.includes(role)
-        ) && (
+        {examinationItems.some((item) => item.roles.includes(role)) && (
           <SidebarGroup>
             <SidebarGroupLabel>EXAMINATIONS</SidebarGroupLabel>
 
             <SidebarGroupContent>
-              <SidebarMenu>
-                {renderItems(examinationItems)}
-              </SidebarMenu>
+              <SidebarMenu>{renderItems(examinationItems)}</SidebarMenu>
             </SidebarGroupContent>
           </SidebarGroup>
         )}

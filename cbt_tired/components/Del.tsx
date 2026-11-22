@@ -3,7 +3,6 @@
 // import { useState } from "react";
 
 export const Del = () => {
-  
   return <div></div>
 }
 export default Del

@@ -7,7 +7,6 @@ import { revalidatePath } from "next/cache"
 import { prisma } from "@/lib/prisma"
 import { redirect } from "next/navigation"
 
-
 // VERIFY THAT THE CURRENT USER CAN MANAGE AN EXAM
 async function getAuthorizedExam(examId: number) {
   const session = await auth()
@@ -22,11 +21,7 @@ async function getAuthorizedExam(examId: number) {
 
   const { id, role, schoolId } = session.user
 
-  if (
-    role !== "SUPER_ADMIN" &&
-    role !== "SCHOOL_ADMIN" &&
-    role !== "TEACHER"
-  ) {
+  if (role !== "SUPER_ADMIN" && role !== "SCHOOL_ADMIN" && role !== "TEACHER") {
     throw new Error("You are not authorized to manage exams.")
   }
 
@@ -83,7 +78,6 @@ async function getAuthorizedExam(examId: number) {
   return exam
 }
 
-
 // IMPORT EXAM QUESTIONS
 export async function importExamQuestions(examId: number) {
   const exam = await getAuthorizedExam(examId)
@@ -91,25 +85,41 @@ export async function importExamQuestions(examId: number) {
   if (!exam.questionSource) {
     throw new Error("No question source selected.")
   }
+  if (exam.status !== "PUBLISHED") {
+    throw new Error("Questions can only be imported into a published exam.")
+  }
+  // Validate the selected question bank.
+  const validQuestionSource = QUESTION_BANKS.some(
+    (bank) => bank.value === exam.questionSource
+  )
 
+  if (!validQuestionSource) {
+    throw new Error("This exam has an invalid question source.")
+  }
+
+  // Load questions from the approved JSON source.
   const questions = await loadQuestions(exam.questionSource)
 
   if (!questions.length) {
     throw new Error("No questions found in source.")
   }
 
+  // Prevent duplicate imports.
   const existing = await prisma.question.count({
     where: { examId: exam.id },
   })
 
   if (existing > 0) {
     revalidatePath("/dashboard/exams")
+    revalidatePath(`/dashboard/exams/${exam.id}/questions`)
     return
   }
 
-  await prisma.$transaction(
-    questions.map((q, index) =>
-      prisma.question.create({
+// Save questions and their options.
+await prisma.$transaction(
+  async (tx) => {
+    for (const [index, q] of questions.entries()) {
+      await tx.question.create({
         data: {
           examId: exam.id,
           questionText: q.questionText,
@@ -125,20 +135,153 @@ export async function importExamQuestions(examId: number) {
           },
         },
       })
-    )
-  )
+    }
+  },
+  {
+    maxWait: 15000,
+    timeout: 60000,
+  }
+)
 
   revalidatePath("/dashboard/exams")
   revalidatePath(`/dashboard/exams/${exam.id}/questions`)
 }
 
-
-
 // SUBMIT EXAM
+
+
+// START OR RESUME A STUDENT EXAM
+export async function startExam(examId: number) {
+  const session = await auth()
+
+  if (!session?.user || session.user.role !== "STUDENT") {
+    throw new Error("You are not authorized to start this exam.")
+  }
+
+  const userId = Number(session.user.id)
+
+  if (
+    !Number.isInteger(userId) ||
+    !Number.isInteger(examId) ||
+    examId <= 0
+  ) {
+    throw new Error("Invalid exam details.")
+  }
+
+  const student = await prisma.student.findUnique({
+    where: { userId },
+  })
+
+  if (!student) {
+    throw new Error("Student record not found.")
+  }
+
+  const now = new Date()
+
+  const exam = await prisma.exam.findFirst({
+    where: {
+      id: examId,
+      classId: student.classId,
+      status: "ACTIVE",
+      AND: [
+        {
+          OR: [
+            { startTime: null },
+            { startTime: { lte: now } },
+          ],
+        },
+        {
+          OR: [
+            { endTime: null },
+            { endTime: { gte: now } },
+          ],
+        },
+      ],
+    },
+  })
+
+  if (!exam) {
+    throw new Error("This exam is unavailable to you.")
+  }
+
+  if (exam.durationMinutes <= 0) {
+    throw new Error("This exam has an invalid duration.")
+  }
+
+  const existingAttempt = await prisma.examAttempt.findUnique({
+    where: {
+      studentId_examId: {
+        studentId: student.id,
+        examId: exam.id,
+      },
+    },
+  })
+
+  if (existingAttempt && existingAttempt.status !== "IN_PROGRESS") {
+    throw new Error("You have already attempted this exam.")
+  }
+
+  let attempt = existingAttempt
+
+  if (!attempt) {
+    try {
+      attempt = await prisma.examAttempt.create({
+        data: {
+          studentId: student.id,
+          examId: exam.id,
+          startedAt: now,
+          status: "IN_PROGRESS",
+        },
+      })
+    } catch (error) {
+      // Another request may have created the attempt simultaneously.
+      const errorCode =
+        typeof error === "object" && error !== null && "code" in error
+          ? error.code
+          : undefined
+
+      if (errorCode !== "P2002") {
+        throw error
+      }
+
+      attempt = await prisma.examAttempt.findUnique({
+        where: {
+          studentId_examId: {
+            studentId: student.id,
+            examId: exam.id,
+          },
+        },
+      })
+
+      if (!attempt || attempt.status !== "IN_PROGRESS") {
+        throw new Error("You have already attempted this exam.")
+      }
+    }
+  }
+
+  const durationDeadline = new Date(
+    attempt.startedAt.getTime() + exam.durationMinutes * 60 * 1000
+  )
+
+  const expiresAt =
+    exam.endTime && exam.endTime < durationDeadline
+      ? exam.endTime
+      : durationDeadline
+
+  return {
+    attemptId: attempt.id,
+    startedAt: attempt.startedAt.toISOString(),
+    expiresAt: expiresAt.toISOString(),
+  }
+}
+
+
 type SubmitExamInput = {
   examId: number
+  attemptId: number
   answers: Record<number, number>
 }
+
 
 export async function submitExam(data: SubmitExamInput) {
   const session = await auth()
@@ -152,7 +295,9 @@ export async function submitExam(data: SubmitExamInput) {
   if (
     !Number.isInteger(userId) ||
     !Number.isInteger(data.examId) ||
-    data.examId <= 0
+    data.examId <= 0 ||
+    !Number.isInteger(data.attemptId) ||
+    data.attemptId <= 0
   ) {
     throw new Error("Invalid exam submission.")
   }
@@ -166,11 +311,12 @@ export async function submitExam(data: SubmitExamInput) {
   }
 
   const now = new Date()
+  const GRACE_PERIOD_MS = 15 * 1000
 
   try {
     return await prisma.$transaction(
       async (tx) => {
-        // Identify the student using the authenticated account.
+        // Identify the student from the authenticated account.
         const student = await tx.student.findUnique({
           where: { userId },
         })
@@ -179,26 +325,12 @@ export async function submitExam(data: SubmitExamInput) {
           throw new Error("Student record not found.")
         }
 
-        // Verify exam availability and class ownership.
+        // Verify that the exam belongs to the student's class.
         const exam = await tx.exam.findFirst({
           where: {
             id: data.examId,
             classId: student.classId,
             status: "ACTIVE",
-            AND: [
-              {
-                OR: [
-                  { startTime: null },
-                  { startTime: { lte: now } },
-                ],
-              },
-              {
-                OR: [
-                  { endTime: null },
-                  { endTime: { gte: now } },
-                ],
-              },
-            ],
           },
           include: {
             questions: {
@@ -220,8 +352,8 @@ export async function submitExam(data: SubmitExamInput) {
           throw new Error("This exam has no questions.")
         }
 
-        // Check for an existing attempt.
-        const existingAttempt = await tx.examAttempt.findUnique({
+        // Find the exact attempt created by startExam().
+        const attempt = await tx.examAttempt.findUnique({
           where: {
             studentId_examId: {
               studentId: student.id,
@@ -230,18 +362,37 @@ export async function submitExam(data: SubmitExamInput) {
           },
         })
 
-        if (existingAttempt) {
-          throw new Error("You have already attempted this exam.")
+        if (
+          !attempt ||
+          attempt.id !== data.attemptId ||
+          attempt.status !== "IN_PROGRESS"
+        ) {
+          throw new Error(
+            "This exam attempt is invalid or has already been submitted."
+          )
         }
 
-        const questionMap = new Map(
-          exam.questions.map((question) => [
-            question.id,
-            question,
-          ])
+        // Calculate the deadline using the original start time.
+        const durationDeadline = new Date(
+          attempt.startedAt.getTime() +
+            exam.durationMinutes * 60 * 1000
         )
 
-        // Validate every submitted answer.
+        const expiresAt =
+          exam.endTime && exam.endTime < durationDeadline
+            ? exam.endTime
+            : durationDeadline
+
+        // Allow a short technical grace period for network delays.
+        if (now.getTime() > expiresAt.getTime() + GRACE_PERIOD_MS) {
+          throw new Error("Your exam submission deadline has passed.")
+        }
+
+        // Validate every submitted question and option.
+        const questionMap = new Map(
+          exam.questions.map((question) => [question.id, question])
+        )
+
         for (const [questionId, optionId] of Object.entries(data.answers)) {
           const parsedQuestionId = Number(questionId)
           const parsedOptionId = Number(optionId)
@@ -259,21 +410,28 @@ export async function submitExam(data: SubmitExamInput) {
           }
         }
 
-        // Create the attempt.
-        const attempt = await tx.examAttempt.create({
-          data: {
+        // Atomically claim the attempt for submission.
+        const updatedAttempt = await tx.examAttempt.updateMany({
+          where: {
+            id: attempt.id,
             studentId: student.id,
             examId: exam.id,
-            startedAt: now,
+            status: "IN_PROGRESS",
+          },
+          data: {
             submittedAt: now,
             status: "SUBMITTED",
           },
         })
 
+        if (updatedAttempt.count !== 1) {
+          throw new Error("This exam attempt has already been submitted.")
+        }
+
         let score = 0
         let totalMarks = 0
 
-        // Record all questions, including unanswered questions.
+        // Prepare answers and question-level result details.
         const answersToCreate = exam.questions.map((question) => {
           totalMarks += question.marks
 
@@ -286,27 +444,36 @@ export async function submitExam(data: SubmitExamInput) {
             (option) => option.isCorrect
           )
 
-          if (correctOption?.id === selectedOptionId) {
-            score += question.marks
-          }
+          const isCorrect =
+            correctOption?.id === selectedOptionId
+
+          const marksAwarded = isCorrect ? question.marks : 0
+
+          score += marksAwarded
 
           return {
             attemptId: attempt.id,
             questionId: question.id,
             selectedOptionId,
             answeredAt: now,
+            isCorrect,
+            marksAwarded,
           }
         })
 
+        // Save all student answers.
         await tx.studentAnswer.createMany({
-          data: answersToCreate,
+          data: answersToCreate.map((answer) => ({
+            attemptId: answer.attemptId,
+            questionId: answer.questionId,
+            selectedOptionId: answer.selectedOptionId,
+            answeredAt: answer.answeredAt,
+          })),
         })
 
-        // Calculate result.
+        // Calculate the result.
         const percentage =
-          totalMarks === 0
-            ? 0
-            : (score / totalMarks) * 100
+          totalMarks === 0 ? 0 : (score / totalMarks) * 100
 
         let grade = "F"
 
@@ -316,6 +483,7 @@ export async function submitExam(data: SubmitExamInput) {
         else if (percentage >= 45) grade = "D"
         else if (percentage >= 40) grade = "E"
 
+        // Create the overall result.
         const result = await tx.result.create({
           data: {
             attemptId: attempt.id,
@@ -323,6 +491,16 @@ export async function submitExam(data: SubmitExamInput) {
             percentage,
             grade,
           },
+        })
+
+        // Save individual question results.
+        await tx.resultDetail.createMany({
+          data: answersToCreate.map((answer) => ({
+            resultId: result.id,
+            questionId: answer.questionId,
+            isCorrect: answer.isCorrect,
+            marksAwarded: answer.marksAwarded,
+          })),
         })
 
         return {
@@ -339,45 +517,24 @@ export async function submitExam(data: SubmitExamInput) {
       }
     )
   } catch (error) {
-    // Handle database uniqueness and transaction conflicts.
     const errorCode =
-      typeof error === "object" &&
-      error !== null &&
-      "code" in error
+      typeof error === "object" && error !== null && "code" in error
         ? error.code
         : undefined
 
-    if (errorCode === "P2002" || errorCode === "P2034") {
-      const student = await prisma.student.findUnique({
-        where: { userId },
-      })
+    if (errorCode === "P2002") {
+      throw new Error("This exam attempt has already been submitted.")
+    }
 
-      if (student) {
-        const existingAttempt = await prisma.examAttempt.findUnique({
-          where: {
-            studentId_examId: {
-              studentId: student.id,
-              examId: data.examId,
-            },
-          },
-        })
-
-        if (existingAttempt) {
-          throw new Error("You have already attempted this exam.")
-        }
-      }
-
-      if (errorCode === "P2034") {
-        throw new Error(
-          "Your submission encountered a database conflict. Please try again."
-        )
-      }
+    if (errorCode === "P2034") {
+      throw new Error(
+        "Your submission encountered a database conflict. Please try again."
+      )
     }
 
     throw error
   }
 }
-
 
 // ACTIVATE OR REOPEN EXAM
 export async function activateExam(examId: number) {
@@ -403,7 +560,6 @@ export async function activateExam(examId: number) {
   revalidatePath("/dashboard/exams")
 }
 
-
 // PUBLISH EXAM
 export async function publishExam(examId: number) {
   const exam = await getAuthorizedExam(examId)
@@ -420,7 +576,6 @@ export async function publishExam(examId: number) {
   revalidatePath("/dashboard/exams")
 }
 
-
 // CLOSE EXAM
 export async function closeExam(examId: number) {
   const exam = await getAuthorizedExam(examId)
@@ -436,7 +591,6 @@ export async function closeExam(examId: number) {
 
   revalidatePath("/dashboard/exams")
 }
-
 
 // RETURN EXAM TO DRAFT
 export async function draftExam(examId: number) {
@@ -455,8 +609,6 @@ export async function draftExam(examId: number) {
 }
 
 
-
-
 // CREATE EXAM
 export async function createExam(formData: FormData) {
   const session = await auth()
@@ -467,11 +619,7 @@ export async function createExam(formData: FormData) {
 
   const { id, role, schoolId } = session.user
 
-  if (
-    role !== "SUPER_ADMIN" &&
-    role !== "SCHOOL_ADMIN" &&
-    role !== "TEACHER"
-  ) {
+  if (role !== "SUPER_ADMIN" && role !== "SCHOOL_ADMIN" && role !== "TEACHER") {
     throw new Error("You are not authorized to create exams.")
   }
 
@@ -496,6 +644,14 @@ export async function createExam(formData: FormData) {
     !questionSource.trim()
   ) {
     throw new Error("Please provide all required exam details.")
+  }
+
+  const validQuestionSource = QUESTION_BANKS.some(
+    (bank) => bank.value === questionSource.trim()
+  )
+
+  if (!validQuestionSource) {
+    throw new Error("Invalid question source selected.")
   }
 
   if (
@@ -575,9 +731,6 @@ export async function createExam(formData: FormData) {
   redirect("/dashboard/exams")
 }
 
-
-
-
 // DELETE EXAM
 export async function deleteExam(examId: number) {
   const session = await auth()
@@ -628,9 +781,7 @@ export async function deleteExam(examId: number) {
   }
 
   if (exam._count.attempts > 0) {
-    throw new Error(
-      "This exam has student attempts and cannot be deleted."
-    )
+    throw new Error("This exam has student attempts and cannot be deleted.")
   }
 
   await prisma.$transaction(async (tx) => {

@@ -1,4 +1,3 @@
-
 import { auth } from "@/auth"
 import { prisma } from "@/lib/prisma"
 import { CreateSubject } from "./components/create_subject"
@@ -46,8 +45,8 @@ export default async function SubjectsPage() {
         <div>
           <h2 className="text-lg font-semibold">School Subjects</h2>
           <p className="text-sm text-muted-foreground">
-            {subjects.length}{" "}
-            {subjects.length === 1 ? "subject" : "subjects"} registered
+            {subjects.length} {subjects.length === 1 ? "subject" : "subjects"}{" "}
+            registered
           </p>
         </div>
 

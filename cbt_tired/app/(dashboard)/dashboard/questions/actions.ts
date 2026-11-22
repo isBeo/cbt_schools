@@ -296,9 +296,6 @@
 //   return { success: true }
 // }
 
-
-
-
 "use server"
 
 import { auth } from "@/auth"
@@ -326,11 +323,7 @@ async function getAuthorizedTeacher() {
     throw new Error("You must be logged in.")
   }
 
-  if (
-    !["TEACHER", "SCHOOL_ADMIN", "SUPER_ADMIN"].includes(
-      session.user.role
-    )
-  ) {
+  if (!["TEACHER", "SCHOOL_ADMIN", "SUPER_ADMIN"].includes(session.user.role)) {
     throw new Error("You are not authorized to manage questions.")
   }
 
@@ -357,17 +350,11 @@ function validateQuestionInput(input: QuestionInput) {
     throw new Error("Enter the question.")
   }
 
-  if (
-    !Number.isInteger(input.marks) ||
-    input.marks <= 0
-  ) {
+  if (!Number.isInteger(input.marks) || input.marks <= 0) {
     throw new Error("Marks must be a positive whole number.")
   }
 
-  if (
-    !Number.isInteger(input.classId) ||
-    !Number.isInteger(input.subjectId)
-  ) {
+  if (!Number.isInteger(input.classId) || !Number.isInteger(input.subjectId)) {
     throw new Error("Select a valid class and subject.")
   }
 
@@ -396,10 +383,7 @@ async function validateTeacherAssignment(
   classId: number,
   subjectId: number
 ) {
-  if (
-    user.role === "SCHOOL_ADMIN" ||
-    user.role === "SUPER_ADMIN"
-  ) {
+  if (user.role === "SCHOOL_ADMIN" || user.role === "SUPER_ADMIN") {
     return
   }
 
@@ -412,16 +396,11 @@ async function validateTeacherAssignment(
   })
 
   if (!assignment) {
-    throw new Error(
-      "You are not assigned to teach this class and subject."
-    )
+    throw new Error("You are not assigned to teach this class and subject.")
   }
 }
 
-async function validateClassAndSubject(
-  classId: number,
-  subjectId: number
-) {
+async function validateClassAndSubject(classId: number, subjectId: number) {
   const [classRecord, subjectRecord] = await Promise.all([
     prisma.class.findUnique({
       where: { id: classId },
@@ -444,16 +423,9 @@ export async function createBankQuestion(input: QuestionInput) {
   const user = await getAuthorizedTeacher()
   const options = validateQuestionInput(input)
 
-  await validateTeacherAssignment(
-    user,
-    input.classId,
-    input.subjectId
-  )
+  await validateTeacherAssignment(user, input.classId, input.subjectId)
 
-  await validateClassAndSubject(
-    input.classId,
-    input.subjectId
-  )
+  await validateClassAndSubject(input.classId, input.subjectId)
 
   const result = await prisma.$transaction(async (tx) => {
     const question = await tx.bankQuestion.create({
@@ -517,16 +489,9 @@ export async function updateBankQuestion(
     throw new Error("Invalid question.")
   }
 
-  await validateTeacherAssignment(
-    user,
-    input.classId,
-    input.subjectId
-  )
+  await validateTeacherAssignment(user, input.classId, input.subjectId)
 
-  await validateClassAndSubject(
-    input.classId,
-    input.subjectId
-  )
+  await validateClassAndSubject(input.classId, input.subjectId)
 
   const existing = await prisma.bankQuestion.findFirst({
     where: {
@@ -617,11 +582,7 @@ export async function archiveBankQuestion(questionId: number) {
     throw new Error("Question not found.")
   }
 
-  await validateTeacherAssignment(
-    user,
-    existing.classId,
-    existing.subjectId
-  )
+  await validateTeacherAssignment(user, existing.classId, existing.subjectId)
 
   await prisma.$transaction(async (tx) => {
     await tx.bankQuestion.update({

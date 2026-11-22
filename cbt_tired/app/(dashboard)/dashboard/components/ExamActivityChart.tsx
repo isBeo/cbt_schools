@@ -1,13 +1,6 @@
 "use client"
 
-import {
-  Bar,
-  BarChart,
-  CartesianGrid,
-  Tooltip,
-  XAxis,
-  YAxis,
-} from "recharts"
+import { Bar, BarChart, CartesianGrid, Tooltip, XAxis, YAxis } from "recharts"
 
 import {
   Card,
@@ -17,10 +10,7 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 
-import {
-  ChartContainer,
-  type ChartConfig,
-} from "@/components/ui/chart"
+import { ChartContainer, type ChartConfig } from "@/components/ui/chart"
 
 export type ExamActivityPoint = {
   date: string
@@ -59,10 +49,7 @@ export function ExamActivityChart({ data }: Props) {
               data={data}
               margin={{ top: 10, right: 10, left: -20, bottom: 0 }}
             >
-              <CartesianGrid
-                vertical={false}
-                strokeDasharray="3 3"
-              />
+              <CartesianGrid vertical={false} strokeDasharray="3 3" />
 
               <XAxis
                 dataKey="date"
@@ -71,11 +58,7 @@ export function ExamActivityChart({ data }: Props) {
                 tickMargin={10}
               />
 
-              <YAxis
-                allowDecimals={false}
-                tickLine={false}
-                axisLine={false}
-              />
+              <YAxis allowDecimals={false} tickLine={false} axisLine={false} />
 
               <Tooltip />
 

@@ -1,4 +1,3 @@
-
 "use client"
 
 import { useMemo, useState, useTransition, type FormEvent } from "react"
@@ -176,9 +175,7 @@ export default function CreateQuestion({
         resetForm()
         router.refresh()
       } catch (err) {
-        setError(
-          err instanceof Error ? err.message : "Something went wrong."
-        )
+        setError(err instanceof Error ? err.message : "Something went wrong.")
       }
     })
   }
@@ -211,9 +208,7 @@ export default function CreateQuestion({
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="mb-1 block text-sm font-medium">
-              Question
-            </label>
+            <label className="mb-1 block text-sm font-medium">Question</label>
             <textarea
               value={questionText}
               onChange={(event) => setQuestionText(event.target.value)}
@@ -226,9 +221,7 @@ export default function CreateQuestion({
 
           <div className="grid gap-4 md:grid-cols-3">
             <div>
-              <label className="mb-1 block text-sm font-medium">
-                Class
-              </label>
+              <label className="mb-1 block text-sm font-medium">Class</label>
               <select
                 value={classId}
                 onChange={(event) => {
@@ -248,9 +241,7 @@ export default function CreateQuestion({
             </div>
 
             <div>
-              <label className="mb-1 block text-sm font-medium">
-                Subject
-              </label>
+              <label className="mb-1 block text-sm font-medium">Subject</label>
               <select
                 value={subjectId}
                 onChange={(event) => setSubjectId(event.target.value)}
@@ -268,9 +259,7 @@ export default function CreateQuestion({
             </div>
 
             <div>
-              <label className="mb-1 block text-sm font-medium">
-                Marks
-              </label>
+              <label className="mb-1 block text-sm font-medium">Marks</label>
               <input
                 type="number"
                 min="1"
@@ -305,9 +294,7 @@ export default function CreateQuestion({
                 </span>
                 <input
                   value={option.optionText}
-                  onChange={(event) =>
-                    updateOption(index, event.target.value)
-                  }
+                  onChange={(event) => updateOption(index, event.target.value)}
                   placeholder={`Enter option ${String.fromCharCode(65 + index)}`}
                   required
                   className="min-w-0 flex-1 rounded-lg border bg-background p-2.5 text-sm"

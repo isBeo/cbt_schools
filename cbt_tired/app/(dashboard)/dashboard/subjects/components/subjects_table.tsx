@@ -1,4 +1,3 @@
-
 "use client"
 
 import { useTransition } from "react"
@@ -70,7 +69,7 @@ export function SubjectsTable({ subjects }: { subjects: Subject[] }) {
                   type="button"
                   disabled={isPending}
                   onClick={() => handleDelete(subject.id, subject.name)}
-                  className="rounded-md border border-destructive px-3 py-1.5 text-destructive hover:bg-destructive hover:text-destructive-foreground disabled:opacity-50"
+                  className="hover:text-destructive-foreground rounded-md border border-destructive px-3 py-1.5 text-destructive hover:bg-destructive disabled:opacity-50"
                 >
                   Delete
                 </button>

@@ -1,4 +1,3 @@
-
 "use client"
 
 import { useTransition } from "react"
@@ -8,10 +7,10 @@ import { deleteTeacherAssignment } from "../actions"
 type Assignment = {
   id: number
   createdAt: Date
- teacher: {
-  name: string
-  email: string | null
-}
+  teacher: {
+    name: string
+    email: string | null
+  }
   class: {
     name: string
   }
@@ -30,11 +29,7 @@ export function AssignmentsTable({
   const [isPending, startTransition] = useTransition()
 
   function handleDelete(id: number, teacherName: string) {
-    if (
-      !window.confirm(
-        `Remove ${teacherName}'s teaching assignment?`
-      )
-    ) {
+    if (!window.confirm(`Remove ${teacherName}'s teaching assignment?`)) {
       return
     }
 
@@ -80,17 +75,13 @@ export function AssignmentsTable({
               <td className="px-4 py-3">{index + 1}</td>
 
               <td className="px-4 py-3">
-                <p className="font-medium">
-                  {assignment.teacher.name}
-                </p>
+                <p className="font-medium">{assignment.teacher.name}</p>
                 <p className="text-xs text-muted-foreground">
                   {assignment.teacher.email}
                 </p>
               </td>
 
-              <td className="px-4 py-3">
-                {assignment.class.name}
-              </td>
+              <td className="px-4 py-3">{assignment.class.name}</td>
 
               <td className="px-4 py-3">
                 {assignment.subject.name} ({assignment.subject.code})
@@ -105,12 +96,9 @@ export function AssignmentsTable({
                   type="button"
                   disabled={isPending}
                   onClick={() =>
-                    handleDelete(
-                      assignment.id,
-                      assignment.teacher.name
-                    )
+                    handleDelete(assignment.id, assignment.teacher.name)
                   }
-                  className="rounded-md border border-destructive px-3 py-1.5 text-destructive hover:bg-destructive hover:text-destructive-foreground disabled:opacity-50"
+                  className="hover:text-destructive-foreground rounded-md border border-destructive px-3 py-1.5 text-destructive hover:bg-destructive disabled:opacity-50"
                 >
                   Remove
                 </button>

@@ -1,0 +1,182 @@
+[
+  {
+    "questionText": "What does measurement of length tell us?",
+    "marks": 1,
+    "options": [
+      { "text": "How long something is", "correct": true },
+      { "text": "How heavy something is", "correct": false },
+      { "text": "How hot something is", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Which of these is a type of measurement?",
+    "marks": 1,
+    "options": [
+      { "text": "Length", "correct": true },
+      { "text": "Colour", "correct": false },
+      { "text": "Shape", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Which unit is commonly used to measure short lengths?",
+    "marks": 1,
+    "options": [
+      { "text": "Kilogram", "correct": false },
+      { "text": "Centimetre", "correct": true },
+      { "text": "Litre", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Length is used to measure ____.",
+    "marks": 1,
+    "options": [
+      { "text": "Distance", "correct": true },
+      { "text": "Temperature", "correct": false },
+      { "text": "Time", "correct": false }
+    ]
+  },
+  {
+    "questionText": "An object with a lot of mass is usually described as ____.",
+    "marks": 1,
+    "options": [
+      { "text": "Heavy", "correct": true },
+      { "text": "Short", "correct": false },
+      { "text": "Cold", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Which instrument is used to measure mass?",
+    "marks": 1,
+    "options": [
+      { "text": "Thermometer", "correct": false },
+      { "text": "Weighing scale", "correct": true },
+      { "text": "Clock", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Which unit is used to measure mass?",
+    "marks": 1,
+    "options": [
+      { "text": "Centimetre", "correct": false },
+      { "text": "Kilogram", "correct": true },
+      { "text": "Second", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Which of these objects can be used to compare mass?",
+    "marks": 1,
+    "options": [
+      { "text": "A stone", "correct": true },
+      { "text": "A clock", "correct": false },
+      { "text": "A ruler", "correct": false }
+    ]
+  },
+  {
+    "questionText": "What does time tell us?",
+    "marks": 1,
+    "options": [
+      { "text": "When something happens", "correct": true },
+      { "text": "How heavy something is", "correct": false },
+      { "text": "How long an object is", "correct": false }
+    ]
+  },
+  {
+    "questionText": "How many days are in one week?",
+    "marks": 1,
+    "options": [
+      { "text": "Five", "correct": false },
+      { "text": "Seven", "correct": true },
+      { "text": "Ten", "correct": false }
+    ]
+  },
+  {
+    "questionText": "How many months are in one year?",
+    "marks": 1,
+    "options": [
+      { "text": "10", "correct": false },
+      { "text": "11", "correct": false },
+      { "text": "12", "correct": true }
+    ]
+  },
+  {
+    "questionText": "Which instrument is used to measure time?",
+    "marks": 1,
+    "options": [
+      { "text": "Clock", "correct": true },
+      { "text": "Thermometer", "correct": false },
+      { "text": "Weighing scale", "correct": false }
+    ]
+  },
+  {
+    "questionText": "What is the basic unit of time?",
+    "marks": 1,
+    "options": [
+      { "text": "Kilogram", "correct": false },
+      { "text": "Second", "correct": true },
+      { "text": "Centimetre", "correct": false }
+    ]
+  },
+  {
+    "questionText": "How many seconds make one minute?",
+    "marks": 1,
+    "options": [
+      { "text": "30", "correct": false },
+      { "text": "60", "correct": true },
+      { "text": "100", "correct": false }
+    ]
+  },
+  {
+    "questionText": "What does temperature measure?",
+    "marks": 1,
+    "options": [
+      { "text": "How hot or cold something is", "correct": true },
+      { "text": "How heavy something is", "correct": false },
+      { "text": "How long something is", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Which instrument measures temperature?",
+    "marks": 1,
+    "options": [
+      { "text": "Ruler", "correct": false },
+      { "text": "Thermometer", "correct": true },
+      { "text": "Clock", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Which scale is commonly used to measure temperature?",
+    "marks": 1,
+    "options": [
+      { "text": "Celsius", "correct": true },
+      { "text": "Kilogram", "correct": false },
+      { "text": "Metre", "correct": false }
+    ]
+  },
+  {
+    "questionText": "What is the upper part of the soil called?",
+    "marks": 1,
+    "options": [
+      { "text": "Surface", "correct": true },
+      { "text": "Rock", "correct": false },
+      { "text": "Water", "correct": false }
+    ]
+  },
+  {
+    "questionText": "What do plants get from soil to help them grow?",
+    "marks": 1,
+    "options": [
+      { "text": "Nutrients", "correct": true },
+      { "text": "Plastic", "correct": false },
+      { "text": "Glass", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Which living thing is commonly found in soil?",
+    "marks": 1,
+    "options": [
+      { "text": "Fish", "correct": false },
+      { "text": "Earthworm", "correct": true },
+      { "text": "Bird", "correct": false }
+    ]
+  }
+]

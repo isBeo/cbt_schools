@@ -1,4 +1,3 @@
-
 import { auth } from "@/auth"
 import { prisma } from "@/lib/prisma"
 import { notFound, redirect } from "next/navigation"
@@ -26,11 +25,7 @@ export default async function QuestionsPage({ params }: Props) {
     notFound()
   }
 
-  if (
-    role !== "SUPER_ADMIN" &&
-    role !== "SCHOOL_ADMIN" &&
-    role !== "TEACHER"
-  ) {
+  if (role !== "SUPER_ADMIN" && role !== "SCHOOL_ADMIN" && role !== "TEACHER") {
     notFound()
   }
 
@@ -98,7 +93,7 @@ export default async function QuestionsPage({ params }: Props) {
         <p>{exam.questions.length} Questions</p>
       </div>
 
-      {exam.questions.length === 0 && (
+      {exam.questions.length === 0 && exam.status === "PUBLISHED" && (
         <form action={importExamQuestions.bind(null, exam.id)}>
           <Button type="submit">Import Questions</Button>
         </form>

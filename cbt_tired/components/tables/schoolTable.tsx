@@ -1,4 +1,3 @@
-
 import type { School } from "@/lib/generated/prisma/client"
 import Link from "next/link"
 
@@ -51,7 +50,7 @@ export function SchoolTable({ schools }: SchoolTableProps) {
               <TableCell>{school.address}</TableCell>
 
               <TableCell>
-                <Button  variant="outline" size="sm">
+                <Button variant="outline" size="sm">
                   <Link href={`/dashboard/schools/${school.id}/edit`}>
                     Configure
                   </Link>

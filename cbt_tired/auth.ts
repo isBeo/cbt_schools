@@ -1,4 +1,3 @@
-
 import NextAuth, { type DefaultSession } from "next-auth"
 import Credentials from "next-auth/providers/credentials"
 import { PrismaAdapter } from "@auth/prisma-adapter"
@@ -46,10 +45,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         let user = null
 
         // Staff login: email + password.
-        if (
-          typeof credentials.email === "string" &&
-          credentials.email.trim()
-        ) {
+        if (typeof credentials.email === "string" && credentials.email.trim()) {
           user = await prisma.user.findUnique({
             where: {
               email: credentials.email.trim().toLowerCase(),

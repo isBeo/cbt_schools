@@ -1,4 +1,3 @@
-
 import { redirect } from "next/navigation"
 import { auth } from "@/auth"
 import { prisma } from "@/lib/prisma"
@@ -32,17 +31,12 @@ export default async function DashboardLayout({
 
   return (
     <SidebarProvider>
-      <AppSidebar
-        role={role}
-        schoolName={school?.name ?? undefined}
-      />
+      <AppSidebar role={role} schoolName={school?.name ?? undefined} />
 
       <SidebarInset>
         <DashBoardHeader />
 
-        <main className="p-6">
-          {children}
-        </main>
+        <main className="p-6">{children}</main>
       </SidebarInset>
     </SidebarProvider>
   )

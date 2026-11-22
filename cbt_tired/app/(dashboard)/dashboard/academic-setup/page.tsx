@@ -1,4 +1,3 @@
-
 import { auth } from "@/auth"
 import { prisma } from "@/lib/prisma"
 import { AcademicSetupClient } from "./components/academic_setup_client"

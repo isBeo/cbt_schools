@@ -1,4 +1,3 @@
-
 // import { auth } from "@/auth"
 // import { prisma } from "@/lib/prisma"
 // import { redirect } from "next/navigation"
@@ -106,8 +105,6 @@
 //   )
 // }
 
-
-
 import { auth } from "@/auth"
 import { prisma } from "@/lib/prisma"
 import { redirect } from "next/navigation"
@@ -118,11 +115,7 @@ export default async function QuestionsPage() {
 
   if (!session?.user) redirect("/login")
 
-  if (
-    !["TEACHER", "SCHOOL_ADMIN", "SUPER_ADMIN"].includes(
-      session.user.role
-    )
-  ) {
+  if (!["TEACHER", "SCHOOL_ADMIN", "SUPER_ADMIN"].includes(session.user.role)) {
     redirect("/dashboard")
   }
 
@@ -146,9 +139,7 @@ export default async function QuestionsPage() {
     (item) => `${item.classId}-${item.subjectId}`
   )
 
-  const assignedClassIds = [
-    ...new Set(assignments.map((item) => item.classId)),
-  ]
+  const assignedClassIds = [...new Set(assignments.map((item) => item.classId))]
 
   const assignedSubjectIds = [
     ...new Set(assignments.map((item) => item.subjectId)),
@@ -156,16 +147,12 @@ export default async function QuestionsPage() {
 
   const [classes, subjects, questions] = await Promise.all([
     prisma.class.findMany({
-      where: isTeacher
-        ? { id: { in: assignedClassIds } }
-        : undefined,
+      where: isTeacher ? { id: { in: assignedClassIds } } : undefined,
       orderBy: { name: "asc" },
     }),
 
     prisma.subject.findMany({
-      where: isTeacher
-        ? { id: { in: assignedSubjectIds } }
-        : undefined,
+      where: isTeacher ? { id: { in: assignedSubjectIds } } : undefined,
       orderBy: { name: "asc" },
     }),
 

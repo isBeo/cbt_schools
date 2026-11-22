@@ -21,10 +21,11 @@ export default async function SchoolsPage() {
           </p>
         </div>
 
-          <Link href="/dashboard/schools/register" className={'font-bolder'} ><Plus/> 
-          
+        <Link href="/dashboard/schools/register" className={"font-bolder"}>
+          <Plus />
+
           <span>Add</span>
-          </Link>
+        </Link>
       </div>
 
       <SchoolTable schools={schools} />

@@ -12,8 +12,18 @@ import { Input } from "@/components/ui/input"
 
 import { Label } from "@/components/ui/label"
 
- 
 import { useState, useRef } from "react"
+
+const CLASS_NAME_MAP: Record<string, string> = {
+  "Basic One": "Basic 1",
+  "Basic Two": "Basic 2",
+  "Basic Three": "Basic 3",
+  "Basic Four": "Basic 4",
+  "Basic Five": "Basic 5",
+  "Junior Secondary School One (JSS1)": "JSS1",
+  "Junior Secondary School Two (JSS2)": "JSS2",
+  "Junior Secondary School Three (JSS3)": "JSS3",
+}
 
 type Props = {
   classes: {
@@ -28,9 +38,27 @@ type Props = {
 }
 
 export default function CreateExam({ classes, subjects }: Props) {
-const [classId, setClassId] = useState("")
-const [subjectId, setSubjectId] = useState("")
-const [questionSource, setQuestionSource] = useState("")
+  const [classId, setClassId] = useState("")
+  const [subjectId, setSubjectId] = useState("")
+
+  const [questionSource, setQuestionSource] = useState("")
+  
+
+  const selectedClass = classes.find((item) => item.id.toString() === classId)
+
+  const mappedClassName = selectedClass
+    ? (CLASS_NAME_MAP[selectedClass.name] ?? "")
+    : ""
+
+  const selectedSubject = subjects.find(
+    (item) => item.id.toString() === subjectId
+  )
+
+  const filteredQuestionBanks = QUESTION_BANKS.filter(
+    (bank) =>
+      bank.class === mappedClassName && bank.subject === selectedSubject?.name
+  )
+
   const formRef = useRef<HTMLFormElement>(null)
 
   // const isFormValid = classId && subjectId && questionSource
@@ -47,7 +75,6 @@ const [questionSource, setQuestionSource] = useState("")
       return
     }
 
-   
     const formData = new FormData(e.currentTarget)
     await createExam(formData)
   }

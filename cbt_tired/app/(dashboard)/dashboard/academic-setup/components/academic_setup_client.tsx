@@ -1,4 +1,3 @@
-
 "use client"
 
 import { useState, useTransition } from "react"
@@ -74,7 +73,7 @@ export function AcademicSetupClient({
 
   return (
     <div className="space-y-8">
-      <section className="rounded-xl border p-5 space-y-4">
+      <section className="space-y-4 rounded-xl border p-5">
         <div>
           <h2 className="text-lg font-semibold">Create Academic Session</h2>
           <p className="text-sm text-muted-foreground">
@@ -82,7 +81,10 @@ export function AcademicSetupClient({
           </p>
         </div>
 
-        <form onSubmit={handleCreateSession} className="flex flex-col sm:flex-row gap-3">
+        <form
+          onSubmit={handleCreateSession}
+          className="flex flex-col gap-3 sm:flex-row"
+        >
           <input
             value={name}
             onChange={(e) => setName(e.target.value)}
@@ -122,10 +124,7 @@ export function AcademicSetupClient({
         ) : (
           <div className="space-y-3">
             {sessions.map((session) => (
-              <div
-                key={session.id}
-                className="rounded-xl border p-4 space-y-3"
-              >
+              <div key={session.id} className="space-y-3 rounded-xl border p-4">
                 <div className="flex flex-wrap items-center justify-between gap-3">
                   <div>
                     <h3 className="font-semibold">{session.name}</h3>
@@ -152,15 +151,10 @@ export function AcademicSetupClient({
                   {session.terms
                     .sort((a, b) => a.order - b.order)
                     .map((term) => (
-                      <div
-                        key={term.id}
-                        className="rounded-lg bg-muted/50 p-3"
-                      >
+                      <div key={term.id} className="rounded-lg bg-muted/50 p-3">
                         <p className="text-sm font-medium">{term.name}</p>
                         <p className="text-xs text-muted-foreground">
-                          {term.isCurrent
-                            ? "Current Term"
-                            : "Not Current"}
+                          {term.isCurrent ? "Current Term" : "Not Current"}
                         </p>
 
                         {session.isCurrent && !term.isCurrent && (

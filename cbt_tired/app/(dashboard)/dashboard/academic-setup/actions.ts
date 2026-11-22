@@ -1,4 +1,3 @@
-
 "use server"
 
 import { auth } from "@/auth"
@@ -58,62 +57,59 @@ export async function createAcademicSession(name: string) {
   }
 
   try {
-    await prisma.$transaction(
-      async (tx) => {
-        const existing = await tx.academicSession.findUnique({
-          where: {
-            schoolId_name: {
-              schoolId: admin.schoolId,
-              name: sessionName,
-            },
-          },
-        })
-
-        if (existing) {
-          throw new Error("This academic session already exists.")
-        }
-
-        const currentSession = await tx.academicSession.findFirst({
-          where: {
+    await prisma.$transaction(async (tx) => {
+      const existing = await tx.academicSession.findUnique({
+        where: {
+          schoolId_name: {
             schoolId: admin.schoolId,
-            isCurrent: true,
-          },
-        })
-
-        const makeCurrent = !currentSession
-
-        await tx.academicSession.create({
-          data: {
             name: sessionName,
-            schoolId: admin.schoolId,
-            isCurrent: makeCurrent,
-            terms: {
-              create: [
-                {
-                  name: "First Term",
-                  order: 1,
-                  isCurrent: makeCurrent,
-                  schoolId: admin.schoolId,
-                },
-                {
-                  name: "Second Term",
-                  order: 2,
-                  isCurrent: false,
-                  schoolId: admin.schoolId,
-                },
-                {
-                  name: "Third Term",
-                  order: 3,
-                  isCurrent: false,
-                  schoolId: admin.schoolId,
-                },
-              ],
-            },
           },
-        })
-      },
-      transactionOptions
-    )
+        },
+      })
+
+      if (existing) {
+        throw new Error("This academic session already exists.")
+      }
+
+      const currentSession = await tx.academicSession.findFirst({
+        where: {
+          schoolId: admin.schoolId,
+          isCurrent: true,
+        },
+      })
+
+      const makeCurrent = !currentSession
+
+      await tx.academicSession.create({
+        data: {
+          name: sessionName,
+          schoolId: admin.schoolId,
+          isCurrent: makeCurrent,
+          terms: {
+            create: [
+              {
+                name: "First Term",
+                order: 1,
+                isCurrent: makeCurrent,
+                schoolId: admin.schoolId,
+              },
+              {
+                name: "Second Term",
+                order: 2,
+                isCurrent: false,
+                schoolId: admin.schoolId,
+              },
+              {
+                name: "Third Term",
+                order: 3,
+                isCurrent: false,
+                schoolId: admin.schoolId,
+              },
+            ],
+          },
+        },
+      })
+    }, transactionOptions)
 
     revalidatePath(route)
 
@@ -143,21 +139,60 @@ export async function setCurrentAcademicSession(id: number) {
   }
 
   try {
-    await prisma.$transaction(
-      async (tx) => {
-        const target = await tx.academicSession.findFirst({
-          where: {
-            id,
-            schoolId: admin.schoolId,
-          },
-        })
+    await prisma.$transaction(async (tx) => {
+      const target = await tx.academicSession.findFirst({
+        where: {
+          id,
+          schoolId: admin.schoolId,
+        },
+      })
 
-        if (!target) {
-          throw new Error("Academic session not found.")
-        }
+      if (!target) {
+        throw new Error("Academic session not found.")
+      }
 
-        await tx.academicSession.updateMany({
+      await tx.academicSession.updateMany({
+        where: {
+          schoolId: admin.schoolId,
+        },
+        data: {
+          isCurrent: false,
+        },
+      })
+
+      await tx.academicSession.update({
+        where: {
+          id: target.id,
+        },
+        data: {
+          isCurrent: true,
+        },
+      })
+
+      const currentTerm = await tx.academicTerm.findFirst({
+        where: {
+          sessionId: target.id,
+          schoolId: admin.schoolId,
+          isCurrent: true,
+        },
+      })
+
+      const firstTerm = currentTerm
+        ? currentTerm
+        : await tx.academicTerm.findFirst({
+            where: {
+              sessionId: target.id,
+              schoolId: admin.schoolId,
+            },
+            orderBy: {
+              order: "asc",
+            },
+          })
+
+      if (firstTerm) {
+        await tx.academicTerm.updateMany({
           where: {
+            sessionId: target.id,
             schoolId: admin.schoolId,
           },
           data: {
@@ -165,58 +200,16 @@ export async function setCurrentAcademicSession(id: number) {
           },
         })
 
-        await tx.academicSession.update({
+        await tx.academicTerm.update({
           where: {
-            id: target.id,
+            id: firstTerm.id,
           },
           data: {
             isCurrent: true,
           },
         })
-
-        const currentTerm = await tx.academicTerm.findFirst({
-          where: {
-            sessionId: target.id,
-            schoolId: admin.schoolId,
-            isCurrent: true,
-          },
-        })
-
-        const firstTerm = currentTerm
-          ? currentTerm
-          : await tx.academicTerm.findFirst({
-              where: {
-                sessionId: target.id,
-                schoolId: admin.schoolId,
-              },
-              orderBy: {
-                order: "asc",
-              },
-            })
-
-        if (firstTerm) {
-          await tx.academicTerm.updateMany({
-            where: {
-              sessionId: target.id,
-              schoolId: admin.schoolId,
-            },
-            data: {
-              isCurrent: false,
-            },
-          })
-
-          await tx.academicTerm.update({
-            where: {
-              id: firstTerm.id,
-            },
-            data: {
-              isCurrent: true,
-            },
-          })
-        }
-      },
-      transactionOptions
-    )
+      }
+    }, transactionOptions)
 
     revalidatePath(route)
 
@@ -246,46 +239,43 @@ export async function setCurrentAcademicTerm(id: number) {
   }
 
   try {
-    await prisma.$transaction(
-      async (tx) => {
-        const target = await tx.academicTerm.findFirst({
-          where: {
-            id,
-            schoolId: admin.schoolId,
-            session: {
-              isCurrent: true,
-              schoolId: admin.schoolId,
-            },
-          },
-        })
-
-        if (!target) {
-          throw new Error(
-            "Select a term belonging to the current academic session."
-          )
-        }
-
-        await tx.academicTerm.updateMany({
-          where: {
-            sessionId: target.sessionId,
-            schoolId: admin.schoolId,
-          },
-          data: {
-            isCurrent: false,
-          },
-        })
-
-        await tx.academicTerm.update({
-          where: {
-            id: target.id,
-          },
-          data: {
+    await prisma.$transaction(async (tx) => {
+      const target = await tx.academicTerm.findFirst({
+        where: {
+          id,
+          schoolId: admin.schoolId,
+          session: {
             isCurrent: true,
+            schoolId: admin.schoolId,
           },
-        })
-      },
-      transactionOptions
-    )
+        },
+      })
+
+      if (!target) {
+        throw new Error(
+          "Select a term belonging to the current academic session."
+        )
+      }
+
+      await tx.academicTerm.updateMany({
+        where: {
+          sessionId: target.sessionId,
+          schoolId: admin.schoolId,
+        },
+        data: {
+          isCurrent: false,
+        },
+      })
+
+      await tx.academicTerm.update({
+        where: {
+          id: target.id,
+        },
+        data: {
+          isCurrent: true,
+        },
+      })
+    }, transactionOptions)
 
     revalidatePath(route)
 

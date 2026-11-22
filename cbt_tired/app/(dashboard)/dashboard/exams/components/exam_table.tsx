@@ -106,9 +106,7 @@ export default async function ExamTable() {
       <TableBody>
         {exams.map((exam) => (
           <TableRow key={exam.id}>
-            <TableCell className="font-medium">
-              {exam.title}
-            </TableCell>
+            <TableCell className="font-medium">{exam.title}</TableCell>
 
             <TableCell>{exam.subject.name}</TableCell>
 
@@ -120,29 +118,23 @@ export default async function ExamTable() {
 
             <TableCell>
               <div className="flex flex-wrap gap-2">
+                {exam.status === "DRAFT" && (
+                  <>
+                    <Link href={`/dashboard/exams/${exam.id}/questions`}>
+                      <Button size="sm" variant="secondary">
+                        Manage Questions
+                      </Button>
+                    </Link>
 
-{exam.status === "DRAFT" && (
-  <>
-    <Link href={`/dashboard/exams/${exam.id}/questions`}>
-      <Button size="sm" variant="secondary">
-        Manage Questions
-      </Button>
-    </Link>
+                    <form action={publishExam.bind(null, exam.id)}>
+                      <Button size="sm">Publish</Button>
+                    </form>
 
-    <form action={publishExam.bind(null, exam.id)}>
-      <Button size="sm">
-        Publish
-      </Button>
-    </form>
-
-    {(role === "SUPER_ADMIN" || role === "SCHOOL_ADMIN") && (
-      <DeleteExam
-        examId={exam.id}
-        examTitle={exam.title}
-      />
-    )}
-  </>
-)}
+                    {(role === "SUPER_ADMIN" || role === "SCHOOL_ADMIN") && (
+                      <DeleteExam examId={exam.id} examTitle={exam.title} />
+                    )}
+                  </>
+                )}
 
                 {exam.status === "PUBLISHED" && (
                   <>

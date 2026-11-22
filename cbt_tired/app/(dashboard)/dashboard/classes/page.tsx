@@ -1,4 +1,3 @@
-
 import { auth } from "@/auth"
 import { prisma } from "@/lib/prisma"
 import { CreateClass } from "./components/create_class"
@@ -26,10 +25,7 @@ export default async function ClassesPage() {
     where: {
       schoolId: session.user.schoolId,
     },
-    orderBy: [
-      { level: "asc" },
-      { name: "asc" },
-    ],
+    orderBy: [{ level: "asc" }, { name: "asc" }],
   })
 
   return (
@@ -37,7 +33,8 @@ export default async function ClassesPage() {
       <div>
         <h1 className="text-2xl font-bold">Class Management</h1>
         <p className="text-sm text-muted-foreground">
-          Create and manage your school's Nursery, Primary and Secondary classes.
+          Create and manage your school's Nursery, Primary and Secondary
+          classes.
         </p>
       </div>
 
@@ -47,7 +44,8 @@ export default async function ClassesPage() {
         <div>
           <h2 className="text-lg font-semibold">School Classes</h2>
           <p className="text-sm text-muted-foreground">
-            {classes.length} {classes.length === 1 ? "class" : "classes"} registered
+            {classes.length} {classes.length === 1 ? "class" : "classes"}{" "}
+            registered
           </p>
         </div>
 

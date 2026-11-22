@@ -1,4 +1,3 @@
-
 "use client"
 
 import { useState, useTransition } from "react"
@@ -35,10 +34,7 @@ export default function CreateTeacher() {
   }
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="space-y-4 rounded-lg border p-5"
-    >
+    <form onSubmit={handleSubmit} className="space-y-4 rounded-lg border p-5">
       <div>
         <h2 className="text-lg font-semibold">Register a Teacher</h2>
         <p className="text-sm text-muted-foreground">
@@ -92,7 +88,11 @@ export default function CreateTeacher() {
       </div>
 
       {message && (
-        <p className={isError ? "text-sm text-red-600" : "text-sm text-green-600"}>
+        <p
+          className={
+            isError ? "text-sm text-red-600" : "text-sm text-green-600"
+          }
+        >
           {message}
         </p>
       )}
@@ -107,4 +107,3 @@ export default function CreateTeacher() {
     </form>
   )
 }
-

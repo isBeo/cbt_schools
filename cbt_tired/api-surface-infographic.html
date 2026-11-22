@@ -1,538 +1,830 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<title>Eagle Crest CBT — Server Action Surface</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --bg: #201c17;
-    --bg-alt: #efe4d3;
-    --paper: #fffdf9;
-    --ink: #2b2420;
-    --ink-soft: #6b6055;
-    --copper: #A0683A;
-    --copper-light: #c9874b;
-    --copper-pale: #eddcc7;
-    --green: #4c7a5c;
-    --green-pale: #e2ead9;
-    --amber: #b9862f;
-    --amber-pale: #ecb43c;
-    color-scheme: light;
-    --line: #ddd0bb;
-    --shadow: 0 1px 2px rgba(43,36,32,0.04), 0 8px 24px -12px rgba(43,36,32,0.18);
-  }
+  <head>
+    <meta charset="UTF-8" />
+    <title>Eagle Crest CBT — Server Action Surface</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #201c17;
+        --bg-alt: #efe4d3;
+        --paper: #fffdf9;
+        --ink: #2b2420;
+        --ink-soft: #6b6055;
+        --copper: #a0683a;
+        --copper-light: #c9874b;
+        --copper-pale: #eddcc7;
+        --green: #4c7a5c;
+        --green-pale: #e2ead9;
+        --amber: #b9862f;
+        --amber-pale: #ecb43c;
+        color-scheme: light;
+        --line: #ddd0bb;
+        --shadow:
+          0 1px 2px rgba(43, 36, 32, 0.04),
+          0 8px 24px -12px rgba(43, 36, 32, 0.18);
+      }
 
-  *{box-sizing:border-box;}
-  html{scroll-behavior:smooth;}
-  body{
-    margin:0;
-    background:
-      radial-gradient(ellipse 1200px 600px at 15% -5%, rgba(160,104,58,0.07), transparent),
-      radial-gradient(ellipse 900px 500px at 100% 10%, rgba(76,122,92,0.05), transparent),
-      var(--bg);
-    color:var(--ink);
-    font-family:'Inter', sans-serif;
-    -webkit-font-smoothing:antialiased;
-    line-height:1.5;
-  }
+      * {
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        margin: 0;
+        background:
+          radial-gradient(
+            ellipse 1200px 600px at 15% -5%,
+            rgba(160, 104, 58, 0.07),
+            transparent
+          ),
+          radial-gradient(
+            ellipse 900px 500px at 100% 10%,
+            rgba(76, 122, 92, 0.05),
+            transparent
+          ),
+          var(--bg);
+        color: var(--ink);
+        font-family: "Inter", sans-serif;
+        -webkit-font-smoothing: antialiased;
+        line-height: 1.5;
+      }
 
-  .noise{
-    position:fixed; inset:0; pointer-events:none; z-index:1; opacity:0.035; mix-blend-mode:multiply;
-    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  }
+      .noise {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 1;
+        opacity: 0.035;
+        mix-blend-mode: multiply;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      }
 
-  .wrap{max-width:1080px; margin:0 auto; padding:0 28px 120px;}
+      .wrap {
+        max-width: 1080px;
+        margin: 0 auto;
+        padding: 0 28px 120px;
+      }
 
-  /* ============ HERO ============ */
-  header.hero{
-    padding:90px 28px 70px;
-    text-align:center;
-    color: #4c7a5c;
-    position:relative;
-    border-bottom:1px solid var(--line);
-    background: linear-gradient(180deg, rgba(160,104,58,0.04), transparent 70%);
-  }
-  .eyebrow{
-    font-family:'JetBrains Mono', monospace;
-    font-size:12.5px;
-    letter-spacing:0.18em;
-    text-transform:uppercase;
-    color:var(--copper);
-    font-weight:600;
-    display:inline-flex;
-    align-items:center;
-    gap:10px;
-  }
-  .eyebrow::before, .eyebrow::after{content:""; width:28px; height:1px; background:var(--copper-light); opacity:0.5;}
-  h1{
-    font-family:'Crimson Text', serif;
-    font-weight:700;
-    color:hsl(120 20% 50%);
-    font-size:clamp(38px, 6vw, 64px);
-    margin:22px 0 14px;
-    letter-spacing:-0.01em;
-    line-height:1.05;
-  }
-  h1 em{
-    font-style:italic;
-    color:var(--copper);
-    font-weight:600;
-  }
-  .hero p.sub{
-    max-width:560px;
-    margin:0 auto;
-    color:var(--ink-soft);
-    font-size:17px;
-  }
-  .hero-meta{
-    display:flex; justify-content:center; gap:34px; margin-top:38px;
-    font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--ink-soft);
-    text-transform:uppercase; letter-spacing:0.06em;
-  }
-  .hero-meta b{ color:var(--ink); font-family:'Inter',sans-serif; font-weight:700; display:block; font-size:22px; letter-spacing:0; margin-bottom:2px;}
+      /* ============ HERO ============ */
+      header.hero {
+        padding: 90px 28px 70px;
+        text-align: center;
+        color: #4c7a5c;
+        position: relative;
+        border-bottom: 1px solid var(--line);
+        background: linear-gradient(
+          180deg,
+          rgba(160, 104, 58, 0.04),
+          transparent 70%
+        );
+      }
+      .eyebrow {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 12.5px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--copper);
+        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .eyebrow::before,
+      .eyebrow::after {
+        content: "";
+        width: 28px;
+        height: 1px;
+        background: var(--copper-light);
+        opacity: 0.5;
+      }
+      h1 {
+        font-family: "Crimson Text", serif;
+        font-weight: 700;
+        color: hsl(120 20% 50%);
+        font-size: clamp(38px, 6vw, 64px);
+        margin: 22px 0 14px;
+        letter-spacing: -0.01em;
+        line-height: 1.05;
+      }
+      h1 em {
+        font-style: italic;
+        color: var(--copper);
+        font-weight: 600;
+      }
+      .hero p.sub {
+        max-width: 560px;
+        margin: 0 auto;
+        color: var(--ink-soft);
+        font-size: 17px;
+      }
+      .hero-meta {
+        display: flex;
+        justify-content: center;
+        gap: 34px;
+        margin-top: 38px;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 12px;
+        color: var(--ink-soft);
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+      }
+      .hero-meta b {
+        color: var(--ink);
+        font-family: "Inter", sans-serif;
+        font-weight: 700;
+        display: block;
+        font-size: 22px;
+        letter-spacing: 0;
+        margin-bottom: 2px;
+      }
 
-  /* ============ SECTION HEADERS ============ */
-  section{padding:70px 0;}
-  section + section{border-top:1px solid var(--line);}
-  .section-head{margin-bottom:42px; display:flex; align-items:baseline; gap:16px;}
-  .section-num{
-    font-family:'JetBrains Mono', monospace;
-    font-size:13px; color:var(--copper); font-weight:600; letter-spacing:0.05em;
-  }
-  h2{
-    font-family:'Crimson Text', serif;
-    color: hsl(144, 24%, 66%);
-    font-size:34px; font-weight:700; margin:0;
-  }
-  .section-sub{color:var(--ink-soft); font-size:15px; margin-top:8px; max-width:640px;}
+      /* ============ SECTION HEADERS ============ */
+      section {
+        padding: 70px 0;
+      }
+      section + section {
+        border-top: 1px solid var(--line);
+      }
+      .section-head {
+        margin-bottom: 42px;
+        display: flex;
+        align-items: baseline;
+        gap: 16px;
+      }
+      .section-num {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 13px;
+        color: var(--copper);
+        font-weight: 600;
+        letter-spacing: 0.05em;
+      }
+      h2 {
+        font-family: "Crimson Text", serif;
+        color: hsl(144, 24%, 66%);
+        font-size: 34px;
+        font-weight: 700;
+        margin: 0;
+      }
+      .section-sub {
+        color: var(--ink-soft);
+        font-size: 15px;
+        margin-top: 8px;
+        max-width: 640px;
+      }
 
-  /* ============ CURRENT API TABLE ============ */
-  .api-cards{display:grid; gap:14px;}
-  .api-card{
-    background:var(--paper);
-    border:1px solid var(--line);
-    border-radius:12px;
-    padding:22px 24px;
-    box-shadow:var(--shadow);
-    display:grid;
-    grid-template-columns:auto 1fr auto;
-    gap:20px;
-    align-items:center;
-    transition:transform .25s ease, box-shadow .25s ease;
-  }
-  .api-card:hover{transform:translateY(-2px); box-shadow:0 4px 6px rgba(43,36,32,0.04), 0 16px 32px -14px rgba(43,36,32,0.22);}
-  .status-dot{
-    width:11px; height:11px; border-radius:50%; flex-shrink:0;
-    box-shadow:0 0 0 4px currentColor22;
-  }
-  .status-dot.working{background:var(--green); box-shadow:0 0 0 5px var(--green-pale);}
-  .status-dot.progress{background:var(--amber); box-shadow:0 0 0 5px var(--amber-pale);}
-  .api-info .fn{
-    font-family:'JetBrains Mono', monospace; font-weight:600; font-size:16.5px; color:var(--ink);
-  }
-  .api-info .fn .paren{color:var(--copper-light);}
-  .api-info .file{
-    font-size:12.5px; color:var(--ink-soft); margin-top:3px; font-family:'JetBrains Mono', monospace;
-  }
-  .api-info .purpose{
-    font-size:14px; color:var(--ink-soft); margin-top:8px; max-width:480px; line-height:1.5;
-  }
-  .status-badge{
-    font-family:'JetBrains Mono', monospace;
-    font-size:11px; font-weight:600; letter-spacing:0.04em; text-transform:uppercase;
-    padding:6px 12px; border-radius:20px; white-space:nowrap;
-  }
-  .status-badge.working{background:var(--green-pale); color:var(--green);}
-  .status-badge.progress{background:var(--amber-pale); color:var(--amber);}
+      /* ============ CURRENT API TABLE ============ */
+      .api-cards {
+        display: grid;
+        gap: 14px;
+      }
+      .api-card {
+        background: var(--paper);
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        padding: 22px 24px;
+        box-shadow: var(--shadow);
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        gap: 20px;
+        align-items: center;
+        transition:
+          transform 0.25s ease,
+          box-shadow 0.25s ease;
+      }
+      .api-card:hover {
+        transform: translateY(-2px);
+        box-shadow:
+          0 4px 6px rgba(43, 36, 32, 0.04),
+          0 16px 32px -14px rgba(43, 36, 32, 0.22);
+      }
+      .status-dot {
+        width: 11px;
+        height: 11px;
+        border-radius: 50%;
+        flex-shrink: 0;
+        box-shadow: 0 0 0 4px currentColor22;
+      }
+      .status-dot.working {
+        background: var(--green);
+        box-shadow: 0 0 0 5px var(--green-pale);
+      }
+      .status-dot.progress {
+        background: var(--amber);
+        box-shadow: 0 0 0 5px var(--amber-pale);
+      }
+      .api-info .fn {
+        font-family: "JetBrains Mono", monospace;
+        font-weight: 600;
+        font-size: 16.5px;
+        color: var(--ink);
+      }
+      .api-info .fn .paren {
+        color: var(--copper-light);
+      }
+      .api-info .file {
+        font-size: 12.5px;
+        color: var(--ink-soft);
+        margin-top: 3px;
+        font-family: "JetBrains Mono", monospace;
+      }
+      .api-info .purpose {
+        font-size: 14px;
+        color: var(--ink-soft);
+        margin-top: 8px;
+        max-width: 480px;
+        line-height: 1.5;
+      }
+      .status-badge {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        padding: 6px 12px;
+        border-radius: 20px;
+        white-space: nowrap;
+      }
+      .status-badge.working {
+        background: var(--green-pale);
+        color: var(--green);
+      }
+      .status-badge.progress {
+        background: var(--amber-pale);
+        color: var(--amber);
+      }
 
-  /* ============ FLOW DIAGRAM ============ */
-  .flows{display:grid; grid-template-columns:repeat(3, 1fr); gap:22px;}
-  @media (max-width:860px){.flows{grid-template-columns:1fr;}}
-  .flow-col{
-    background:var(--paper);
-    border:1px solid var(--line);
-    border-radius:14px;
-    padding:26px 22px 30px;
-    box-shadow:var(--shadow);
-    position:relative;
-  }
-  .flow-title{
-    font-family:'JetBrains Mono', monospace;
-    font-size:11.5px; text-transform:uppercase; letter-spacing:0.1em;
-    color:var(--copper); font-weight:700; margin-bottom:22px;
-    display:flex; align-items:center; gap:8px;
-  }
-  .flow-title::before{content:""; width:6px; height:6px; background:var(--copper); border-radius:50%;}
-  .flow-node{
-    background:var(--bg-alt);
-    border:1px solid var(--line);
-    border-radius:9px;
-    padding:12px 14px;
-    text-align:center;
-    font-size:13.5px;
-    position:relative;
-  }
-  .flow-node.action{
-    font-family:'JetBrains Mono', monospace;
-    background:var(--copper-pale);
-    border-color:var(--copper-light);
-    color:#7a4d28;
-    font-weight:600;
-    font-size:13px;
-  }
-  .flow-node.table{
-    font-weight:600;
-    background:var(--paper);
-    border-style:dashed;
-  }
-  .flow-arrow{
-    display:flex; justify-content:center; padding:6px 0;
-    color:var(--copper-light);
-  }
+      /* ============ FLOW DIAGRAM ============ */
+      .flows {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 22px;
+      }
+      @media (max-width: 860px) {
+        .flows {
+          grid-template-columns: 1fr;
+        }
+      }
+      .flow-col {
+        background: var(--paper);
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        padding: 26px 22px 30px;
+        box-shadow: var(--shadow);
+        position: relative;
+      }
+      .flow-title {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 11.5px;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: var(--copper);
+        font-weight: 700;
+        margin-bottom: 22px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .flow-title::before {
+        content: "";
+        width: 6px;
+        height: 6px;
+        background: var(--copper);
+        border-radius: 50%;
+      }
+      .flow-node {
+        background: var(--bg-alt);
+        border: 1px solid var(--line);
+        border-radius: 9px;
+        padding: 12px 14px;
+        text-align: center;
+        font-size: 13.5px;
+        position: relative;
+      }
+      .flow-node.action {
+        font-family: "JetBrains Mono", monospace;
+        background: var(--copper-pale);
+        border-color: var(--copper-light);
+        color: #7a4d28;
+        font-weight: 600;
+        font-size: 13px;
+      }
+      .flow-node.table {
+        font-weight: 600;
+        background: var(--paper);
+        border-style: dashed;
+      }
+      .flow-arrow {
+        display: flex;
+        justify-content: center;
+        padding: 6px 0;
+        color: var(--copper-light);
+      }
 
-  /* ============ ROADMAP ============ */
-  .roadmap-grid{display:grid; grid-template-columns:repeat(4, 1fr); gap:18px;}
-  @media (max-width:900px){.roadmap-grid{grid-template-columns:repeat(2,1fr);}}
-  @media (max-width:560px){.roadmap-grid{grid-template-columns:1fr;}}
-  .role-card{
-    background:var(--paper); border:1px solid var(--line); border-radius:14px;
-    padding:22px 20px; box-shadow:var(--shadow);
-  }
-  .role-card .role-label{
-    font-family:'Crimson Text', serif; font-style:italic; font-weight:600;
-    font-size:19px; color:var(--copper); margin-bottom:14px;
-    padding-bottom:12px; border-bottom:1px dashed var(--line);
-  }
-  .role-card ul{list-style:none; margin:0; padding:0;}
-  .role-card li{
-    font-family:'JetBrains Mono', monospace; font-size:13px;
-    padding:8px 0; color:var(--ink); display:flex; align-items:center; gap:8px;
-  }
-  .role-card li::before{content:"→"; color:var(--copper-light); font-weight:700;}
-  .role-card li + li{border-top:1px solid #f0e7d8;}
+      /* ============ ROADMAP ============ */
+      .roadmap-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 18px;
+      }
+      @media (max-width: 900px) {
+        .roadmap-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+      @media (max-width: 560px) {
+        .roadmap-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+      .role-card {
+        background: var(--paper);
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        padding: 22px 20px;
+        box-shadow: var(--shadow);
+      }
+      .role-card .role-label {
+        font-family: "Crimson Text", serif;
+        font-style: italic;
+        font-weight: 600;
+        font-size: 19px;
+        color: var(--copper);
+        margin-bottom: 14px;
+        padding-bottom: 12px;
+        border-bottom: 1px dashed var(--line);
+      }
+      .role-card ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+      .role-card li {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 13px;
+        padding: 8px 0;
+        color: var(--ink);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .role-card li::before {
+        content: "→";
+        color: var(--copper-light);
+        font-weight: 700;
+      }
+      .role-card li + li {
+        border-top: 1px solid #f0e7d8;
+      }
 
-  /* ============ FILE TREE ============ */
-  .tree-wrap{
-    background:#241f1b;
-    border-radius:16px;
-    padding:34px 38px;
-    box-shadow:var(--shadow);
-    overflow-x:auto;
-  }
-  .tree{
-    font-family:'JetBrains Mono', monospace;
-    font-size:14px;
-    color:#e8dcc8;
-    white-space:pre;
-    line-height:1.9;
-  }
-  .tree .dir{color:var(--copper-light); font-weight:600;}
-  .tree .file{color:#8fb89f; font-weight:600;}
-  .tree .fn{color:#e8dcc8;}
-  .tree .fn.new{color:var(--amber); }
-  .tree .comment{color:#6b6055;}
+      /* ============ FILE TREE ============ */
+      .tree-wrap {
+        background: #241f1b;
+        border-radius: 16px;
+        padding: 34px 38px;
+        box-shadow: var(--shadow);
+        overflow-x: auto;
+      }
+      .tree {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 14px;
+        color: #e8dcc8;
+        white-space: pre;
+        line-height: 1.9;
+      }
+      .tree .dir {
+        color: var(--copper-light);
+        font-weight: 600;
+      }
+      .tree .file {
+        color: #8fb89f;
+        font-weight: 600;
+      }
+      .tree .fn {
+        color: #e8dcc8;
+      }
+      .tree .fn.new {
+        color: var(--amber);
+      }
+      .tree .comment {
+        color: #6b6055;
+      }
 
-  .legend{display:flex; gap:22px; margin-top:22px; flex-wrap:wrap;}
-  .legend span{
-    font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--ink-soft);
-    display:flex; align-items:center; gap:7px;
-  }
-  .legend i{width:9px; height:9px; border-radius:2px; display:inline-block;}
+      .legend {
+        display: flex;
+        gap: 22px;
+        margin-top: 22px;
+        flex-wrap: wrap;
+      }
+      .legend span {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 12px;
+        color: var(--ink-soft);
+        display: flex;
+        align-items: center;
+        gap: 7px;
+      }
+      .legend i {
+        width: 9px;
+        height: 9px;
+        border-radius: 2px;
+        display: inline-block;
+      }
 
-  /* ============ MILESTONE ============ */
-  .milestone{
-    background:linear-gradient(135deg, #2b2420, #3a2f27);
-    border-radius:20px;
-    padding:48px 44px;
-    color:#f7f1e8;
-    position:relative;
-    overflow:hidden;
-    box-shadow:0 20px 50px -20px rgba(43,36,32,0.5);
-  }
-  .milestone::before{
-    content:"";
-    position:absolute; top:-40%; right:-10%; width:400px; height:400px;
-    background:radial-gradient(circle, rgba(160,104,58,0.35), transparent 70%);
-    pointer-events:none;
-  }
-  .milestone .tag{
-    font-family:'JetBrains Mono', monospace; font-size:12px; letter-spacing:0.15em;
-    text-transform:uppercase; color:var(--copper-light); font-weight:700;
-  }
-  .milestone h3{
-    font-family:'Crimson Text', serif; font-size:32px; font-weight:700; margin:14px 0 20px;
-    max-width:600px; line-height:1.25;
-  }
-  .milestone-steps{display:flex; gap:16px; margin-top:26px; flex-wrap:wrap; position:relative;}
-  .m-step{
-    background:rgba(255,255,255,0.06);
-    border:1px solid rgba(255,255,255,0.14);
-    border-radius:12px;
-    padding:16px 20px;
-    flex:1;
-    min-width:200px;
-  }
-  .m-step .num{
-    font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--copper-light); font-weight:700;
-  }
-  .m-step .fn{font-family:'JetBrains Mono', monospace; font-weight:700; font-size:15px; margin:6px 0;}
-  .m-step p{margin:0; font-size:13px; color:#c9bfae; line-height:1.5;}
-  .m-arrow{display:flex; align-items:center; color:var(--copper-light); font-size:20px;}
-  @media (max-width:700px){.m-arrow{display:none;}}
+      /* ============ MILESTONE ============ */
+      .milestone {
+        background: linear-gradient(135deg, #2b2420, #3a2f27);
+        border-radius: 20px;
+        padding: 48px 44px;
+        color: #f7f1e8;
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 20px 50px -20px rgba(43, 36, 32, 0.5);
+      }
+      .milestone::before {
+        content: "";
+        position: absolute;
+        top: -40%;
+        right: -10%;
+        width: 400px;
+        height: 400px;
+        background: radial-gradient(
+          circle,
+          rgba(160, 104, 58, 0.35),
+          transparent 70%
+        );
+        pointer-events: none;
+      }
+      .milestone .tag {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 12px;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: var(--copper-light);
+        font-weight: 700;
+      }
+      .milestone h3 {
+        font-family: "Crimson Text", serif;
+        font-size: 32px;
+        font-weight: 700;
+        margin: 14px 0 20px;
+        max-width: 600px;
+        line-height: 1.25;
+      }
+      .milestone-steps {
+        display: flex;
+        gap: 16px;
+        margin-top: 26px;
+        flex-wrap: wrap;
+        position: relative;
+      }
+      .m-step {
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        border-radius: 12px;
+        padding: 16px 20px;
+        flex: 1;
+        min-width: 200px;
+      }
+      .m-step .num {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 11px;
+        color: var(--copper-light);
+        font-weight: 700;
+      }
+      .m-step .fn {
+        font-family: "JetBrains Mono", monospace;
+        font-weight: 700;
+        font-size: 15px;
+        margin: 6px 0;
+      }
+      .m-step p {
+        margin: 0;
+        font-size: 13px;
+        color: #c9bfae;
+        line-height: 1.5;
+      }
+      .m-arrow {
+        display: flex;
+        align-items: center;
+        color: var(--copper-light);
+        font-size: 20px;
+      }
+      @media (max-width: 700px) {
+        .m-arrow {
+          display: none;
+        }
+      }
 
-  footer{
-    text-align:center; padding:50px 28px 30px; color:var(--ink-soft);
-    font-family:'JetBrains Mono', monospace; font-size:12px; letter-spacing:0.05em;
-  }
+      footer {
+        text-align: center;
+        padding: 50px 28px 30px;
+        color: var(--ink-soft);
+        font-family: "JetBrains Mono", monospace;
+        font-size: 12px;
+        letter-spacing: 0.05em;
+      }
 
-  /* animations */
-  .reveal{opacity:0; transform:translateY(16px); animation:rise .7s ease forwards;}
-  @keyframes rise{to{opacity:1; transform:none;}}
-</style>
-</head>
-<body>
-<div class="noise"></div>
+      /* animations */
+      .reveal {
+        opacity: 0;
+        transform: translateY(16px);
+        animation: rise 0.7s ease forwards;
+      }
+      @keyframes rise {
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="noise"></div>
 
-<header class="hero">
-  <div class="eyebrow">Eagle Crest CBT · Backend Surface</div>
-  <h1>The API that <em>isn't</em><br>a REST API</h1>
-  <p class="sub">A visual map of how Next.js Server Actions are standing in as backend endpoints for the CBT platform — what's live, what's next, and where it's all headed.</p>
-  <div class="hero-meta">
-    <div><b>2</b>Working</div>
-    <div><b>1</b>In Progress</div>
-    <div><b>15</b>Planned</div>
-    <div><b>4</b>Action Files</div>
-  </div>
-</header>
-
-<div class="wrap">
-
-  <!-- ============ SECTION 1: CURRENT STATE ============ -->
-  <section>
-    <div class="section-head">
-      <span class="section-num">01</span>
-      <div>
-        <h2>What exists right now</h2>
-        <p class="section-sub">No REST routes yet — Server Actions play the role of endpoints. Here's the entire current surface area.</p>
+    <header class="hero">
+      <div class="eyebrow">Eagle Crest CBT · Backend Surface</div>
+      <h1>The API that <em>isn't</em><br />a REST API</h1>
+      <p class="sub">
+        A visual map of how Next.js Server Actions are standing in as backend
+        endpoints for the CBT platform — what's live, what's next, and where
+        it's all headed.
+      </p>
+      <div class="hero-meta">
+        <div><b>2</b>Working</div>
+        <div><b>1</b>In Progress</div>
+        <div><b>15</b>Planned</div>
+        <div><b>4</b>Action Files</div>
       </div>
-    </div>
+    </header>
 
-    <div class="api-cards">
-      <div class="api-card reveal" style="animation-delay:.05s">
-        <span class="status-dot working"></span>
-        <div class="api-info">
-          <div class="fn">registerStudent<span class="paren">()</span></div>
-          <div class="file">app/actions/student.ts</div>
-          <div class="purpose">Registers a student and redirects to the active exam.</div>
+    <div class="wrap">
+      <!-- ============ SECTION 1: CURRENT STATE ============ -->
+      <section>
+        <div class="section-head">
+          <span class="section-num">01</span>
+          <div>
+            <h2>What exists right now</h2>
+            <p class="section-sub">
+              No REST routes yet — Server Actions play the role of endpoints.
+              Here's the entire current surface area.
+            </p>
+          </div>
         </div>
-        <span class="status-badge working">Working</span>
-      </div>
 
-      <div class="api-card reveal" style="animation-delay:.15s">
-        <span class="status-dot working"></span>
-        <div class="api-info">
-          <div class="fn">importBusinessStudiesExam<span class="paren">()</span></div>
-          <div class="file">app/actions/exam.ts</div>
-          <div class="purpose">Imports the Business Studies questions into the database.</div>
+        <div class="api-cards">
+          <div class="api-card reveal" style="animation-delay: 0.05s">
+            <span class="status-dot working"></span>
+            <div class="api-info">
+              <div class="fn">registerStudent<span class="paren">()</span></div>
+              <div class="file">app/actions/student.ts</div>
+              <div class="purpose">
+                Registers a student and redirects to the active exam.
+              </div>
+            </div>
+            <span class="status-badge working">Working</span>
+          </div>
+
+          <div class="api-card reveal" style="animation-delay: 0.15s">
+            <span class="status-dot working"></span>
+            <div class="api-info">
+              <div class="fn">
+                importBusinessStudiesExam<span class="paren">()</span>
+              </div>
+              <div class="file">app/actions/exam.ts</div>
+              <div class="purpose">
+                Imports the Business Studies questions into the database.
+              </div>
+            </div>
+            <span class="status-badge working">Working</span>
+          </div>
+
+          <div class="api-card reveal" style="animation-delay: 0.25s">
+            <span class="status-dot progress"></span>
+            <div class="api-info">
+              <div class="fn">submitExam<span class="paren">()</span></div>
+              <div class="file">app/actions/exam.ts</div>
+              <div class="purpose">
+                Creates an ExamAttempt and saves the student's answers.
+              </div>
+            </div>
+            <span class="status-badge progress">In Progress</span>
+          </div>
         </div>
-        <span class="status-badge working">Working</span>
-      </div>
+      </section>
 
-      <div class="api-card reveal" style="animation-delay:.25s">
-        <span class="status-dot progress"></span>
-        <div class="api-info">
-          <div class="fn">submitExam<span class="paren">()</span></div>
-          <div class="file">app/actions/exam.ts</div>
-          <div class="purpose">Creates an ExamAttempt and saves the student's answers.</div>
+      <!-- ============ SECTION 2: DATABASE FLOW ============ -->
+      <section>
+        <div class="section-head">
+          <span class="section-num">02</span>
+          <div>
+            <h2>How data moves</h2>
+            <p class="section-sub">
+              Three flows, three actors — student, admin, and the exam
+              submission pipeline.
+            </p>
+          </div>
         </div>
-        <span class="status-badge progress">In Progress</span>
-      </div>
-    </div>
-  </section>
 
-  <!-- ============ SECTION 2: DATABASE FLOW ============ -->
-  <section>
-    <div class="section-head">
-      <span class="section-num">02</span>
-      <div>
-        <h2>How data moves</h2>
-        <p class="section-sub">Three flows, three actors — student, admin, and the exam submission pipeline.</p>
-      </div>
-    </div>
+        <div class="flows">
+          <div class="flow-col reveal" style="animation-delay: 0.05s">
+            <div class="flow-title">Student Registration</div>
+            <div class="flow-node table">Student Registration</div>
+            <div class="flow-arrow">↓</div>
+            <div class="flow-node action">registerStudent()</div>
+            <div class="flow-arrow">↓</div>
+            <div class="flow-node table">Student Table</div>
+            <div class="flow-arrow">↓</div>
+            <div class="flow-node table">Redirect to Exam</div>
+          </div>
 
-    <div class="flows">
-      <div class="flow-col reveal" style="animation-delay:.05s">
-        <div class="flow-title">Student Registration</div>
-        <div class="flow-node table">Student Registration</div>
-        <div class="flow-arrow">↓</div>
-        <div class="flow-node action">registerStudent()</div>
-        <div class="flow-arrow">↓</div>
-        <div class="flow-node table">Student Table</div>
-        <div class="flow-arrow">↓</div>
-        <div class="flow-node table">Redirect to Exam</div>
-      </div>
+          <div class="flow-col reveal" style="animation-delay: 0.15s">
+            <div class="flow-title">Admin Import</div>
+            <div class="flow-node table">Admin</div>
+            <div class="flow-arrow">↓</div>
+            <div class="flow-node action">importBusinessStudiesExam()</div>
+            <div class="flow-arrow">↓</div>
+            <div class="flow-node table">Question Table</div>
+            <div class="flow-arrow">↓</div>
+            <div class="flow-node table">Option Table</div>
+          </div>
 
-      <div class="flow-col reveal" style="animation-delay:.15s">
-        <div class="flow-title">Admin Import</div>
-        <div class="flow-node table">Admin</div>
-        <div class="flow-arrow">↓</div>
-        <div class="flow-node action">importBusinessStudiesExam()</div>
-        <div class="flow-arrow">↓</div>
-        <div class="flow-node table">Question Table</div>
-        <div class="flow-arrow">↓</div>
-        <div class="flow-node table">Option Table</div>
-      </div>
-
-      <div class="flow-col reveal" style="animation-delay:.25s">
-        <div class="flow-title">Exam Submission</div>
-        <div class="flow-node table">Student</div>
-        <div class="flow-arrow">↓</div>
-        <div class="flow-node action">submitExam()</div>
-        <div class="flow-arrow">↓</div>
-        <div class="flow-node table">ExamAttempt</div>
-        <div class="flow-arrow">↓</div>
-        <div class="flow-node table">StudentAnswer</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ SECTION 3: ROADMAP ============ -->
-  <section>
-    <div class="section-head">
-      <span class="section-num">03</span>
-      <div>
-        <h2>What's next, by role</h2>
-        <p class="section-sub">Fifteen actions still to build across four responsibility areas — grouped the way the system thinks about them.</p>
-      </div>
-    </div>
-
-    <div class="roadmap-grid">
-      <div class="role-card reveal" style="animation-delay:.05s">
-        <div class="role-label">Student</div>
-        <ul>
-          <li>submitExam()</li>
-          <li>autoSubmitExam()</li>
-        </ul>
-      </div>
-      <div class="role-card reveal" style="animation-delay:.12s">
-        <div class="role-label">Teacher</div>
-        <ul>
-          <li>createExam()</li>
-          <li>updateExam()</li>
-          <li>deleteExam()</li>
-          <li>publishExam()</li>
-          <li>closeExam()</li>
-        </ul>
-      </div>
-      <div class="role-card reveal" style="animation-delay:.19s">
-        <div class="role-label">Questions</div>
-        <ul>
-          <li>importQuestions()</li>
-          <li>addQuestion()</li>
-          <li>updateQuestion()</li>
-          <li>deleteQuestion()</li>
-        </ul>
-      </div>
-      <div class="role-card reveal" style="animation-delay:.26s">
-        <div class="role-label">Results</div>
-        <ul>
-          <li>markExam()</li>
-          <li>generateResult()</li>
-          <li>getStudentResults()</li>
-          <li>getExamResults()</li>
-          <li>downloadResultSheet()</li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ SECTION 4: FINAL ARCHITECTURE ============ -->
-  <section>
-    <div class="section-head">
-      <span class="section-num">04</span>
-      <div>
-        <h2>Final architecture</h2>
-        <p class="section-sub">The target shape of <span style="font-family:'JetBrains Mono',monospace; color:var(--ink);">app/actions/</span> — organized by domain so it scales cleanly.</p>
-      </div>
-    </div>
-
-    <div class="tree-wrap">
-      <div class="tree">
-<span class="dir">app/</span>
-│
-├── <span class="dir">actions/</span>
-│   ├── <span class="file">student.ts</span>
-│   │     <span class="fn">registerStudent()</span>
-│   │
-│   ├── <span class="file">exam.ts</span>
-│   │     <span class="fn">createExam()</span>
-│   │     <span class="fn">updateExam()</span>
-│   │     <span class="fn">publishExam()</span>
-│   │     <span class="fn">closeExam()</span>
-│   │     <span class="fn">submitExam()</span>        <span class="comment">// finishing now</span>
-│   │     <span class="fn">autoSubmitExam()</span>
-│   │
-│   ├── <span class="file">question.ts</span>
-│   │     <span class="fn">importQuestions()</span>
-│   │     <span class="fn">addQuestion()</span>
-│   │     <span class="fn">updateQuestion()</span>
-│   │     <span class="fn">deleteQuestion()</span>
-│   │
-│   └── <span class="file">result.ts</span>
-│         <span class="fn new">markExam()</span>          <span class="comment">// next milestone</span>
-│         <span class="fn">generateResult()</span>
-│         <span class="fn">getExamResults()</span>
-│         <span class="fn">getStudentResults()</span>
-      </div>
-      <div class="legend">
-        <span><i style="background:var(--copper-light);"></i>action file</span>
-        <span><i style="background:var(--amber);"></i>next milestone</span>
-        <span><i style="background:#6b6055;"></i>note</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ SECTION 5: MILESTONE ============ -->
-  <section>
-    <div class="section-head">
-      <span class="section-num">05</span>
-      <div>
-        <h2>The immediate milestone</h2>
-        <p class="section-sub">Two actions stand between the MVP and a complete, end-to-end CBT workflow.</p>
-      </div>
-    </div>
-
-    <div class="milestone reveal">
-      <div class="tag">Next up</div>
-      <h3>Finish submission, then auto-score it — and the workflow closes end-to-end.</h3>
-      <div class="milestone-steps">
-        <div class="m-step">
-          <div class="num">STEP 1</div>
-          <div class="fn">submitExam()</div>
-          <p>Persist the student's answers and create the ExamAttempt record.</p>
+          <div class="flow-col reveal" style="animation-delay: 0.25s">
+            <div class="flow-title">Exam Submission</div>
+            <div class="flow-node table">Student</div>
+            <div class="flow-arrow">↓</div>
+            <div class="flow-node action">submitExam()</div>
+            <div class="flow-arrow">↓</div>
+            <div class="flow-node table">ExamAttempt</div>
+            <div class="flow-arrow">↓</div>
+            <div class="flow-node table">StudentAnswer</div>
+          </div>
         </div>
-        <div class="m-arrow">→</div>
-        <div class="m-step">
-          <div class="num">STEP 2</div>
-          <div class="fn">markExam()</div>
-          <p>Auto-score the attempt and generate a Result record.</p>
+      </section>
+
+      <!-- ============ SECTION 3: ROADMAP ============ -->
+      <section>
+        <div class="section-head">
+          <span class="section-num">03</span>
+          <div>
+            <h2>What's next, by role</h2>
+            <p class="section-sub">
+              Fifteen actions still to build across four responsibility areas —
+              grouped the way the system thinks about them.
+            </p>
+          </div>
         </div>
-        <div class="m-arrow">→</div>
-        <div class="m-step">
-          <div class="num">RESULT</div>
-          <div class="fn">Complete CBT loop</div>
-          <p>Register → take exam → submit → score → result, fully automated.</p>
+
+        <div class="roadmap-grid">
+          <div class="role-card reveal" style="animation-delay: 0.05s">
+            <div class="role-label">Student</div>
+            <ul>
+              <li>submitExam()</li>
+              <li>autoSubmitExam()</li>
+            </ul>
+          </div>
+          <div class="role-card reveal" style="animation-delay: 0.12s">
+            <div class="role-label">Teacher</div>
+            <ul>
+              <li>createExam()</li>
+              <li>updateExam()</li>
+              <li>deleteExam()</li>
+              <li>publishExam()</li>
+              <li>closeExam()</li>
+            </ul>
+          </div>
+          <div class="role-card reveal" style="animation-delay: 0.19s">
+            <div class="role-label">Questions</div>
+            <ul>
+              <li>importQuestions()</li>
+              <li>addQuestion()</li>
+              <li>updateQuestion()</li>
+              <li>deleteQuestion()</li>
+            </ul>
+          </div>
+          <div class="role-card reveal" style="animation-delay: 0.26s">
+            <div class="role-label">Results</div>
+            <ul>
+              <li>markExam()</li>
+              <li>generateResult()</li>
+              <li>getStudentResults()</li>
+              <li>getExamResults()</li>
+              <li>downloadResultSheet()</li>
+            </ul>
+          </div>
         </div>
-      </div>
+      </section>
+
+      <!-- ============ SECTION 4: FINAL ARCHITECTURE ============ -->
+      <section>
+        <div class="section-head">
+          <span class="section-num">04</span>
+          <div>
+            <h2>Final architecture</h2>
+            <p class="section-sub">
+              The target shape of
+              <span
+                style="
+                  font-family: &quot;JetBrains Mono&quot;, monospace;
+                  color: var(--ink);
+                "
+                >app/actions/</span
+              >
+              — organized by domain so it scales cleanly.
+            </p>
+          </div>
+        </div>
+
+        <div class="tree-wrap">
+          <div class="tree">
+            <span class="dir">app/</span>
+            │ ├── <span class="dir">actions/</span> │ ├──
+            <span class="file">student.ts</span> │ │
+            <span class="fn">registerStudent()</span> │ │ │ ├──
+            <span class="file">exam.ts</span> │ │
+            <span class="fn">createExam()</span> │ │
+            <span class="fn">updateExam()</span> │ │
+            <span class="fn">publishExam()</span> │ │
+            <span class="fn">closeExam()</span> │ │
+            <span class="fn">submitExam()</span>
+            <span class="comment">// finishing now</span> │ │
+            <span class="fn">autoSubmitExam()</span> │ │ │ ├──
+            <span class="file">question.ts</span> │ │
+            <span class="fn">importQuestions()</span> │ │
+            <span class="fn">addQuestion()</span> │ │
+            <span class="fn">updateQuestion()</span> │ │
+            <span class="fn">deleteQuestion()</span> │ │ │ └──
+            <span class="file">result.ts</span> │
+            <span class="fn new">markExam()</span>
+            <span class="comment">// next milestone</span> │
+            <span class="fn">generateResult()</span> │
+            <span class="fn">getExamResults()</span> │
+            <span class="fn">getStudentResults()</span>
+          </div>
+          <div class="legend">
+            <span
+              ><i style="background: var(--copper-light)"></i>action file</span
+            >
+            <span><i style="background: var(--amber)"></i>next milestone</span>
+            <span><i style="background: #6b6055"></i>note</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ SECTION 5: MILESTONE ============ -->
+      <section>
+        <div class="section-head">
+          <span class="section-num">05</span>
+          <div>
+            <h2>The immediate milestone</h2>
+            <p class="section-sub">
+              Two actions stand between the MVP and a complete, end-to-end CBT
+              workflow.
+            </p>
+          </div>
+        </div>
+
+        <div class="milestone reveal">
+          <div class="tag">Next up</div>
+          <h3>
+            Finish submission, then auto-score it — and the workflow closes
+            end-to-end.
+          </h3>
+          <div class="milestone-steps">
+            <div class="m-step">
+              <div class="num">STEP 1</div>
+              <div class="fn">submitExam()</div>
+              <p>
+                Persist the student's answers and create the ExamAttempt record.
+              </p>
+            </div>
+            <div class="m-arrow">→</div>
+            <div class="m-step">
+              <div class="num">STEP 2</div>
+              <div class="fn">markExam()</div>
+              <p>Auto-score the attempt and generate a Result record.</p>
+            </div>
+            <div class="m-arrow">→</div>
+            <div class="m-step">
+              <div class="num">RESULT</div>
+              <div class="fn">Complete CBT loop</div>
+              <p>
+                Register → take exam → submit → score → result, fully automated.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
-  </section>
 
-</div>
-
-<footer>Eagle Crest CBT — Server Action Surface · Editorial Minimalism</footer>
-
-</body>
+    <footer>
+      Eagle Crest CBT — Server Action Surface · Editorial Minimalism
+    </footer>
+  </body>
 </html>

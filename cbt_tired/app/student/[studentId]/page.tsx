@@ -1,5 +1,6 @@
+import { auth } from "@/auth"
 import { prisma } from "@/lib/prisma"
-import { notFound } from "next/navigation"
+import { notFound, redirect } from "next/navigation"
 
 import { StudentHeader } from "./components/student-header"
 import { ExamList } from "./components/exam-list"
@@ -12,11 +13,28 @@ type Props = {
 }
 
 export default async function StudentPage({ params }: Props) {
-  const { studentId } = await params
+  const session = await auth()
 
-  const student = await prisma.student.findUnique({
+  if (!session?.user || session.user.role !== "STUDENT") {
+    redirect("/login")
+  }
+
+  const userId = Number(session.user.id)
+  const { studentId } = await params
+  const id = Number(studentId)
+
+  if (
+    !Number.isInteger(userId) ||
+    !Number.isInteger(id) ||
+    id <= 0
+  ) {
+    notFound()
+  }
+
+  const student = await prisma.student.findFirst({
     where: {
-      id: Number(studentId),
+      id,
+      userId,
     },
     include: {
       class: true,
@@ -27,11 +45,27 @@ export default async function StudentPage({ params }: Props) {
     notFound()
   }
 
+  const now = new Date();
+
   const exams = await prisma.exam.findMany({
     where: {
-      classId: student.classId,
-      status: "PUBLISHED",
+  classId: student.classId,
+  status: "ACTIVE",
+  AND: [
+    {
+      OR: [
+        { startTime: null },
+        { startTime: { lte: now } },
+      ],
     },
+    {
+      OR: [
+        { endTime: null },
+        { endTime: { gte: now } },
+      ],
+    },
+  ],
+},
     include: {
       subject: true,
     },

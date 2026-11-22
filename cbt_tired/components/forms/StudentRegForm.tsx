@@ -1,4 +1,3 @@
-
 "use client"
 
 import { useState } from "react"
@@ -86,9 +85,7 @@ export function RegisterForm({ classes }: RegisterFormProps) {
         className="space-y-4 rounded-lg border p-6"
       >
         <div>
-          <label className="mb-1 block text-sm font-medium">
-            First Name
-          </label>
+          <label className="mb-1 block text-sm font-medium">First Name</label>
           <Input
             placeholder="Enter first name"
             {...register("firstName", { required: true })}
@@ -96,9 +93,7 @@ export function RegisterForm({ classes }: RegisterFormProps) {
         </div>
 
         <div>
-          <label className="mb-1 block text-sm font-medium">
-            Last Name
-          </label>
+          <label className="mb-1 block text-sm font-medium">Last Name</label>
           <Input
             placeholder="Enter last name"
             {...register("lastName", { required: true })}
@@ -106,9 +101,7 @@ export function RegisterForm({ classes }: RegisterFormProps) {
         </div>
 
         <div>
-          <label className="mb-1 block text-sm font-medium">
-            Class
-          </label>
+          <label className="mb-1 block text-sm font-medium">Class</label>
           <select
             {...register("classId", {
               valueAsNumber: true,
@@ -138,14 +131,12 @@ export function RegisterForm({ classes }: RegisterFormProps) {
             {...register("admissionNo")}
           />
           <p className="mt-1 text-xs text-muted-foreground">
-            Enter the school's existing admission number or leave blank
-            for ModeCBT to generate one.
+            Enter the school's existing admission number or leave blank for
+            ModeCBT to generate one.
           </p>
         </div>
 
-        {error && (
-          <p className="text-sm text-destructive">{error}</p>
-        )}
+        {error && <p className="text-sm text-destructive">{error}</p>}
 
         <Button type="submit" disabled={isSubmitting}>
           {isSubmitting ? "Registering student..." : "Register Student"}
@@ -155,12 +146,12 @@ export function RegisterForm({ classes }: RegisterFormProps) {
       {credentials && (
         <div className="space-y-4 rounded-lg border p-6">
           <div>
-            <h2 className="font-semibold text-lg">
+            <h2 className="text-lg font-semibold">
               Student Registered Successfully
             </h2>
             <p className="text-sm text-muted-foreground">
-              Give these login details to the student. The temporary
-              password will not be displayed again after this page is refreshed.
+              Give these login details to the student. The temporary password
+              will not be displayed again after this page is refreshed.
             </p>
           </div>
 
@@ -176,9 +167,7 @@ export function RegisterForm({ classes }: RegisterFormProps) {
             </p>
             <p>
               <strong>Temporary Password:</strong>{" "}
-              <span className="font-mono">
-                {credentials.temporaryPassword}
-              </span>
+              <span className="font-mono">{credentials.temporaryPassword}</span>
             </p>
           </div>
 

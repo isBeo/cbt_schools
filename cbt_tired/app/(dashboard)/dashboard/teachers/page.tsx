@@ -1,4 +1,3 @@
-
 import { auth } from "@/auth"
 import { prisma } from "@/lib/prisma"
 import { redirect } from "next/navigation"
@@ -48,7 +47,8 @@ export default async function TeachersPage() {
         <div>
           <h2 className="text-lg font-semibold">Registered Teachers</h2>
           <p className="text-sm text-muted-foreground">
-            {teachers.length} teacher{teachers.length === 1 ? "" : "s"} registered
+            {teachers.length} teacher{teachers.length === 1 ? "" : "s"}{" "}
+            registered
           </p>
         </div>
 

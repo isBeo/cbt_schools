@@ -1,4 +1,3 @@
-
 "use client"
 
 import { useState } from "react"
@@ -39,9 +38,7 @@ export default function DeleteExam({ examId, examTitle }: Props) {
       router.refresh()
     } catch (error) {
       toast.error(
-        error instanceof Error
-          ? error.message
-          : "Unable to delete exam."
+        error instanceof Error ? error.message : "Unable to delete exam."
       )
     } finally {
       setLoading(false)
@@ -64,9 +61,8 @@ export default function DeleteExam({ examId, examTitle }: Props) {
           <DialogTitle>Delete this exam?</DialogTitle>
 
           <DialogDescription>
-            You are about to permanently delete "{examTitle}".
-            Its questions and options will also be deleted.
-            This action cannot be undone.
+            You are about to permanently delete "{examTitle}". Its questions and
+            options will also be deleted. This action cannot be undone.
           </DialogDescription>
         </DialogHeader>
 

@@ -1,4 +1,3 @@
-
 import { redirect } from "next/navigation"
 import { auth } from "@/auth"
 import { prisma } from "@/lib/prisma"
@@ -62,11 +61,7 @@ export default async function Dashboard() {
   const activityWhere = {
     startedAt: {
       gte: sevenDaysAgo,
-      lt: new Date(
-        today.getFullYear(),
-        today.getMonth(),
-        today.getDate() + 1
-      ),
+      lt: new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1),
     },
   }
 
@@ -94,8 +89,7 @@ export default async function Dashboard() {
     attemptDate.setHours(0, 0, 0, 0)
 
     const dayIndex = Math.round(
-      (attemptDate.getTime() - sevenDaysAgo.getTime()) /
-        (24 * 60 * 60 * 1000)
+      (attemptDate.getTime() - sevenDaysAgo.getTime()) / (24 * 60 * 60 * 1000)
     )
 
     if (dayIndex >= 0 && dayIndex < examActivity.length) {
@@ -323,9 +317,7 @@ export default async function Dashboard() {
   return (
     <div className="flex flex-col gap-8 p-8">
       <div className="flex flex-col gap-2">
-        <h1 className="text-3xl font-bold tracking-tight">
-          {heading}
-        </h1>
+        <h1 className="text-3xl font-bold tracking-tight">{heading}</h1>
 
         <p className="text-muted-foreground">
           {firstName ? `Welcome back, ${firstName}. ` : ""}
@@ -347,8 +339,8 @@ export default async function Dashboard() {
         </div>
       ) : (
         <p className="text-muted-foreground">
-          No dashboard information is available yet. Please contact your
-          school administrator if you think this is an error.
+          No dashboard information is available yet. Please contact your school
+          administrator if you think this is an error.
         </p>
       )}
 

@@ -13,10 +13,7 @@ export default async function RegisterPage() {
     redirect("/login")
   }
 
-  if (
-    session.user.role !== "SCHOOL_ADMIN" ||
-    !session.user.schoolId
-  ) {
+  if (session.user.role !== "SCHOOL_ADMIN" || !session.user.schoolId) {
     redirect("/dashboard")
   }
 
@@ -47,16 +44,13 @@ export default async function RegisterPage() {
   return (
     <main className="mx-auto max-w-xl space-y-6 p-6">
       <div>
-
         <Link
-  href="/dashboard/students"
-  className="inline-flex items-center rounded-md border px-4 py-2 text-sm font-medium hover:bg-muted"
->
-  ← Back to Students
-</Link>
-        <h1 className="text-2xl font-bold">
-          Student Registration
-        </h1>
+          href="/dashboard/students"
+          className="inline-flex items-center rounded-md border px-4 py-2 text-sm font-medium hover:bg-muted"
+        >
+          ← Back to Students
+        </Link>
+        <h1 className="text-2xl font-bold">Student Registration</h1>
 
         <p className="text-sm text-muted-foreground">
           Register a student and create their examination login credentials.
@@ -65,13 +59,13 @@ export default async function RegisterPage() {
 
       {!school?.code ? (
         <div className="rounded-md border border-amber-500/50 bg-amber-500/10 p-4 text-sm">
-          Your school code has not been configured yet.
-          Contact the system administrator before registering students.
+          Your school code has not been configured yet. Contact the system
+          administrator before registering students.
         </div>
       ) : classes.length === 0 ? (
         <div className="rounded-md border p-4 text-sm text-muted-foreground">
-          No classes have been configured for your school yet.
-          Contact the system administrator.
+          No classes have been configured for your school yet. Contact the
+          system administrator.
         </div>
       ) : (
         <RegisterForm classes={classes} />

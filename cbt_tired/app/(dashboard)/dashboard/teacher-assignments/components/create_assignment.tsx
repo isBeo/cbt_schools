@@ -1,4 +1,3 @@
-
 "use client"
 
 import { useState, useTransition } from "react"
@@ -112,7 +111,7 @@ export function CreateAssignment({
             <option value="">Select teacher</option>
             {teachers.map((teacher) => (
               <option key={teacher.id} value={teacher.id}>
-                {teacher.name} ({teacher.email ?? 'No email'})
+                {teacher.name} ({teacher.email ?? "No email"})
               </option>
             ))}
           </select>

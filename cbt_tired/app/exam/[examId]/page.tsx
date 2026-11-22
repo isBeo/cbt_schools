@@ -1,4 +1,4 @@
-
+import { startExam } from "@/app/actions/exam"
 import { auth } from "@/auth"
 import { prisma } from "@/lib/prisma"
 import { notFound, redirect } from "next/navigation"
@@ -21,11 +21,7 @@ export default async function ExamPage({ params }: Props) {
   const { examId } = await params
   const id = Number(examId)
 
-  if (
-    !Number.isInteger(userId) ||
-    !Number.isInteger(id) ||
-    id <= 0
-  ) {
+  if (!Number.isInteger(userId) || !Number.isInteger(id) || id <= 0) {
     notFound()
   }
 
@@ -46,16 +42,10 @@ export default async function ExamPage({ params }: Props) {
       status: "ACTIVE",
       AND: [
         {
-          OR: [
-            { startTime: null },
-            { startTime: { lte: new Date() } },
-          ],
+          OR: [{ startTime: null }, { startTime: { lte: new Date() } }],
         },
         {
-          OR: [
-            { endTime: null },
-            { endTime: { gte: new Date() } },
-          ],
+          OR: [{ endTime: null }, { endTime: { gte: new Date() } }],
         },
       ],
     },
@@ -77,16 +67,20 @@ export default async function ExamPage({ params }: Props) {
     },
   })
 
-  if (!exam) {
-    notFound()
-  }
+if (!exam) {
+  notFound()
+}
 
-  return (
-    <main className="mx-auto max-w-4xl p-6">
-      <ExamForm
-        exam={exam}
-        duration={exam.durationMinutes}
-      />
-    </main>
-  )
+const attempt = await startExam(exam.id)
+
+return (
+  <main className="mx-auto max-w-4xl p-6">
+    <ExamForm
+      exam={exam}
+      duration={exam.durationMinutes}
+      attemptId={attempt.attemptId}
+      expiresAt={attempt.expiresAt}
+    />
+  </main>
+)
 }

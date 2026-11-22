@@ -1,4 +1,3 @@
-
 "use client"
 
 import { useEffect, useState } from "react"
@@ -24,7 +23,10 @@ function suggestSchoolCode(name: string) {
 
   if (acronym.length >= 2) return acronym
 
-  return name.replace(/[^a-z0-9]/gi, "").toUpperCase().slice(0, 10)
+  return name
+    .replace(/[^a-z0-9]/gi, "")
+    .toUpperCase()
+    .slice(0, 10)
 }
 
 export function SchoolForm() {
@@ -56,30 +58,30 @@ export function SchoolForm() {
     }
   }, [schoolName, codeEdited, setValue])
 
-const onSubmit = async (data: SchoolInput) => {
-  console.log("Submitted school data:", data)
+  const onSubmit = async (data: SchoolInput) => {
+    console.log("Submitted school data:", data)
 
-  const result = await createSchool(data)
+    const result = await createSchool(data)
 
-  if (result.success) {
-    toast.success(result.message)
-    form.reset()
-    setCodeEdited(false)
-  } else {
-    if ("errors" in result && result.errors) {
-      console.error("Validation errors:", result.errors)
+    if (result.success) {
+      toast.success(result.message)
+      form.reset()
+      setCodeEdited(false)
+    } else {
+      if ("errors" in result && result.errors) {
+        console.error("Validation errors:", result.errors)
 
-      const firstError = Object.entries(result.errors)
-        .flatMap(([field, messages]) =>
-          (messages ?? []).map((message) => `${field}: ${message}`)
+        const firstError = Object.entries(result.errors).flatMap(
+          ([field, messages]) =>
+            (messages ?? []).map((message) => `${field}: ${message}`)
         )[0]
 
-      toast.error(firstError ?? result.message)
-    } else {
-      toast.error(result.message)
+        toast.error(firstError ?? result.message)
+      } else {
+        toast.error(result.message)
+      }
     }
   }
-}
 
   return (
     <form
@@ -92,10 +94,7 @@ const onSubmit = async (data: SchoolInput) => {
         </h3>
 
         <div>
-          <Input
-            placeholder="School name"
-            {...form.register("name")}
-          />
+          <Input placeholder="School name" {...form.register("name")} />
           {errors.name && (
             <p className="mt-1 text-sm text-destructive">
               {errors.name.message}
@@ -112,8 +111,8 @@ const onSubmit = async (data: SchoolInput) => {
             })}
           />
           <p className="mt-1 text-xs text-muted-foreground">
-            Suggested automatically from the school name. You can edit it
-            before registering the school.
+            Suggested automatically from the school name. You can edit it before
+            registering the school.
           </p>
           {errors.code && (
             <p className="mt-1 text-sm text-destructive">
@@ -122,10 +121,7 @@ const onSubmit = async (data: SchoolInput) => {
           )}
         </div>
 
-        <Input
-          placeholder="School address"
-          {...form.register("address")}
-        />
+        <Input placeholder="School address" {...form.register("address")} />
       </div>
 
       <div className="space-y-4">

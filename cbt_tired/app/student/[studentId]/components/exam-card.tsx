@@ -18,7 +18,8 @@ type Props = {
   studentId: number
 }
 
-export function ExamCard({ id, title, subject, studentId }: Props) {  return (
+export function ExamCard({ id, title, subject, studentId }: Props) {
+  return (
     <Card className="transition hover:border-primary hover:shadow-md">
       <Link href={`/exam/${id}?student=${studentId}`} className="block p-6">
         <CardHeader className="p-0">

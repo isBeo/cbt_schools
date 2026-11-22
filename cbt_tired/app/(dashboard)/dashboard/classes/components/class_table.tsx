@@ -1,4 +1,3 @@
-
 "use client"
 
 import { useTransition } from "react"
@@ -21,9 +20,7 @@ export function ClassTable({ classes }: ClassTableProps) {
   const [isPending, startTransition] = useTransition()
 
   function handleDelete(id: number, name: string) {
-    const confirmed = window.confirm(
-      `Are you sure you want to delete ${name}?`
-    )
+    const confirmed = window.confirm(`Are you sure you want to delete ${name}?`)
 
     if (!confirmed) return
 
@@ -68,9 +65,7 @@ export function ClassTable({ classes }: ClassTableProps) {
           {classes.map((schoolClass, index) => (
             <tr key={schoolClass.id} className="border-t">
               <td className="px-4 py-3">{index + 1}</td>
-              <td className="px-4 py-3 font-medium">
-                {schoolClass.name}
-              </td>
+              <td className="px-4 py-3 font-medium">{schoolClass.name}</td>
               <td className="px-4 py-3">
                 {schoolClass.level.charAt(0) +
                   schoolClass.level.slice(1).toLowerCase()}
@@ -82,10 +77,8 @@ export function ClassTable({ classes }: ClassTableProps) {
                 <button
                   type="button"
                   disabled={isPending}
-                  onClick={() =>
-                    handleDelete(schoolClass.id, schoolClass.name)
-                  }
-                  className="rounded-md border border-destructive px-3 py-1.5 text-destructive hover:bg-destructive hover:text-destructive-foreground disabled:opacity-50"
+                  onClick={() => handleDelete(schoolClass.id, schoolClass.name)}
+                  className="hover:text-destructive-foreground rounded-md border border-destructive px-3 py-1.5 text-destructive hover:bg-destructive disabled:opacity-50"
                 >
                   Delete
                 </button>

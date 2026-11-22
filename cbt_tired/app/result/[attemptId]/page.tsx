@@ -1,4 +1,3 @@
-
 import { auth } from "@/auth"
 import { prisma } from "@/lib/prisma"
 import { notFound, redirect } from "next/navigation"
@@ -20,11 +19,7 @@ export default async function ResultPage({ params }: Props) {
   const { attemptId } = await params
   const id = Number(attemptId)
 
-  if (
-    !Number.isInteger(userId) ||
-    !Number.isInteger(id) ||
-    id <= 0
-  ) {
+  if (!Number.isInteger(userId) || !Number.isInteger(id) || id <= 0) {
     notFound()
   }
 

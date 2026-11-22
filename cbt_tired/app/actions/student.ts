@@ -1,4 +1,3 @@
-
 "use server"
 
 import { randomBytes } from "crypto"
@@ -48,7 +47,8 @@ export async function registerStudent(data: RegisterInput) {
   if (!school?.code?.trim()) {
     return {
       success: false as const,
-      message: "Your school code has not been configured. Contact the system administrator.",
+      message:
+        "Your school code has not been configured. Contact the system administrator.",
     }
   }
 
@@ -171,7 +171,8 @@ export async function registerStudent(data: RegisterInput) {
     ) {
       return {
         success: false as const,
-        message: "This admission number already exists in your school. Please use another one.",
+        message:
+          "This admission number already exists in your school. Please use another one.",
       }
     }
 

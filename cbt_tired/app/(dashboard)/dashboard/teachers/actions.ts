@@ -1,4 +1,3 @@
-
 "use server"
 
 import { auth } from "@/auth"
@@ -69,36 +68,33 @@ export async function createTeacher(
   try {
     const passwordHash = await bcrypt.hash(password, 12)
 
-    await prisma.$transaction(
-      async (tx) => {
-        const teacher = await tx.user.create({
-          data: {
-            name,
-            email,
-            passwordHash,
-            role: "TEACHER",
-            schoolId: session.user.schoolId!,
-          },
-        })
+    await prisma.$transaction(async (tx) => {
+      const teacher = await tx.user.create({
+        data: {
+          name,
+          email,
+          passwordHash,
+          role: "TEACHER",
+          schoolId: session.user.schoolId!,
+        },
+      })
 
-        await tx.auditLog.create({
-          data: {
-            userId: adminId,
-            schoolId: session.user.schoolId!,
-            actorName: session.user.name ?? "School Admin",
-            actorRole: session.user.role,
-            action: "CREATE",
-            entity: "TEACHER",
-            entityId: String(teacher.id),
-            description: `Created teacher account for ${teacher.name}`,
-            metadata: {
-              email: teacher.email,
-            },
+      await tx.auditLog.create({
+        data: {
+          userId: adminId,
+          schoolId: session.user.schoolId!,
+          actorName: session.user.name ?? "School Admin",
+          actorRole: session.user.role,
+          action: "CREATE",
+          entity: "TEACHER",
+          entityId: String(teacher.id),
+          description: `Created teacher account for ${teacher.name}`,
+          metadata: {
+            email: teacher.email,
           },
-        })
-      },
-      transactionOptions
-    )
+        },
+      })
+    }, transactionOptions)
 
     revalidatePath("/dashboard/teachers")
     revalidatePath("/dashboard/teacher-assignments")

@@ -1,4 +1,3 @@
-
 "use client"
 
 import * as React from "react"
@@ -34,12 +33,12 @@ export function ThemeToggle() {
     >
       <Sun
         className={`absolute size-4 transition-all duration-300 ${
-          isDark ? "rotate-90 scale-0" : "rotate-0 scale-100"
+          isDark ? "scale-0 rotate-90" : "scale-100 rotate-0"
         }`}
       />
       <Moon
         className={`size-4 transition-all duration-300 ${
-          isDark ? "rotate-0 scale-100" : "-rotate-90 scale-0"
+          isDark ? "scale-100 rotate-0" : "scale-0 -rotate-90"
         }`}
       />
     </Button>

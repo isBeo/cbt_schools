@@ -1,4 +1,3 @@
-
 "use server"
 
 import { auth } from "@/auth"
@@ -23,10 +22,7 @@ async function getSchoolAdmin() {
   return { schoolId: session.user.schoolId }
 }
 
-export async function createClass(data: {
-  name: string
-  level: string
-}) {
+export async function createClass(data: { name: string; level: string }) {
   const admin = await getSchoolAdmin()
 
   if (!admin) {

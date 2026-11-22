@@ -1,0 +1,610 @@
+[
+  {
+    "questionText": "The name Emmanuel means ______.",
+    "marks": 1,
+    "options": [
+      { "text": "God is with us", "correct": true },
+      { "text": "God is angry", "correct": false },
+      { "text": "God is sleeping", "correct": false },
+      { "text": "God is far away", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Who foretold the birth of Jesus Christ?",
+    "marks": 1,
+    "options": [
+      { "text": "Prophet Elijah", "correct": false },
+      { "text": "Prophet Isaiah", "correct": true },
+      { "text": "Peter", "correct": false },
+      { "text": "Paul", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Prophet Isaiah said that a child would be called ______.",
+    "marks": 1,
+    "options": [
+      { "text": "Emmanuel", "correct": true },
+      { "text": "Samuel", "correct": false },
+      { "text": "Moses", "correct": false },
+      { "text": "David", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Jesus Christ was born in ______.",
+    "marks": 1,
+    "options": [
+      { "text": "Egypt", "correct": false },
+      { "text": "Bethlehem", "correct": true },
+      { "text": "Jerusalem", "correct": false },
+      { "text": "Rome", "correct": false }
+    ]
+  },
+  {
+    "questionText": "The Holy Spirit is the ______ person of the Trinity.",
+    "marks": 1,
+    "options": [
+      { "text": "First", "correct": false },
+      { "text": "Second", "correct": false },
+      { "text": "Third", "correct": true },
+      { "text": "Fourth", "correct": false }
+    ]
+  },
+  {
+    "questionText": "The Holy Spirit is also called the ______.",
+    "marks": 1,
+    "options": [
+      { "text": "Comforter", "correct": true },
+      { "text": "Soldier", "correct": false },
+      { "text": "Farmer", "correct": false },
+      { "text": "Teacher of mathematics", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Jesus promised His disciples the gift of the ______.",
+    "marks": 1,
+    "options": [
+      { "text": "Holy Spirit", "correct": true },
+      { "text": "Money", "correct": false },
+      { "text": "Food", "correct": false },
+      { "text": "Clothes", "correct": false }
+    ]
+  },
+  {
+    "questionText": "The Holy Spirit came upon the disciples on the day of ______.",
+    "marks": 1,
+    "options": [
+      { "text": "Christmas", "correct": false },
+      { "text": "Pentecost", "correct": true },
+      { "text": "Easter", "correct": false },
+      { "text": "New Year", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Jesus ascended into ______.",
+    "marks": 1,
+    "options": [
+      { "text": "The sea", "correct": false },
+      { "text": "Heaven", "correct": true },
+      { "text": "The forest", "correct": false },
+      { "text": "The market", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Jesus promised that He would ______ again.",
+    "marks": 1,
+    "options": [
+      { "text": "Sleep", "correct": false },
+      { "text": "Return", "correct": true },
+      { "text": "Hide", "correct": false },
+      { "text": "Travel", "correct": false }
+    ]
+  },
+  {
+    "questionText": "We should read the ______ regularly.",
+    "marks": 1,
+    "options": [
+      { "text": "Newspaper", "correct": false },
+      { "text": "Bible", "correct": true },
+      { "text": "Magazine", "correct": false },
+      { "text": "Dictionary", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Christians should show ______ to other people.",
+    "marks": 1,
+    "options": [
+      { "text": "Hatred", "correct": false },
+      { "text": "Anger", "correct": false },
+      { "text": "Love", "correct": true },
+      { "text": "Jealousy", "correct": false }
+    ]
+  },
+  {
+    "questionText": "A good Christian should always tell the ______.",
+    "marks": 1,
+    "options": [
+      { "text": "Truth", "correct": true },
+      { "text": "Lies", "correct": false },
+      { "text": "Rumours", "correct": false },
+      { "text": "False stories", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Jesus told the story of the ______ virgins.",
+    "marks": 1,
+    "options": [
+      { "text": "Five", "correct": false },
+      { "text": "Seven", "correct": false },
+      { "text": "Ten", "correct": true },
+      { "text": "Twelve", "correct": false }
+    ]
+  },
+  {
+    "questionText": "The wise virgins took extra ______ with them.",
+    "marks": 1,
+    "options": [
+      { "text": "Water", "correct": false },
+      { "text": "Oil", "correct": true },
+      { "text": "Food", "correct": false },
+      { "text": "Clothes", "correct": false }
+    ]
+  },
+  {
+    "questionText": "The foolish virgins did not take enough ______.",
+    "marks": 1,
+    "options": [
+      { "text": "Money", "correct": false },
+      { "text": "Oil", "correct": true },
+      { "text": "Food", "correct": false },
+      { "text": "Water", "correct": false }
+    ]
+  },
+  {
+    "questionText": "The ten virgins were waiting for the ______.",
+    "marks": 1,
+    "options": [
+      { "text": "Bridegroom", "correct": true },
+      { "text": "Farmer", "correct": false },
+      { "text": "Teacher", "correct": false },
+      { "text": "Soldier", "correct": false }
+    ]
+  },
+  {
+    "questionText": "The story of the ten virgins teaches us to be ______.",
+    "marks": 1,
+    "options": [
+      { "text": "Lazy", "correct": false },
+      { "text": "Careless", "correct": false },
+      { "text": "Prepared", "correct": true },
+      { "text": "Wicked", "correct": false }
+    ]
+  },
+  {
+    "questionText": "We should ask God to help us change our ______.",
+    "marks": 1,
+    "options": [
+      { "text": "Bad habits", "correct": true },
+      { "text": "School bags", "correct": false },
+      { "text": "Shoes", "correct": false },
+      { "text": "Clothes", "correct": false }
+    ]
+  },
+  {
+    "questionText": "When we do something wrong, we should ask God for ______.",
+    "marks": 1,
+    "options": [
+      { "text": "Forgiveness", "correct": true },
+      { "text": "Anger", "correct": false },
+      { "text": "Hatred", "correct": false },
+      { "text": "Trouble", "correct": false }
+    ]
+  }
+]
+EOFmkdir -p data/exams/basic_2
+cat > data/exams/basic_2/crs.json <<'EOF'
+[
+  {
+    "questionText": "The name Emmanuel means ______.",
+    "marks": 1,
+    "options": [
+      { "text": "God is with us", "correct": true },
+      { "text": "God is angry", "correct": false },
+      { "text": "God is sleeping", "correct": false },
+      { "text": "God is far away", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Who foretold the birth of Jesus Christ?",
+    "marks": 1,
+    "options": [
+      { "text": "Prophet Elijah", "correct": false },
+      { "text": "Prophet Isaiah", "correct": true },
+      { "text": "Peter", "correct": false },
+      { "text": "Paul", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Prophet Isaiah said that a child would be called ______.",
+    "marks": 1,
+    "options": [
+      { "text": "Emmanuel", "correct": true },
+      { "text": "Samuel", "correct": false },
+      { "text": "Moses", "correct": false },
+      { "text": "David", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Jesus Christ was born in ______.",
+    "marks": 1,
+    "options": [
+      { "text": "Egypt", "correct": false },
+      { "text": "Bethlehem", "correct": true },
+      { "text": "Jerusalem", "correct": false },
+      { "text": "Rome", "correct": false }
+    ]
+  },
+  {
+    "questionText": "The Holy Spirit is the ______ person of the Trinity.",
+    "marks": 1,
+    "options": [
+      { "text": "First", "correct": false },
+      { "text": "Second", "correct": false },
+      { "text": "Third", "correct": true },
+      { "text": "Fourth", "correct": false }
+    ]
+  },
+  {
+    "questionText": "The Holy Spirit is also called the ______.",
+    "marks": 1,
+    "options": [
+      { "text": "Comforter", "correct": true },
+      { "text": "Soldier", "correct": false },
+      { "text": "Farmer", "correct": false },
+      { "text": "Teacher of mathematics", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Jesus promised His disciples the gift of the ______.",
+    "marks": 1,
+    "options": [
+      { "text": "Holy Spirit", "correct": true },
+      { "text": "Money", "correct": false },
+      { "text": "Food", "correct": false },
+      { "text": "Clothes", "correct": false }
+    ]
+  },
+  {
+    "questionText": "The Holy Spirit came upon the disciples on the day of ______.",
+    "marks": 1,
+    "options": [
+      { "text": "Christmas", "correct": false },
+      { "text": "Pentecost", "correct": true },
+      { "text": "Easter", "correct": false },
+      { "text": "New Year", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Jesus ascended into ______.",
+    "marks": 1,
+    "options": [
+      { "text": "The sea", "correct": false },
+      { "text": "Heaven", "correct": true },
+      { "text": "The forest", "correct": false },
+      { "text": "The market", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Jesus promised that He would ______ again.",
+    "marks": 1,
+    "options": [
+      { "text": "Sleep", "correct": false },
+      { "text": "Return", "correct": true },
+      { "text": "Hide", "correct": false },
+      { "text": "Travel", "correct": false }
+    ]
+  },
+  {
+    "questionText": "We should read the ______ regularly.",
+    "marks": 1,
+    "options": [
+      { "text": "Newspaper", "correct": false },
+      { "text": "Bible", "correct": true },
+      { "text": "Magazine", "correct": false },
+      { "text": "Dictionary", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Christians should show ______ to other people.",
+    "marks": 1,
+    "options": [
+      { "text": "Hatred", "correct": false },
+      { "text": "Anger", "correct": false },
+      { "text": "Love", "correct": true },
+      { "text": "Jealousy", "correct": false }
+    ]
+  },
+  {
+    "questionText": "A good Christian should always tell the ______.",
+    "marks": 1,
+    "options": [
+      { "text": "Truth", "correct": true },
+      { "text": "Lies", "correct": false },
+      { "text": "Rumours", "correct": false },
+      { "text": "False stories", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Jesus told the story of the ______ virgins.",
+    "marks": 1,
+    "options": [
+      { "text": "Five", "correct": false },
+      { "text": "Seven", "correct": false },
+      { "text": "Ten", "correct": true },
+      { "text": "Twelve", "correct": false }
+    ]
+  },
+  {
+    "questionText": "The wise virgins took extra ______ with them.",
+    "marks": 1,
+    "options": [
+      { "text": "Water", "correct": false },
+      { "text": "Oil", "correct": true },
+      { "text": "Food", "correct": false },
+      { "text": "Clothes", "correct": false }
+    ]
+  },
+  {
+    "questionText": "The foolish virgins did not take enough ______.",
+    "marks": 1,
+    "options": [
+      { "text": "Money", "correct": false },
+      { "text": "Oil", "correct": true },
+      { "text": "Food", "correct": false },
+      { "text": "Water", "correct": false }
+    ]
+  },
+  {
+    "questionText": "The ten virgins were waiting for the ______.",
+    "marks": 1,
+    "options": [
+      { "text": "Bridegroom", "correct": true },
+      { "text": "Farmer", "correct": false },
+      { "text": "Teacher", "correct": false },
+      { "text": "Soldier", "correct": false }
+    ]
+  },
+  {
+    "questionText": "The story of the ten virgins teaches us to be ______.",
+    "marks": 1,
+    "options": [
+      { "text": "Lazy", "correct": false },
+      { "text": "Careless", "correct": false },
+      { "text": "Prepared", "correct": true },
+      { "text": "Wicked", "correct": false }
+    ]
+  },
+  {
+    "questionText": "We should ask God to help us change our ______.",
+    "marks": 1,
+    "options": [
+      { "text": "Bad habits", "correct": true },
+      { "text": "School bags", "correct": false },
+      { "text": "Shoes", "correct": false },
+      { "text": "Clothes", "correct": false }
+    ]
+  },
+  {
+    "questionText": "When we do something wrong, we should ask God for ______.",
+    "marks": 1,
+    "options": [
+      { "text": "Forgiveness", "correct": true },
+      { "text": "Anger", "correct": false },
+      { "text": "Hatred", "correct": false },
+      { "text": "Trouble", "correct": false }
+    ]
+  }
+]
+EOFmkdir -p data/exams/basic_2
+cat > data/exams/basic_2/crs.json <<'EOF'
+[
+  {
+    "questionText": "The name Emmanuel means ______.",
+    "marks": 1,
+    "options": [
+      { "text": "God is with us", "correct": true },
+      { "text": "God is angry", "correct": false },
+      { "text": "God is sleeping", "correct": false },
+      { "text": "God is far away", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Who foretold the birth of Jesus Christ?",
+    "marks": 1,
+    "options": [
+      { "text": "Prophet Elijah", "correct": false },
+      { "text": "Prophet Isaiah", "correct": true },
+      { "text": "Peter", "correct": false },
+      { "text": "Paul", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Prophet Isaiah said that a child would be called ______.",
+    "marks": 1,
+    "options": [
+      { "text": "Emmanuel", "correct": true },
+      { "text": "Samuel", "correct": false },
+      { "text": "Moses", "correct": false },
+      { "text": "David", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Jesus Christ was born in ______.",
+    "marks": 1,
+    "options": [
+      { "text": "Egypt", "correct": false },
+      { "text": "Bethlehem", "correct": true },
+      { "text": "Jerusalem", "correct": false },
+      { "text": "Rome", "correct": false }
+    ]
+  },
+  {
+    "questionText": "The Holy Spirit is the ______ person of the Trinity.",
+    "marks": 1,
+    "options": [
+      { "text": "First", "correct": false },
+      { "text": "Second", "correct": false },
+      { "text": "Third", "correct": true },
+      { "text": "Fourth", "correct": false }
+    ]
+  },
+  {
+    "questionText": "The Holy Spirit is also called the ______.",
+    "marks": 1,
+    "options": [
+      { "text": "Comforter", "correct": true },
+      { "text": "Soldier", "correct": false },
+      { "text": "Farmer", "correct": false },
+      { "text": "Teacher of mathematics", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Jesus promised His disciples the gift of the ______.",
+    "marks": 1,
+    "options": [
+      { "text": "Holy Spirit", "correct": true },
+      { "text": "Money", "correct": false },
+      { "text": "Food", "correct": false },
+      { "text": "Clothes", "correct": false }
+    ]
+  },
+  {
+    "questionText": "The Holy Spirit came upon the disciples on the day of ______.",
+    "marks": 1,
+    "options": [
+      { "text": "Christmas", "correct": false },
+      { "text": "Pentecost", "correct": true },
+      { "text": "Easter", "correct": false },
+      { "text": "New Year", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Jesus ascended into ______.",
+    "marks": 1,
+    "options": [
+      { "text": "The sea", "correct": false },
+      { "text": "Heaven", "correct": true },
+      { "text": "The forest", "correct": false },
+      { "text": "The market", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Jesus promised that He would ______ again.",
+    "marks": 1,
+    "options": [
+      { "text": "Sleep", "correct": false },
+      { "text": "Return", "correct": true },
+      { "text": "Hide", "correct": false },
+      { "text": "Travel", "correct": false }
+    ]
+  },
+  {
+    "questionText": "We should read the ______ regularly.",
+    "marks": 1,
+    "options": [
+      { "text": "Newspaper", "correct": false },
+      { "text": "Bible", "correct": true },
+      { "text": "Magazine", "correct": false },
+      { "text": "Dictionary", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Christians should show ______ to other people.",
+    "marks": 1,
+    "options": [
+      { "text": "Hatred", "correct": false },
+      { "text": "Anger", "correct": false },
+      { "text": "Love", "correct": true },
+      { "text": "Jealousy", "correct": false }
+    ]
+  },
+  {
+    "questionText": "A good Christian should always tell the ______.",
+    "marks": 1,
+    "options": [
+      { "text": "Truth", "correct": true },
+      { "text": "Lies", "correct": false },
+      { "text": "Rumours", "correct": false },
+      { "text": "False stories", "correct": false }
+    ]
+  },
+  {
+    "questionText": "Jesus told the story of the ______ virgins.",
+    "marks": 1,
+    "options": [
+      { "text": "Five", "correct": false },
+      { "text": "Seven", "correct": false },
+      { "text": "Ten", "correct": true },
+      { "text": "Twelve", "correct": false }
+    ]
+  },
+  {
+    "questionText": "The wise virgins took extra ______ with them.",
+    "marks": 1,
+    "options": [
+      { "text": "Water", "correct": false },
+      { "text": "Oil", "correct": true },
+      { "text": "Food", "correct": false },
+      { "text": "Clothes", "correct": false }
+    ]
+  },
+  {
+    "questionText": "The foolish virgins did not take enough ______.",
+    "marks": 1,
+    "options": [
+      { "text": "Money", "correct": false },
+      { "text": "Oil", "correct": true },
+      { "text": "Food", "correct": false },
+      { "text": "Water", "correct": false }
+    ]
+  },
+  {
+    "questionText": "The ten virgins were waiting for the ______.",
+    "marks": 1,
+    "options": [
+      { "text": "Bridegroom", "correct": true },
+      { "text": "Farmer", "correct": false },
+      { "text": "Teacher", "correct": false },
+      { "text": "Soldier", "correct": false }
+    ]
+  },
+  {
+    "questionText": "The story of the ten virgins teaches us to be ______.",
+    "marks": 1,
+    "options": [
+      { "text": "Lazy", "correct": false },
+      { "text": "Careless", "correct": false },
+      { "text": "Prepared", "correct": true },
+      { "text": "Wicked", "correct": false }
+    ]
+  },
+  {
+    "questionText": "We should ask God to help us change our ______.",
+    "marks": 1,
+    "options": [
+      { "text": "Bad habits", "correct": true },
+      { "text": "School bags", "correct": false },
+      { "text": "Shoes", "correct": false },
+      { "text": "Clothes", "correct": false }
+    ]
+  },
+  {
+    "questionText": "When we do something wrong, we should ask God for ______.",
+    "marks": 1,
+    "options": [
+      { "text": "Forgiveness", "correct": true },
+      { "text": "Anger", "correct": false },
+      { "text": "Hatred", "correct": false },
+      { "text": "Trouble", "correct": false }
+    ]
+  }
+]

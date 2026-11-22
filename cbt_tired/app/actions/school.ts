@@ -1,4 +1,3 @@
-
 "use server"
 
 import { auth } from "@/auth"
@@ -29,14 +28,8 @@ export async function createSchool(data: SchoolInput) {
     }
   }
 
-  const {
-    name,
-    code,
-    address,
-    adminName,
-    adminEmail,
-    adminPassword,
-  } = validated.data
+  const { name, code, address, adminName, adminEmail, adminPassword } =
+    validated.data
 
   try {
     const passwordHash = await bcrypt.hash(adminPassword, 12)
@@ -118,9 +111,6 @@ export async function createSchool(data: SchoolInput) {
     }
   }
 }
-
-
-
 
 export async function updateSchoolCode(schoolId: number, code: string) {
   const session = await auth()

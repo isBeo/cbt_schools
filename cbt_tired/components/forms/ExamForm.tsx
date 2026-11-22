@@ -1,4 +1,3 @@
-
 "use client"
 
 import { submitExam } from "@/app/actions/exam"
@@ -22,9 +21,16 @@ type ExamWithQuestions = {
 type ExamFormProps = {
   exam: ExamWithQuestions
   duration: number
+  attemptId: number
+  expiresAt: string
 }
 
-export function ExamForm({ exam, duration }: ExamFormProps) {
+export function ExamForm({
+  exam,
+  duration,
+  attemptId,
+  expiresAt,
+}: ExamFormProps) {
   const [currentQuestion, setCurrentQuestion] = useState(0)
   const [answers, setAnswers] = useState<Record<number, number>>({})
   const [timeLeft, setTimeLeft] = useState(duration * 60)
@@ -49,10 +55,12 @@ export function ExamForm({ exam, duration }: ExamFormProps) {
     setError("")
 
     try {
+      
       const result = await submitExam({
-        examId: exam.id,
-        answers,
-      })
+  examId: exam.id,
+  attemptId,
+  answers,
+})
 
       if (result.success) {
         router.push(`/result/${result.attemptId}`)
@@ -71,37 +79,39 @@ export function ExamForm({ exam, duration }: ExamFormProps) {
           : "Unable to submit your exam. Please try again."
       )
     }
-  }, [exam.id, answers, router])
+  }, [exam.id, attemptId, answers, router])
 
-  // Countdown timer.
-  useEffect(() => {
-    if (timeLeft <= 0 || isSubmitting) return
+  
+  // Countdown based on the server-recorded deadline.
+useEffect(() => {
+  if (isSubmitting) return
 
-    const timer = setTimeout(() => {
-      setTimeLeft((previous) => Math.max(0, previous - 1))
-    }, 1000)
+  const updateTimeLeft = () => {
+    const remaining = Math.max(
+      0,
+      Math.ceil((new Date(expiresAt).getTime() - Date.now()) / 1000)
+    )
 
-    return () => clearTimeout(timer)
-  }, [timeLeft, isSubmitting])
+    setTimeLeft(remaining)
+  }
+
+  updateTimeLeft()
+
+  const timer = setInterval(updateTimeLeft, 1000)
+
+  return () => clearInterval(timer)
+}, [expiresAt, isSubmitting])
 
   // Automatically submit when the countdown reaches zero.
   useEffect(() => {
-    if (
-      timeLeft === 0 &&
-      !isSubmitting &&
-      !autoSubmitAttemptedRef.current
-    ) {
+    if (timeLeft === 0 && !isSubmitting && !autoSubmitAttemptedRef.current) {
       autoSubmitAttemptedRef.current = true
       void handleSubmit()
     }
   }, [timeLeft, isSubmitting, handleSubmit])
 
   if (!question) {
-    return (
-      <div className="p-6">
-        No questions have been added to this exam.
-      </div>
-    )
+    return <div className="p-6">No questions have been added to this exam.</div>
   }
 
   return (
@@ -132,9 +142,7 @@ export function ExamForm({ exam, duration }: ExamFormProps) {
       )}
 
       <div className="rounded-lg border p-6">
-        <h2 className="mb-6 text-lg font-semibold">
-          {question.questionText}
-        </h2>
+        <h2 className="mb-6 text-lg font-semibold">{question.questionText}</h2>
 
         <div className="space-y-3">
           {question.options.map((option) => (
@@ -178,11 +186,7 @@ export function ExamForm({ exam, duration }: ExamFormProps) {
             Next
           </Button>
         ) : (
-          <Button
-            type="button"
-            onClick={handleSubmit}
-            disabled={isSubmitting}
-          >
+          <Button type="button" onClick={handleSubmit} disabled={isSubmitting}>
             {isSubmitting ? "Submitting..." : "Submit Exam"}
           </Button>
         )}

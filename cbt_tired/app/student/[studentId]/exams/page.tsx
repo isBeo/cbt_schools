@@ -1,4 +1,3 @@
-
 import { auth } from "@/auth"
 import { prisma } from "@/lib/prisma"
 import { notFound, redirect } from "next/navigation"
@@ -52,9 +51,7 @@ export default async function StudentExamsPage({ params }: Props) {
 
   return (
     <main className="mx-auto max-w-3xl p-6">
-      <h1 className="text-3xl font-bold">
-        Welcome back, {student.firstName}
-      </h1>
+      <h1 className="text-3xl font-bold">Welcome back, {student.firstName}</h1>
 
       <p className="mb-6 text-muted-foreground">Available Exams</p>
 

@@ -1,4 +1,3 @@
-
 type Teacher = {
   id: number
   name: string
@@ -6,11 +5,7 @@ type Teacher = {
   createdAt: Date
 }
 
-export default function TeachersTable({
-  teachers,
-}: {
-  teachers: Teacher[]
-}) {
+export default function TeachersTable({ teachers }: { teachers: Teacher[] }) {
   if (teachers.length === 0) {
     return (
       <div className="rounded-lg border p-6 text-center">

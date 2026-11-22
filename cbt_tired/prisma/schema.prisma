@@ -211,7 +211,7 @@ model Question {
   marks         Int
   questionOrder Int
   examId        Int
-
+  resultDetails ResultDetail[]
   options Option[]
   exam    Exam            @relation(fields: [examId], references: [id])
   answers StudentAnswer[]
@@ -272,7 +272,7 @@ model StudentAnswer {
   selectedOptionId Int?
   answerText       String?
   answeredAt       DateTime
-
+  @@unique([attemptId, questionId])
   attempt        ExamAttempt @relation(fields: [attemptId], references: [id])
   question       Question    @relation(fields: [questionId], references: [id])
   selectedOption Option?     @relation(fields: [selectedOptionId], references: [id])
@@ -329,7 +329,10 @@ model ResultDetail {
   isCorrect    Boolean
   marksAwarded Decimal
 
-  result Result @relation(fields: [resultId], references: [id])
+  result   Result   @relation(fields: [resultId], references: [id])
+  question Question @relation(fields: [questionId], references: [id])
+
+  @@unique([resultId, questionId])
 }
 
 model BankQuestion {
