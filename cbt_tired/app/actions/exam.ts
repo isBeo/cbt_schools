@@ -265,7 +265,6 @@ export async function startExam(examId: number) {
   }
 }
 
-
 // CHECK WHETHER THE STUDENT HAS ANY UNATTEMPTED EXAMS
 export async function hasAvailableExams() {
   const session = await auth()
@@ -315,7 +314,6 @@ export async function hasAvailableExams() {
   return count > 0
 }
 
-
 type SubmitExamInput = {
   examId: number
   attemptId: number
@@ -352,12 +350,12 @@ export async function submitExam(data: SubmitExamInput) {
 
   const GRACE_PERIOD_MS = 15 * 1000
 
-  // Return the saved result if this attempt was already submitted.
+  // Return a minimal response if this attempt was already submitted.
   async function getExistingResult() {
     const attempt = await prisma.examAttempt.findUnique({
       where: {
         studentId_examId: {
-          studentId: studentId,
+          studentId,
           examId: data.examId,
         },
       },
@@ -378,10 +376,6 @@ export async function submitExam(data: SubmitExamInput) {
     return {
       success: true,
       attemptId: attempt.id,
-      resultId: attempt.result.id,
-      score: Number(attempt.result.score),
-      percentage: Number(attempt.result.percentage),
-      grade: attempt.result.grade,
     }
   }
 
@@ -448,7 +442,7 @@ export async function submitExam(data: SubmitExamInput) {
           throw new Error("This exam attempt is invalid.")
         }
 
-        // IDEMPOTENCY: return the existing result on a retry.
+        // IDEMPOTENCY: return only the attempt ID on a retry.
         if (attempt.status !== "IN_PROGRESS") {
           const existingResult = await tx.result.findUnique({
             where: { attemptId: attempt.id },
@@ -463,10 +457,6 @@ export async function submitExam(data: SubmitExamInput) {
           return {
             success: true,
             attemptId: attempt.id,
-            resultId: existingResult.id,
-            score: Number(existingResult.score),
-            percentage: Number(existingResult.percentage),
-            grade: existingResult.grade,
           }
         }
 
@@ -590,13 +580,10 @@ export async function submitExam(data: SubmitExamInput) {
           })),
         })
 
+        // Do not expose score, percentage, grade, or result ID to students.
         return {
           success: true,
           attemptId: attempt.id,
-          resultId: result.id,
-          score,
-          percentage,
-          grade,
         }
       },
       {
@@ -606,7 +593,6 @@ export async function submitExam(data: SubmitExamInput) {
     )
   } catch (error) {
     // A concurrent request may have completed the submission.
-    // Check the database before returning an error.
     const existingResult = await getExistingResult()
 
     if (existingResult) {
@@ -631,7 +617,6 @@ export async function submitExam(data: SubmitExamInput) {
     throw error
   }
 }
-
 
 // ACTIVATE OR REOPEN EXAM
 export async function activateExam(examId: number) {
