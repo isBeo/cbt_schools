@@ -1,3 +1,4 @@
+
 import DeleteExam from "./delete_exam"
 import { auth } from "@/auth"
 import { prisma } from "@/lib/prisma"
@@ -7,7 +8,6 @@ import {
   activateExam,
   closeExam,
   draftExam,
-  importExamQuestions,
   publishExam,
 } from "@/app/actions/exam"
 
@@ -106,57 +106,66 @@ export default async function ExamTable() {
       <TableBody>
         {exams.map((exam) => (
           <TableRow key={exam.id}>
-            <TableCell className="font-medium">{exam.title}</TableCell>
+            <TableCell className="font-medium">
+              {exam.title}
+            </TableCell>
 
             <TableCell>{exam.subject.name}</TableCell>
 
             <TableCell>{exam.class.name}</TableCell>
 
             <TableCell>
-              <Badge variant="secondary">{exam.status}</Badge>
+              <Badge variant="secondary">
+                {exam.status}
+              </Badge>
             </TableCell>
 
             <TableCell>
               <div className="flex flex-wrap gap-2">
+
+                {/* DRAFT EXAM */}
                 {exam.status === "DRAFT" && (
                   <>
-                    <Link href={`/dashboard/exams/${exam.id}/questions`}>
+                    <Link
+                      href={`/dashboard/exams/${exam.id}/questions`}
+                    >
                       <Button size="sm" variant="secondary">
                         Manage Questions
                       </Button>
                     </Link>
 
                     <form action={publishExam.bind(null, exam.id)}>
-                      <Button size="sm">Publish</Button>
+                      <Button size="sm">
+                        Publish
+                      </Button>
                     </form>
 
-                    {(role === "SUPER_ADMIN" || role === "SCHOOL_ADMIN") && (
-                      <DeleteExam examId={exam.id} examTitle={exam.title} />
+                    {(role === "SUPER_ADMIN" ||
+                      role === "SCHOOL_ADMIN") && (
+                      <DeleteExam
+                        examId={exam.id}
+                        examTitle={exam.title}
+                      />
                     )}
                   </>
                 )}
 
+                {/* PUBLISHED EXAM */}
                 {exam.status === "PUBLISHED" && (
                   <>
-                    {exam._count.questions === 0 ? (
-                      <form action={importExamQuestions.bind(null, exam.id)}>
-                        <Button size="sm" variant="secondary">
-                          Import Questions
-                        </Button>
-                      </form>
-                    ) : (
-                      <Badge variant="default">
-                        {exam._count.questions} Questions Imported
-                      </Badge>
-                    )}
+                    <Badge variant="default">
+                      {exam._count.questions} Questions Ready
+                    </Badge>
 
                     {exam._count.questions > 0 ? (
                       <form action={activateExam.bind(null, exam.id)}>
-                        <Button size="sm">Activate</Button>
+                        <Button size="sm">
+                          Activate
+                        </Button>
                       </form>
                     ) : (
                       <Button size="sm" disabled>
-                        Import Questions First
+                        No Questions Available
                       </Button>
                     )}
 
@@ -168,6 +177,7 @@ export default async function ExamTable() {
                   </>
                 )}
 
+                {/* ACTIVE EXAM */}
                 {exam.status === "ACTIVE" && (
                   <form action={closeExam.bind(null, exam.id)}>
                     <Button size="sm" variant="destructive">
@@ -176,11 +186,15 @@ export default async function ExamTable() {
                   </form>
                 )}
 
+                {/* CLOSED EXAM */}
                 {exam.status === "CLOSED" && (
                   <form action={activateExam.bind(null, exam.id)}>
-                    <Button size="sm">Reopen</Button>
+                    <Button size="sm">
+                      Reopen
+                    </Button>
                   </form>
                 )}
+
               </div>
             </TableCell>
           </TableRow>

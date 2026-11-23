@@ -1,3 +1,4 @@
+
 import NextAuth, { type DefaultSession } from "next-auth"
 import Credentials from "next-auth/providers/credentials"
 import { PrismaAdapter } from "@auth/prisma-adapter"
@@ -6,6 +7,7 @@ import bcrypt from "bcryptjs"
 import { prisma } from "@/lib/prisma"
 import type { Role } from "@/lib/generated/prisma/client"
 
+// Extend the Auth.js session and user types.
 declare module "next-auth" {
   interface Session {
     user: {
@@ -21,6 +23,14 @@ declare module "next-auth" {
   }
 }
 
+// Extend the JWT token.
+// declare module "next-auth/jwt" {
+//   interface JWT {
+//     role?: Role
+//     schoolId?: number | null
+//   }
+// }
+
 export const { handlers, signIn, signOut, auth } = NextAuth({
   adapter: PrismaAdapter(prisma),
 
@@ -32,74 +42,32 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     Credentials({
       credentials: {
         email: {},
-        schoolCode: {},
-        admissionNo: {},
         password: {},
       },
 
       async authorize(credentials) {
-        if (typeof credentials.password !== "string" || !credentials.password) {
-          return null
-        }
-
-        let user = null
-
-        // Staff login: email + password.
-        if (typeof credentials.email === "string" && credentials.email.trim()) {
-          user = await prisma.user.findUnique({
-            where: {
-              email: credentials.email.trim().toLowerCase(),
-            },
-          })
-
-          // Students must use school code and admission number.
-          if (!user || user.role === "STUDENT") {
-            return null
-          }
-        }
-
-        // Student login: school code + admission number + password.
-        else if (
-          typeof credentials.schoolCode === "string" &&
-          typeof credentials.admissionNo === "string" &&
-          credentials.schoolCode.trim() &&
-          credentials.admissionNo.trim()
+        // 1. Validate the submitted credentials.
+        if (
+          typeof credentials.email !== "string" ||
+          typeof credentials.password !== "string" ||
+          !credentials.email.trim() ||
+          !credentials.password
         ) {
-          const school = await prisma.school.findFirst({
-            where: {
-              code: {
-                equals: credentials.schoolCode.trim(),
-                mode: "insensitive",
-              },
-            },
-            select: {
-              id: true,
-            },
-          })
-
-          if (!school) {
-            return null
-          }
-
-          const student = await prisma.student.findFirst({
-            where: {
-              schoolId: school.id,
-              admissionNo: credentials.admissionNo.trim(),
-            },
-            include: {
-              user: true,
-            },
-          })
-
-          if (!student?.user || student.user.role !== "STUDENT") {
-            return null
-          }
-
-          user = student.user
-        } else {
           return null
         }
 
+        // 2. Find the user by email.
+        const user = await prisma.user.findUnique({
+          where: {
+            email: credentials.email.trim().toLowerCase(),
+          },
+        })
+
+        if (!user) {
+          return null
+        }
+
+        // 3. Compare the supplied password with its stored hash.
         const passwordIsValid = await bcrypt.compare(
           credentials.password,
           user.passwordHash
@@ -109,6 +77,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           return null
         }
 
+        // 4. Return the authenticated user.
         return {
           id: String(user.id),
           name: user.name,
@@ -120,36 +89,38 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     }),
   ],
 
-  callbacks: {
-    async jwt({ token, user }) {
-      const customToken = token as typeof token & {
-        role?: Role
-        schoolId?: number | null
-      }
+  
+callbacks: {
+  async jwt({ token, user }) {
+    const customToken = token as typeof token & {
+      role?: Role
+      schoolId?: number | null
+    }
 
-      if (user) {
-        customToken.role = user.role
-        customToken.schoolId = user.schoolId
-      }
+    if (user) {
+      customToken.role = user.role
+      customToken.schoolId = user.schoolId
+    }
 
-      return token
-    },
-
-    async session({ session, token }) {
-      const customToken = token as typeof token & {
-        role?: Role
-        schoolId?: number | null
-      }
-
-      if (session.user) {
-        session.user.id = token.sub ?? ""
-        session.user.role = customToken.role as Role
-        session.user.schoolId = customToken.schoolId ?? null
-      }
-
-      return session
-    },
+    return token
   },
+
+  async session({ session, token }) {
+    const customToken = token as typeof token & {
+      role?: Role
+      schoolId?: number | null
+    }
+
+    if (session.user) {
+      session.user.id = token.sub ?? ""
+      session.user.role = customToken.role as Role
+      session.user.schoolId = customToken.schoolId ?? null
+    }
+
+    return session
+  },
+},
+
 
   pages: {
     signIn: "/login",

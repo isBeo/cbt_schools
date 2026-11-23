@@ -39,12 +39,20 @@ export default function CreateExam({
   const [classId, setClassId] = useState("")
   const [subjectId, setSubjectId] = useState("")
   const [selectedQuestionIds, setSelectedQuestionIds] = useState<number[]>([])
-
+  console.log("QUESTION BANK RECEIVED:", bankQuestions)
+console.log("SELECTED CLASS:", classId)
+console.log("SELECTED SUBJECT:", subjectId)
   const filteredQuestions = bankQuestions.filter(
     (question) =>
       Number(question.classId) === Number(classId) &&
       Number(question.subjectId) === Number(subjectId)
   )
+
+  console.log("ALL BANK QUESTIONS:", JSON.stringify(bankQuestions, null, 2))
+
+console.log("AVAILABLE CLASSES:", JSON.stringify(classes, null, 2))
+
+console.log("FILTERED QUESTIONS:", JSON.stringify(filteredQuestions, null, 2))
 
   const selectedMarks = bankQuestions
     .filter((question) => selectedQuestionIds.includes(question.id))
