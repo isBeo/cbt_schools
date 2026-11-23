@@ -1,3 +1,4 @@
+
 "use client"
 
 import { submitExam } from "@/app/actions/exam"
@@ -33,19 +34,63 @@ export function ExamForm({
 }: ExamFormProps) {
   const [currentQuestion, setCurrentQuestion] = useState(0)
   const [answers, setAnswers] = useState<Record<number, number>>({})
+  const [answersLoaded, setAnswersLoaded] = useState(false)
   const [timeLeft, setTimeLeft] = useState(duration * 60)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [error, setError] = useState("")
 
   const router = useRouter()
 
-  // Prevent two submissions from starting at the same time.
   const submittingRef = useRef(false)
+  const autoSubmitRetryCount = useRef(0)
 
-  // Prevent automatic submission from repeatedly retrying after an error.
-  const autoSubmitAttemptedRef = useRef(false)
-
+  const storageKey = `exam-answers-${attemptId}`
   const question = exam.questions[currentQuestion]
+
+  // Restore saved answers for this attempt.
+  useEffect(() => {
+    try {
+      const savedAnswers = localStorage.getItem(storageKey)
+
+      if (savedAnswers) {
+        const parsed = JSON.parse(savedAnswers)
+
+        if (parsed && typeof parsed === "object" && !Array.isArray(parsed)) {
+          const validAnswers: Record<number, number> = {}
+
+          for (const [questionId, optionId] of Object.entries(parsed)) {
+            const q = exam.questions.find(
+              (item) => item.id === Number(questionId)
+            )
+
+            if (
+              q &&
+              q.options.some((option) => option.id === Number(optionId))
+            ) {
+              validAnswers[q.id] = Number(optionId)
+            }
+          }
+
+          setAnswers(validAnswers)
+        }
+      }
+    } catch {
+      console.error("Could not restore saved exam answers.")
+    } finally {
+      setAnswersLoaded(true)
+    }
+  }, [storageKey, exam.questions])
+
+  // Save answers whenever they change.
+  useEffect(() => {
+    if (!answersLoaded) return
+
+    try {
+      localStorage.setItem(storageKey, JSON.stringify(answers))
+    } catch {
+      setError("Your browser could not save your answers locally.")
+    }
+  }, [answers, answersLoaded, storageKey])
 
   const handleSubmit = useCallback(async () => {
     if (submittingRef.current) return
@@ -55,63 +100,85 @@ export function ExamForm({
     setError("")
 
     try {
-      
       const result = await submitExam({
-  examId: exam.id,
-  attemptId,
-  answers,
-})
+        examId: exam.id,
+        attemptId,
+        answers,
+      })
 
       if (result.success) {
-        router.push(`/result/${result.attemptId}`)
-      } else {
-        submittingRef.current = false
-        setIsSubmitting(false)
-        setError("Unable to submit your exam. Please try again.")
-      }
-    } catch (err) {
-      submittingRef.current = false
-      setIsSubmitting(false)
+        try {
+          localStorage.removeItem(storageKey)
+        } catch {
+          console.error("Could not clear saved exam answers.")
+        }
 
+        router.push(`/result/${result.attemptId}`)
+        return
+      }
+
+      throw new Error("Unable to submit your exam. Please try again.")
+    } catch (err) {
       setError(
         err instanceof Error
           ? err.message
           : "Unable to submit your exam. Please try again."
       )
+    } finally {
+      submittingRef.current = false
+      setIsSubmitting(false)
     }
-  }, [exam.id, attemptId, answers, router])
+  }, [exam.id, attemptId, answers, router, storageKey])
 
-  
   // Countdown based on the server-recorded deadline.
-useEffect(() => {
-  if (isSubmitting) return
-
-  const updateTimeLeft = () => {
-    const remaining = Math.max(
-      0,
-      Math.ceil((new Date(expiresAt).getTime() - Date.now()) / 1000)
-    )
-
-    setTimeLeft(remaining)
-  }
-
-  updateTimeLeft()
-
-  const timer = setInterval(updateTimeLeft, 1000)
-
-  return () => clearInterval(timer)
-}, [expiresAt, isSubmitting])
-
-  // Automatically submit when the countdown reaches zero.
   useEffect(() => {
-    if (timeLeft === 0 && !isSubmitting && !autoSubmitAttemptedRef.current) {
-      autoSubmitAttemptedRef.current = true
-      void handleSubmit()
+    if (isSubmitting) return
+
+    const updateTimeLeft = () => {
+      const remaining = Math.max(
+        0,
+        Math.ceil(
+          (new Date(expiresAt).getTime() - Date.now()) / 1000
+        )
+      )
+
+      setTimeLeft(remaining)
     }
-  }, [timeLeft, isSubmitting, handleSubmit])
+
+    updateTimeLeft()
+
+    const timer = setInterval(updateTimeLeft, 1000)
+
+    return () => clearInterval(timer)
+  }, [expiresAt, isSubmitting])
+
+  // Automatically submit at zero, retrying up to three times.
+  useEffect(() => {
+    if (
+      timeLeft !== 0 ||
+      isSubmitting ||
+      !answersLoaded ||
+      autoSubmitRetryCount.current >= 3
+    ) {
+      return
+    }
+
+    const retryTimer = setTimeout(() => {
+      if (!submittingRef.current) {
+        autoSubmitRetryCount.current += 1
+        void handleSubmit()
+      }
+    }, 1500)
+
+    return () => clearTimeout(retryTimer)
+  }, [timeLeft, isSubmitting, answersLoaded, handleSubmit])
 
   if (!question) {
     return <div className="p-6">No questions have been added to this exam.</div>
+  }
+
+  if (!answersLoaded) {
+    return <div className="p-6">Restoring your saved answers...</div>
   }
 
   return (
@@ -137,12 +204,15 @@ useEffect(() => {
 
       {timeLeft === 0 && (
         <p className="text-sm font-medium text-red-600">
-          Time is up. Your exam is being submitted.
+          Time is up. Your exam is being submitted. If submission fails,
+          use the submit button to retry.
         </p>
       )}
 
       <div className="rounded-lg border p-6">
-        <h2 className="mb-6 text-lg font-semibold">{question.questionText}</h2>
+        <h2 className="mb-6 text-lg font-semibold">
+          {question.questionText}
+        </h2>
 
         <div className="space-y-3">
           {question.options.map((option) => (
@@ -186,7 +256,11 @@ useEffect(() => {
             Next
           </Button>
         ) : (
-          <Button type="button" onClick={handleSubmit} disabled={isSubmitting}>
+          <Button
+            type="button"
+            onClick={handleSubmit}
+            disabled={isSubmitting}
+          >
             {isSubmitting ? "Submitting..." : "Submit Exam"}
           </Button>
         )}

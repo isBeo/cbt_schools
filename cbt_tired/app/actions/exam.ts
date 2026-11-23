@@ -265,6 +265,9 @@ export async function startExam(examId: number) {
   }
 }
 
+
+
+
 type SubmitExamInput = {
   examId: number
   attemptId: number
@@ -301,13 +304,57 @@ export async function submitExam(data: SubmitExamInput) {
 
   const GRACE_PERIOD_MS = 15 * 1000
 
+  // Return the saved result if this attempt was already submitted.
+  async function getExistingResult() {
+    const attempt = await prisma.examAttempt.findUnique({
+      where: {
+        studentId_examId: {
+          studentId: studentId,
+          examId: data.examId,
+        },
+      },
+      include: {
+        result: true,
+      },
+    })
+
+    if (
+      !attempt ||
+      attempt.id !== data.attemptId ||
+      (attempt.status !== "SUBMITTED" && attempt.status !== "GRADED") ||
+      !attempt.result
+    ) {
+      return null
+    }
+
+    return {
+      success: true,
+      attemptId: attempt.id,
+      resultId: attempt.result.id,
+      score: Number(attempt.result.score),
+      percentage: Number(attempt.result.percentage),
+      grade: attempt.result.grade,
+    }
+  }
+
+  const studentRecord = await prisma.student.findUnique({
+    where: { userId },
+    select: { id: true },
+  })
+
+  if (!studentRecord) {
+    throw new Error("Student record not found.")
+  }
+
+  const studentId = studentRecord.id
+
   try {
     return await prisma.$transaction(
       async (tx) => {
         const now = new Date()
 
         const student = await tx.student.findUnique({
-          where: { userId },
+          where: { id: studentId },
         })
 
         if (!student) {
@@ -349,14 +396,30 @@ export async function submitExam(data: SubmitExamInput) {
           },
         })
 
-        if (
-          !attempt ||
-          attempt.id !== data.attemptId ||
-          attempt.status !== "IN_PROGRESS"
-        ) {
-          throw new Error(
-            "This exam attempt is invalid or has already been submitted."
-          )
+        if (!attempt || attempt.id !== data.attemptId) {
+          throw new Error("This exam attempt is invalid.")
+        }
+
+        // IDEMPOTENCY: return the existing result on a retry.
+        if (attempt.status !== "IN_PROGRESS") {
+          const existingResult = await tx.result.findUnique({
+            where: { attemptId: attempt.id },
+          })
+
+          if (!existingResult) {
+            throw new Error(
+              "This attempt was submitted, but its result is unavailable. Contact your school administrator."
+            )
+          }
+
+          return {
+            success: true,
+            attemptId: attempt.id,
+            resultId: existingResult.id,
+            score: Number(existingResult.score),
+            percentage: Number(existingResult.percentage),
+            grade: existingResult.grade,
+          }
         }
 
         const durationDeadline = new Date(
@@ -408,7 +471,7 @@ export async function submitExam(data: SubmitExamInput) {
         })
 
         if (updatedAttempt.count !== 1) {
-          throw new Error("This exam attempt has already been submitted.")
+          throw new Error("SUBMISSION_ALREADY_PROCESSED")
         }
 
         let score = 0
@@ -494,13 +557,21 @@ export async function submitExam(data: SubmitExamInput) {
       }
     )
   } catch (error) {
+    // A concurrent request may have completed the submission.
+    // Check the database before returning an error.
+    const existingResult = await getExistingResult()
+
+    if (existingResult) {
+      return existingResult
+    }
+
     const errorCode =
       typeof error === "object" && error !== null && "code" in error
         ? error.code
         : undefined
 
     if (errorCode === "P2002") {
-      throw new Error("This exam attempt has already been submitted.")
+      throw new Error("This exam submission already exists.")
     }
 
     if (errorCode === "P2034") {
@@ -512,6 +583,7 @@ export async function submitExam(data: SubmitExamInput) {
     throw error
   }
 }
+
 
 // ACTIVATE OR REOPEN EXAM
 export async function activateExam(examId: number) {
