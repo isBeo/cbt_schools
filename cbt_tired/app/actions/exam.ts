@@ -266,6 +266,54 @@ export async function startExam(examId: number) {
 }
 
 
+// CHECK WHETHER THE STUDENT HAS ANY UNATTEMPTED EXAMS
+export async function hasAvailableExams() {
+  const session = await auth()
+
+  if (!session?.user || session.user.role !== "STUDENT") {
+    return false
+  }
+
+  const userId = Number(session.user.id)
+
+  if (!Number.isInteger(userId)) return false
+
+  const student = await prisma.student.findUnique({
+    where: { userId },
+  })
+
+  if (!student) return false
+
+  const now = new Date()
+
+  const count = await prisma.exam.count({
+    where: {
+      classId: student.classId,
+      status: "ACTIVE",
+      AND: [
+        {
+          OR: [
+            { startTime: null },
+            { startTime: { lte: now } },
+          ],
+        },
+        {
+          OR: [
+            { endTime: null },
+            { endTime: { gte: now } },
+          ],
+        },
+      ],
+      attempts: {
+        none: {
+          studentId: student.id,
+        },
+      },
+    },
+  })
+
+  return count > 0
+}
 
 
 type SubmitExamInput = {

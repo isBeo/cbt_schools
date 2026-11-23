@@ -17,18 +17,39 @@ export default async function StudentExamsPage() {
 
   if (!student) redirect("/login")
 
-  const exams = await prisma.exam.findMany({
-    where: {
-      classId: student.classId,
-      status: "ACTIVE",
-      AND: [
-        { OR: [{ startTime: null }, { startTime: { lte: new Date() } }] },
-        { OR: [{ endTime: null }, { endTime: { gte: new Date() } }] },
-      ],
+ const now = new Date()
+
+const exams = await prisma.exam.findMany({
+  where: {
+    classId: student.classId,
+    status: "ACTIVE",
+    AND: [
+      {
+        OR: [
+          { startTime: null },
+          { startTime: { lte: now } },
+        ],
+      },
+      {
+        OR: [
+          { endTime: null },
+          { endTime: { gte: now } },
+        ],
+      },
+    ],
+    attempts: {
+      none: {
+        studentId: student.id,
+      },
     },
-    include: { subject: true },
-    orderBy: { startTime: "asc" },
-  })
+  },
+  include: {
+    subject: true,
+  },
+  orderBy: {
+    startTime: "asc",
+  },
+})
 
   return (
     <main className="mx-auto max-w-3xl space-y-6 p-6">

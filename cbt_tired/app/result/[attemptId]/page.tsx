@@ -1,11 +1,11 @@
+
 import { auth } from "@/auth"
 import { prisma } from "@/lib/prisma"
 import { notFound, redirect } from "next/navigation"
+import { ExamCompletionActions } from "@/components/student/ExamCompletionActions"
 
 type Props = {
-  params: Promise<{
-    attemptId: string
-  }>
+  params: Promise<{ attemptId: string }>
 }
 
 export default async function ResultPage({ params }: Props) {
@@ -24,14 +24,14 @@ export default async function ResultPage({ params }: Props) {
   }
 
   const student = await prisma.student.findUnique({
-    where: {
-      userId,
+    where: { userId },
+    include: {
+      class: true,
+      school: true,
     },
   })
 
-  if (!student) {
-    notFound()
-  }
+  if (!student) notFound()
 
   const attempt = await prisma.examAttempt.findFirst({
     where: {
@@ -39,58 +39,112 @@ export default async function ResultPage({ params }: Props) {
       studentId: student.id,
     },
     include: {
-      exam: true,
+      exam: {
+        include: {
+          subject: true,
+        },
+      },
       result: true,
     },
   })
 
-  if (!attempt || !attempt.result) {
-    notFound()
-  }
+  if (!attempt || !attempt.result) notFound()
+
+  const teachers = await prisma.teacherAssignment.findMany({
+    where: {
+      classId: student.classId,
+      subjectId: attempt.exam.subjectId,
+    },
+    include: {
+      teacher: {
+        select: { name: true },
+      },
+    },
+  })
+
+  const teacherNames = teachers.map(
+    (assignment) => assignment.teacher.name
+  )
 
   return (
-    <main className="mx-auto max-w-2xl p-6">
-      <div className="rounded-xl border bg-background p-8 text-foreground shadow">
-        <h1 className="mb-8 text-center text-3xl font-bold text-green-600">
-          Exam Completed
-        </h1>
+    <main className="mx-auto max-w-2xl space-y-6 p-6">
+      <div className="rounded-xl border bg-background p-6 shadow-sm">
+        <div className="mb-8 text-center">
+          <div className="mb-3 text-5xl text-green-600">✓</div>
+          <h1 className="text-3xl font-bold text-green-600">
+            Well done, {student.firstName}!
+          </h1>
+          <p className="mt-2 text-muted-foreground">
+            You have successfully completed your examination.
+            Your answers have been submitted and your examination
+            record has been saved.
+          </p>
+        </div>
 
-        <div className="space-y-4">
+        <section className="space-y-3">
+          <h2 className="text-lg font-semibold">Student Information</h2>
+
           <div className="flex justify-between border-b pb-2">
-            <span className="font-medium">Student</span>
-            <span>
+            <span>Full name</span>
+            <span className="font-medium">
               {student.firstName} {student.lastName}
             </span>
           </div>
 
           <div className="flex justify-between border-b pb-2">
-            <span className="font-medium">Exam</span>
-            <span>{attempt.exam.title}</span>
+            <span>Admission number</span>
+            <span>{student.admissionNo || "Not available"}</span>
           </div>
 
           <div className="flex justify-between border-b pb-2">
-            <span className="font-medium">Score</span>
-            <span>{attempt.result.score.toString()}</span>
+            <span>Class</span>
+            <span>{student.class.name}</span>
           </div>
 
           <div className="flex justify-between border-b pb-2">
-            <span className="font-medium">Percentage</span>
-            <span>{Number(attempt.result.percentage).toFixed(2)}%</span>
+            <span>School</span>
+            <span>{student.school.name}</span>
+          </div>
+        </section>
+
+        <section className="mt-6 space-y-3">
+          <h2 className="text-lg font-semibold">Examination Information</h2>
+
+          <div className="flex justify-between border-b pb-2">
+            <span>Examination</span>
+            <span className="font-medium">{attempt.exam.title}</span>
           </div>
 
           <div className="flex justify-between border-b pb-2">
-            <span className="font-medium">Grade</span>
-            <span className="font-bold text-blue-600">
-              {attempt.result.grade}
+            <span>Subject</span>
+            <span>{attempt.exam.subject.name}</span>
+          </div>
+
+          <div className="flex justify-between border-b pb-2">
+            <span>Teacher in charge</span>
+            <span className="text-right">
+              {teacherNames.length
+                ? teacherNames.join(", ")
+                : "Not assigned"}
             </span>
           </div>
 
           <div className="flex justify-between">
-            <span className="font-medium">Completed</span>
-            <span>{attempt.result.generatedAt.toLocaleString()}</span>
+            <span>Date completed</span>
+            <span>
+              {(attempt.submittedAt ?? attempt.result.generatedAt)
+                .toLocaleString("en-NG")}
+            </span>
           </div>
+        </section>
+
+        <div className="mt-8 rounded-lg bg-muted p-4 text-center text-sm">
+          Your examination has been recorded successfully.
+          Keep up the good work!
         </div>
       </div>
+
+      <ExamCompletionActions />
     </main>
   )
 }
