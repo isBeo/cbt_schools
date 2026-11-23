@@ -1,3 +1,4 @@
+
 "use server"
 
 import { QUESTION_BANKS } from "@/lib/question_banks"
@@ -21,7 +22,11 @@ async function getAuthorizedExam(examId: number) {
 
   const { id, role, schoolId } = session.user
 
-  if (role !== "SUPER_ADMIN" && role !== "SCHOOL_ADMIN" && role !== "TEACHER") {
+  if (
+    role !== "SUPER_ADMIN" &&
+    role !== "SCHOOL_ADMIN" &&
+    role !== "TEACHER"
+  ) {
     throw new Error("You are not authorized to manage exams.")
   }
 
@@ -29,9 +34,7 @@ async function getAuthorizedExam(examId: number) {
     where: { id: examId },
     include: {
       class: {
-        select: {
-          schoolId: true,
-        },
+        select: { schoolId: true },
       },
     },
   })
@@ -40,12 +43,8 @@ async function getAuthorizedExam(examId: number) {
     throw new Error("Exam not found.")
   }
 
-  // Super Admin can manage exams across all schools.
-  if (role === "SUPER_ADMIN") {
-    return exam
-  }
+  if (role === "SUPER_ADMIN") return exam
 
-  // School Admin can manage exams belonging to their school.
   if (role === "SCHOOL_ADMIN") {
     if (!schoolId || exam.class.schoolId !== schoolId) {
       throw new Error("You cannot manage this school's exam.")
@@ -54,7 +53,6 @@ async function getAuthorizedExam(examId: number) {
     return exam
   }
 
-  // Teacher must have the exact class-and-subject assignment.
   const teacherId = Number(id)
 
   if (!Number.isInteger(teacherId)) {
@@ -85,10 +83,11 @@ export async function importExamQuestions(examId: number) {
   if (!exam.questionSource) {
     throw new Error("No question source selected.")
   }
+
   if (exam.status !== "PUBLISHED") {
     throw new Error("Questions can only be imported into a published exam.")
   }
-  // Validate the selected question bank.
+
   const validQuestionSource = QUESTION_BANKS.some(
     (bank) => bank.value === exam.questionSource
   )
@@ -97,14 +96,12 @@ export async function importExamQuestions(examId: number) {
     throw new Error("This exam has an invalid question source.")
   }
 
-  // Load questions from the approved JSON source.
   const questions = await loadQuestions(exam.questionSource)
 
   if (!questions.length) {
     throw new Error("No questions found in source.")
   }
 
-  // Prevent duplicate imports.
   const existing = await prisma.question.count({
     where: { examId: exam.id },
   })
@@ -115,40 +112,36 @@ export async function importExamQuestions(examId: number) {
     return
   }
 
-// Save questions and their options.
-await prisma.$transaction(
-  async (tx) => {
-    for (const [index, q] of questions.entries()) {
-      await tx.question.create({
-        data: {
-          examId: exam.id,
-          questionText: q.questionText,
-          questionType: "OBJECTIVE",
-          marks: q.marks,
-          questionOrder: index + 1,
-          options: {
-            create: q.options.map((option, optionIndex) => ({
-              optionText: option.text,
-              optionOrder: optionIndex + 1,
-              isCorrect: option.correct,
-            })),
+  await prisma.$transaction(
+    async (tx) => {
+      for (const [index, q] of questions.entries()) {
+        await tx.question.create({
+          data: {
+            examId: exam.id,
+            questionText: q.questionText,
+            questionType: "OBJECTIVE",
+            marks: q.marks,
+            questionOrder: index + 1,
+            options: {
+              create: q.options.map((option, optionIndex) => ({
+                optionText: option.text,
+                optionOrder: optionIndex + 1,
+                isCorrect: option.correct,
+              })),
+            },
           },
-        },
-      })
+        })
+      }
+    },
+    {
+      maxWait: 15000,
+      timeout: 60000,
     }
-  },
-  {
-    maxWait: 15000,
-    timeout: 60000,
-  }
-)
+  )
 
   revalidatePath("/dashboard/exams")
   revalidatePath(`/dashboard/exams/${exam.id}/questions`)
 }
-
-// SUBMIT EXAM
-
 
 // START OR RESUME A STUDENT EXAM
 export async function startExam(examId: number) {
@@ -234,15 +227,12 @@ export async function startExam(examId: number) {
         },
       })
     } catch (error) {
-      // Another request may have created the attempt simultaneously.
       const errorCode =
         typeof error === "object" && error !== null && "code" in error
           ? error.code
           : undefined
 
-      if (errorCode !== "P2002") {
-        throw error
-      }
+      if (errorCode !== "P2002") throw error
 
       attempt = await prisma.examAttempt.findUnique({
         where: {
@@ -275,14 +265,13 @@ export async function startExam(examId: number) {
   }
 }
 
-
 type SubmitExamInput = {
   examId: number
   attemptId: number
   answers: Record<number, number>
 }
 
-
+// SUBMIT STUDENT EXAM
 export async function submitExam(data: SubmitExamInput) {
   const session = await auth()
 
@@ -310,13 +299,13 @@ export async function submitExam(data: SubmitExamInput) {
     throw new Error("Invalid exam answers.")
   }
 
-  const now = new Date()
   const GRACE_PERIOD_MS = 15 * 1000
 
   try {
     return await prisma.$transaction(
       async (tx) => {
-        // Identify the student from the authenticated account.
+        const now = new Date()
+
         const student = await tx.student.findUnique({
           where: { userId },
         })
@@ -325,7 +314,6 @@ export async function submitExam(data: SubmitExamInput) {
           throw new Error("Student record not found.")
         }
 
-        // Verify that the exam belongs to the student's class.
         const exam = await tx.exam.findFirst({
           where: {
             id: data.examId,
@@ -352,7 +340,6 @@ export async function submitExam(data: SubmitExamInput) {
           throw new Error("This exam has no questions.")
         }
 
-        // Find the exact attempt created by startExam().
         const attempt = await tx.examAttempt.findUnique({
           where: {
             studentId_examId: {
@@ -372,7 +359,6 @@ export async function submitExam(data: SubmitExamInput) {
           )
         }
 
-        // Calculate the deadline using the original start time.
         const durationDeadline = new Date(
           attempt.startedAt.getTime() +
             exam.durationMinutes * 60 * 1000
@@ -383,12 +369,10 @@ export async function submitExam(data: SubmitExamInput) {
             ? exam.endTime
             : durationDeadline
 
-        // Allow a short technical grace period for network delays.
         if (now.getTime() > expiresAt.getTime() + GRACE_PERIOD_MS) {
           throw new Error("Your exam submission deadline has passed.")
         }
 
-        // Validate every submitted question and option.
         const questionMap = new Map(
           exam.questions.map((question) => [question.id, question])
         )
@@ -410,7 +394,6 @@ export async function submitExam(data: SubmitExamInput) {
           }
         }
 
-        // Atomically claim the attempt for submission.
         const updatedAttempt = await tx.examAttempt.updateMany({
           where: {
             id: attempt.id,
@@ -431,7 +414,6 @@ export async function submitExam(data: SubmitExamInput) {
         let score = 0
         let totalMarks = 0
 
-        // Prepare answers and question-level result details.
         const answersToCreate = exam.questions.map((question) => {
           totalMarks += question.marks
 
@@ -444,9 +426,7 @@ export async function submitExam(data: SubmitExamInput) {
             (option) => option.isCorrect
           )
 
-          const isCorrect =
-            correctOption?.id === selectedOptionId
-
+          const isCorrect = correctOption?.id === selectedOptionId
           const marksAwarded = isCorrect ? question.marks : 0
 
           score += marksAwarded
@@ -461,7 +441,6 @@ export async function submitExam(data: SubmitExamInput) {
           }
         })
 
-        // Save all student answers.
         await tx.studentAnswer.createMany({
           data: answersToCreate.map((answer) => ({
             attemptId: answer.attemptId,
@@ -471,7 +450,6 @@ export async function submitExam(data: SubmitExamInput) {
           })),
         })
 
-        // Calculate the result.
         const percentage =
           totalMarks === 0 ? 0 : (score / totalMarks) * 100
 
@@ -483,7 +461,6 @@ export async function submitExam(data: SubmitExamInput) {
         else if (percentage >= 45) grade = "D"
         else if (percentage >= 40) grade = "E"
 
-        // Create the overall result.
         const result = await tx.result.create({
           data: {
             attemptId: attempt.id,
@@ -493,7 +470,6 @@ export async function submitExam(data: SubmitExamInput) {
           },
         })
 
-        // Save individual question results.
         await tx.resultDetail.createMany({
           data: answersToCreate.map((answer) => ({
             resultId: result.id,
@@ -513,7 +489,8 @@ export async function submitExam(data: SubmitExamInput) {
         }
       },
       {
-        isolationLevel: "Serializable",
+        maxWait: 15000,
+        timeout: 60000,
       }
     )
   } catch (error) {
@@ -601,14 +578,12 @@ export async function draftExam(examId: number) {
   }
 
   await prisma.exam.update({
-    where: { id: exam.id },
+    where: { id: examId },
     data: { status: "DRAFT" },
   })
 
   revalidatePath("/dashboard/exams")
 }
-
-
 
 // CREATE EXAM FROM DATABASE QUESTION BANK
 export async function createExam(formData: FormData) {
@@ -620,7 +595,11 @@ export async function createExam(formData: FormData) {
 
   const { id, role, schoolId } = session.user
 
-  if (role !== "SUPER_ADMIN" && role !== "SCHOOL_ADMIN" && role !== "TEACHER") {
+  if (
+    role !== "SUPER_ADMIN" &&
+    role !== "SCHOOL_ADMIN" &&
+    role !== "TEACHER"
+  ) {
     throw new Error("You are not authorized to create exams.")
   }
 
@@ -755,39 +734,45 @@ export async function createExam(formData: FormData) {
       bankQuestions.find((question) => question.id === questionId)!
   )
 
-  await prisma.$transaction(async (tx) => {
-    const exam = await tx.exam.create({
-      data: {
-        title: title.trim(),
-        term: term.trim(),
-        session: sessionName.trim(),
-        durationMinutes,
-        totalMarks,
-        classId,
-        subjectId,
-      },
-    })
-
-    for (const [index, bankQuestion] of orderedQuestions.entries()) {
-      await tx.question.create({
+  await prisma.$transaction(
+    async (tx) => {
+      const exam = await tx.exam.create({
         data: {
-          examId: exam.id,
-          sourceBankQuestionId: bankQuestion.id,
-          questionText: bankQuestion.questionText,
-          questionType: bankQuestion.questionType,
-          marks: bankQuestion.marks,
-          questionOrder: index + 1,
-          options: {
-            create: bankQuestion.options.map((option) => ({
-              optionText: option.optionText,
-              optionOrder: option.optionOrder,
-              isCorrect: option.isCorrect,
-            })),
-          },
+          title: title.trim(),
+          term: term.trim(),
+          session: sessionName.trim(),
+          durationMinutes,
+          totalMarks,
+          classId,
+          subjectId,
         },
       })
+
+      for (const [index, bankQuestion] of orderedQuestions.entries()) {
+        await tx.question.create({
+          data: {
+            examId: exam.id,
+            sourceBankQuestionId: bankQuestion.id,
+            questionText: bankQuestion.questionText,
+            questionType: bankQuestion.questionType,
+            marks: bankQuestion.marks,
+            questionOrder: index + 1,
+            options: {
+              create: bankQuestion.options.map((option) => ({
+                optionText: option.optionText,
+                optionOrder: option.optionOrder,
+                isCorrect: option.isCorrect,
+              })),
+            },
+          },
+        })
+      }
+    },
+    {
+      maxWait: 15000,
+      timeout: 60000,
     }
-  })
+  )
 
   revalidatePath("/dashboard/exams")
   redirect("/dashboard/exams")
@@ -815,14 +800,10 @@ export async function deleteExam(examId: number) {
     where: { id: examId },
     include: {
       class: {
-        select: {
-          schoolId: true,
-        },
+        select: { schoolId: true },
       },
       _count: {
-        select: {
-          attempts: true,
-        },
+        select: { attempts: true },
       },
     },
   })
@@ -846,45 +827,44 @@ export async function deleteExam(examId: number) {
     throw new Error("This exam has student attempts and cannot be deleted.")
   }
 
-  await prisma.$transaction(async (tx) => {
-    const currentExam = await tx.exam.findUnique({
-      where: { id: examId },
-      include: {
-        _count: {
-          select: {
-            attempts: true,
+  await prisma.$transaction(
+    async (tx) => {
+      const currentExam = await tx.exam.findUnique({
+        where: { id: examId },
+        include: {
+          _count: {
+            select: { attempts: true },
           },
         },
-      },
-    })
+      })
 
-    if (!currentExam || currentExam.status !== "DRAFT") {
-      throw new Error("This exam can no longer be deleted.")
-    }
+      if (!currentExam || currentExam.status !== "DRAFT") {
+        throw new Error("This exam can no longer be deleted.")
+      }
 
-    if (currentExam._count.attempts > 0) {
-      throw new Error("This exam has student attempts and cannot be deleted.")
-    }
+      if (currentExam._count.attempts > 0) {
+        throw new Error("This exam has student attempts and cannot be deleted.")
+      }
 
-    // Remove options belonging to the exam's questions.
-    await tx.option.deleteMany({
-      where: {
-        question: {
-          examId,
+      await tx.option.deleteMany({
+        where: {
+          question: { examId },
         },
-      },
-    })
+      })
 
-    // Remove questions belonging to the exam.
-    await tx.question.deleteMany({
-      where: { examId },
-    })
+      await tx.question.deleteMany({
+        where: { examId },
+      })
 
-    // Finally remove the exam.
-    await tx.exam.delete({
-      where: { id: examId },
-    })
-  })
+      await tx.exam.delete({
+        where: { id: examId },
+      })
+    },
+    {
+      maxWait: 15000,
+      timeout: 60000,
+    }
+  )
 
   revalidatePath("/dashboard/exams")
 }

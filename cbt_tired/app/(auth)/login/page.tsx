@@ -1,8 +1,9 @@
+
 "use client"
 
 import { useState, type FormEvent } from "react"
 import { useRouter } from "next/navigation"
-import { signIn } from "next-auth/react"
+import { signIn, getSession } from "next-auth/react"
 
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -11,29 +12,39 @@ export default function LoginPage() {
   const router = useRouter()
 
   const [email, setEmail] = useState("")
+  const [schoolCode, setSchoolCode] = useState("")
+  const [admissionNo, setAdmissionNo] = useState("")
   const [password, setPassword] = useState("")
   const [error, setError] = useState("")
   const [isLoading, setIsLoading] = useState(false)
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
-
     setError("")
     setIsLoading(true)
 
     try {
       const result = await signIn("credentials", {
-        email,
+        ...(email.trim()
+          ? { email }
+          : { schoolCode, admissionNo }),
         password,
         redirect: false,
       })
 
       if (result?.error) {
-        setError("Invalid email or password.")
+        setError("Invalid login details.")
         return
       }
 
-      router.push("/dashboard")
+      const session = await getSession()
+
+      if (session?.user?.role === "STUDENT") {
+        router.push("/student/exams")
+      } else {
+        router.push("/dashboard")
+      }
+
       router.refresh()
     } catch {
       setError("Unable to log in. Please try again.")
@@ -48,37 +59,46 @@ export default function LoginPage() {
         <div className="space-y-2 text-center">
           <h1 className="text-2xl font-bold">ModeCBT Login</h1>
           <p className="text-sm text-muted-foreground">
-            Sign in to access your dashboard.
+            Staff: use email. Students: use school code and admission number.
           </p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-2">
-            <label htmlFor="email" className="text-sm font-medium">
-              Email address
-            </label>
-
+            <label className="text-sm font-medium">Staff Email (leave blank for students)</label>
             <Input
-              id="email"
               type="email"
               placeholder="admin@example.com"
               value={email}
-              onChange={(event) => setEmail(event.target.value)}
-              required
+              onChange={(e) => setEmail(e.target.value)}
             />
           </div>
 
           <div className="space-y-2">
-            <label htmlFor="password" className="text-sm font-medium">
-              Password
-            </label>
-
+            <label className="text-sm font-medium">School Code</label>
             <Input
-              id="password"
+              placeholder="ECWIS"
+              value={schoolCode}
+              onChange={(e) => setSchoolCode(e.target.value)}
+            />
+          </div>
+
+          <div className="space-y-2">
+            <label className="text-sm font-medium">Admission Number</label>
+            <Input
+              placeholder="Student admission number"
+              value={admissionNo}
+              onChange={(e) => setAdmissionNo(e.target.value)}
+            />
+          </div>
+
+          <div className="space-y-2">
+            <label className="text-sm font-medium">Password</label>
+            <Input
               type="password"
-              placeholder="Enter your password"
+              placeholder="Enter password"
               value={password}
-              onChange={(event) => setPassword(event.target.value)}
+              onChange={(e) => setPassword(e.target.value)}
               required
             />
           </div>
