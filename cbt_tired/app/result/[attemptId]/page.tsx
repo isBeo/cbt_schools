@@ -31,12 +31,17 @@ export default async function ResultPage({ params }: Props) {
     },
   })
 
-  if (!student) notFound()
+  if (!student) {
+    notFound()
+  }
 
   const attempt = await prisma.examAttempt.findFirst({
     where: {
       id,
       studentId: student.id,
+      status: {
+        in: ["SUBMITTED", "GRADED"],
+      },
     },
     include: {
       exam: {
@@ -44,11 +49,18 @@ export default async function ResultPage({ params }: Props) {
           subject: true,
         },
       },
-      result: true,
+      result: {
+        select: {
+          id: true,
+          generatedAt: true,
+        },
+      },
     },
   })
 
-  if (!attempt || !attempt.result) notFound()
+  if (!attempt || !attempt.result) {
+    notFound()
+  }
 
   const teachers = await prisma.teacherAssignment.findMany({
     where: {
@@ -57,7 +69,9 @@ export default async function ResultPage({ params }: Props) {
     },
     include: {
       teacher: {
-        select: { name: true },
+        select: {
+          name: true,
+        },
       },
     },
   })
@@ -71,9 +85,11 @@ export default async function ResultPage({ params }: Props) {
       <div className="rounded-xl border bg-background p-6 shadow-sm">
         <div className="mb-8 text-center">
           <div className="mb-3 text-5xl text-green-600">✓</div>
+
           <h1 className="text-3xl font-bold text-green-600">
             Well done, {student.firstName}!
           </h1>
+
           <p className="mt-2 text-muted-foreground">
             You have successfully completed your examination.
             Your answers have been submitted and your examination
@@ -82,7 +98,9 @@ export default async function ResultPage({ params }: Props) {
         </div>
 
         <section className="space-y-3">
-          <h2 className="text-lg font-semibold">Student Information</h2>
+          <h2 className="text-lg font-semibold">
+            Student Information
+          </h2>
 
           <div className="flex justify-between border-b pb-2">
             <span>Full name</span>
@@ -108,11 +126,15 @@ export default async function ResultPage({ params }: Props) {
         </section>
 
         <section className="mt-6 space-y-3">
-          <h2 className="text-lg font-semibold">Examination Information</h2>
+          <h2 className="text-lg font-semibold">
+            Examination Information
+          </h2>
 
           <div className="flex justify-between border-b pb-2">
             <span>Examination</span>
-            <span className="font-medium">{attempt.exam.title}</span>
+            <span className="font-medium">
+              {attempt.exam.title}
+            </span>
           </div>
 
           <div className="flex justify-between border-b pb-2">

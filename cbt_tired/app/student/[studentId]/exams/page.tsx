@@ -1,3 +1,4 @@
+
 import { auth } from "@/auth"
 import { prisma } from "@/lib/prisma"
 import { notFound, redirect } from "next/navigation"
@@ -24,11 +25,15 @@ export default async function StudentExamsPage({ params }: Props) {
     notFound()
   }
 
-  // Confirm that this student record belongs to the logged-in user.
   const student = await prisma.student.findFirst({
     where: {
       id,
       userId,
+    },
+    select: {
+      id: true,
+      classId: true,
+      firstName: true,
     },
   })
 
@@ -36,13 +41,41 @@ export default async function StudentExamsPage({ params }: Props) {
     notFound()
   }
 
+  const now = new Date()
+
   const exams = await prisma.exam.findMany({
     where: {
       classId: student.classId,
       status: "ACTIVE",
+      AND: [
+        {
+          OR: [
+            { startTime: null },
+            { startTime: { lte: now } },
+          ],
+        },
+        {
+          OR: [
+            { endTime: null },
+            { endTime: { gte: now } },
+          ],
+        },
+      ],
+      attempts: {
+        none: {
+          studentId: student.id,
+        },
+      },
     },
-    include: {
-      subject: true,
+    select: {
+      id: true,
+      title: true,
+      durationMinutes: true,
+      subject: {
+        select: {
+          name: true,
+        },
+      },
     },
     orderBy: {
       startTime: "asc",
@@ -51,7 +84,9 @@ export default async function StudentExamsPage({ params }: Props) {
 
   return (
     <main className="mx-auto max-w-3xl p-6">
-      <h1 className="text-3xl font-bold">Welcome back, {student.firstName}</h1>
+      <h1 className="text-3xl font-bold">
+        Welcome back, {student.firstName}
+      </h1>
 
       <p className="mb-6 text-muted-foreground">Available Exams</p>
 

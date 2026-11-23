@@ -1,3 +1,4 @@
+
 import { auth } from "@/auth"
 import { prisma } from "@/lib/prisma"
 import { notFound, redirect } from "next/navigation"
@@ -36,8 +37,16 @@ export default async function StudentPage({ params }: Props) {
       id,
       userId,
     },
-    include: {
-      class: true,
+    select: {
+      id: true,
+      firstName: true,
+      lastName: true,
+      classId: true,
+      class: {
+        select: {
+          name: true,
+        },
+      },
     },
   })
 
@@ -45,29 +54,38 @@ export default async function StudentPage({ params }: Props) {
     notFound()
   }
 
-  const now = new Date();
+  const now = new Date()
 
   const exams = await prisma.exam.findMany({
     where: {
-  classId: student.classId,
-  status: "ACTIVE",
-  AND: [
-    {
-      OR: [
-        { startTime: null },
-        { startTime: { lte: now } },
+      classId: student.classId,
+      status: "ACTIVE",
+      AND: [
+        {
+          OR: [
+            { startTime: null },
+            { startTime: { lte: now } },
+          ],
+        },
+        {
+          OR: [
+            { endTime: null },
+            { endTime: { gte: now } },
+          ],
+        },
       ],
+      attempts: {
+        none: {
+          studentId: student.id,
+        },
+      },
     },
-    {
-      OR: [
-        { endTime: null },
-        { endTime: { gte: now } },
-      ],
-    },
-  ],
-},
     include: {
-      subject: true,
+      subject: {
+        select: {
+          name: true,
+        },
+      },
     },
     orderBy: {
       subject: {
@@ -87,7 +105,7 @@ export default async function StudentPage({ params }: Props) {
       {exams.length === 0 ? (
         <EmptyState />
       ) : (
-        <ExamList exams={exams} studentId={student.id} />
+        <ExamList exams={exams} />
       )}
     </div>
   )

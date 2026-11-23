@@ -1,3 +1,4 @@
+
 import { ExamCard } from "./exam-card"
 
 type Exam = {
@@ -11,10 +12,9 @@ type Exam = {
 
 type Props = {
   exams: Exam[]
-  studentId: number
 }
 
-export function ExamList({ exams, studentId }: Props) {
+export function ExamList({ exams }: Props) {
   return (
     <div className="grid gap-4 md:grid-cols-2">
       {exams.map((exam) => (
@@ -24,7 +24,6 @@ export function ExamList({ exams, studentId }: Props) {
           title={exam.title}
           subject={exam.subject.name}
           duration={exam.durationMinutes}
-          studentId={studentId}
         />
       ))}
     </div>
