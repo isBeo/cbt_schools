@@ -151,10 +151,12 @@ export default async function QuestionsPage() {
       orderBy: { name: "asc" },
     }),
 
-    prisma.subject.findMany({
-      where: isTeacher ? { id: { in: assignedSubjectIds } } : undefined,
-      orderBy: { name: "asc" },
-    }),
+  prisma.subject.findMany({
+  where: isTeacher
+    ? { id: { in: assignedSubjectIds }, schoolId }
+    : { schoolId },
+  orderBy: { name: "asc" },
+}),
 
     prisma.bankQuestion.findMany({
       where: {

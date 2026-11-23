@@ -1,81 +1,82 @@
+
 "use client"
 
 import { createExam } from "@/app/actions/exam"
-
-import { QUESTION_BANKS } from "@/lib/question_banks"
-
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-
 import { Input } from "@/components/ui/input"
-
 import { Label } from "@/components/ui/label"
-
-import { useState, useRef } from "react"
-
-const CLASS_NAME_MAP: Record<string, string> = {
-  "Basic One": "Basic 1",
-  "Basic Two": "Basic 2",
-  "Basic Three": "Basic 3",
-  "Basic Four": "Basic 4",
-  "Basic Five": "Basic 5",
-  "Junior Secondary School One (JSS1)": "JSS1",
-  "Junior Secondary School Two (JSS2)": "JSS2",
-  "Junior Secondary School Three (JSS3)": "JSS3",
-}
+import { useState } from "react"
 
 type Props = {
-  classes: {
+  classes: { id: number; name: string }[]
+  subjects: { id: number; name: string }[]
+  bankQuestions: {
     id: number
-    name: string
-  }[]
-
-  subjects: {
-    id: number
-    name: string
+    questionText: string
+    marks: number
+    classId: number
+    subjectId: number
+    options: {
+      id: number
+      optionText: string
+      optionOrder: number
+      isCorrect: boolean
+    }[]
   }[]
 }
 
-export default function CreateExam({ classes, subjects }: Props) {
+export default function CreateExam({
+  classes,
+  subjects,
+  bankQuestions,
+}: Props) {
   const [classId, setClassId] = useState("")
   const [subjectId, setSubjectId] = useState("")
+  const [selectedQuestionIds, setSelectedQuestionIds] = useState<number[]>([])
 
-  const [questionSource, setQuestionSource] = useState("")
-  
-
-  const selectedClass = classes.find((item) => item.id.toString() === classId)
-
-  const mappedClassName = selectedClass
-    ? (CLASS_NAME_MAP[selectedClass.name] ?? "")
-    : ""
-
-  const selectedSubject = subjects.find(
-    (item) => item.id.toString() === subjectId
+  const filteredQuestions = bankQuestions.filter(
+    (question) =>
+      Number(question.classId) === Number(classId) &&
+      Number(question.subjectId) === Number(subjectId)
   )
 
-  const filteredQuestionBanks = QUESTION_BANKS.filter(
-    (bank) =>
-      bank.class === mappedClassName && bank.subject === selectedSubject?.name
-  )
+  const selectedMarks = bankQuestions
+    .filter((question) => selectedQuestionIds.includes(question.id))
+    .reduce((total, question) => total + question.marks, 0)
 
-  const formRef = useRef<HTMLFormElement>(null)
-
-  // const isFormValid = classId && subjectId && questionSource
   const isFormValid =
-    classId !== "" && subjectId !== "" && questionSource !== ""
+    classId !== "" &&
+    subjectId !== "" &&
+    selectedQuestionIds.length > 0
+
+  const toggleQuestion = (questionId: number) => {
+    setSelectedQuestionIds((current) =>
+      current.includes(questionId)
+        ? current.filter((id) => id !== questionId)
+        : [...current, questionId]
+    )
+  }
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
     if (!isFormValid) {
-      alert(
-        "Please select all required fields: Class, Subject, and Question Bank"
-      )
+      alert("Please select a class, subject and at least one question.")
       return
     }
 
     const formData = new FormData(e.currentTarget)
+
+    selectedQuestionIds.forEach((id) => {
+      formData.append("bankQuestionIds", id.toString())
+    })
+
     await createExam(formData)
   }
 
@@ -88,48 +89,57 @@ export default function CreateExam({ classes, subjects }: Props) {
       <CardContent>
         <form
           onSubmit={handleSubmit}
-          ref={formRef}
           className="grid gap-4 md:grid-cols-2"
         >
           <div>
-            <Label>Exam Title</Label>
-
-            <Input name="title" required />
+            <Label htmlFor="title">Exam Title</Label>
+            <Input id="title" name="title" required />
           </div>
 
           <div>
-            <Label>Term</Label>
-
-            <Input name="term" required />
+            <Label htmlFor="term">Term</Label>
+            <Input id="term" name="term" required />
           </div>
 
           <div>
-            <Label>Session</Label>
-
-            <Input name="session" required />
+            <Label htmlFor="session">Session</Label>
+            <Input id="session" name="session" required />
           </div>
 
           <div>
-            <Label>Duration (Minutes)</Label>
-
-            <Input type="number" name="durationMinutes" required />
+            <Label htmlFor="durationMinutes">Duration (Minutes)</Label>
+            <Input
+              id="durationMinutes"
+              type="number"
+              name="durationMinutes"
+              min="1"
+              required
+            />
           </div>
 
           <div>
-            <Label>Total Marks</Label>
-
-            <Input type="number" name="totalMarks" required />
+            <Label htmlFor="totalMarks">Total Marks</Label>
+            <Input
+              id="totalMarks"
+              type="number"
+              name="totalMarks"
+              value={selectedMarks}
+              readOnly
+              required
+            />
           </div>
 
           <div>
             <Label htmlFor="classId">Class</Label>
-
             <select
               id="classId"
               name="classId"
               className="w-full rounded-md border border-input bg-background px-3 py-2"
               value={classId}
-              onChange={(e) => setClassId(e.target.value)}
+              onChange={(e) => {
+                setClassId(e.target.value)
+                setSelectedQuestionIds([])
+              }}
               required
             >
               <option value="">Select Class</option>
@@ -144,13 +154,15 @@ export default function CreateExam({ classes, subjects }: Props) {
 
           <div>
             <Label htmlFor="subjectId">Subject</Label>
-
             <select
               id="subjectId"
               name="subjectId"
               className="w-full rounded-md border border-input bg-background px-3 py-2"
               value={subjectId}
-              onChange={(e) => setSubjectId(e.target.value)}
+              onChange={(e) => {
+                setSubjectId(e.target.value)
+                setSelectedQuestionIds([])
+              }}
               required
             >
               <option value="">Select Subject</option>
@@ -163,25 +175,53 @@ export default function CreateExam({ classes, subjects }: Props) {
             </select>
           </div>
 
-          <div>
-            <Label htmlFor="questionSource">Question Bank</Label>
+          <div className="md:col-span-2 space-y-3">
+            <div>
+              <Label>Choose Questions</Label>
+              <p className="text-sm text-muted-foreground">
+                Select the questions to include in this exam.
+              </p>
+            </div>
 
-            <select
-              id="questionSource"
-              name="questionSource"
-              className="w-full rounded-md border border-input bg-background px-3 py-2"
-              value={questionSource}
-              onChange={(e) => setQuestionSource(e.target.value)}
-              required
-            >
-              <option value="">Select Question Bank</option>
+            {!classId || !subjectId ? (
+              <p className="text-sm text-muted-foreground">
+                Select a class and subject to see available questions.
+              </p>
+            ) : filteredQuestions.length === 0 ? (
+              <p className="text-sm text-destructive">
+                No active questions found for this class and subject.
+              </p>
+            ) : (
+              filteredQuestions.map((question, index) => (
+                <label
+                  key={question.id}
+                  className="flex cursor-pointer gap-3 rounded-md border p-3"
+                >
+                  <input
+                    type="checkbox"
+                    checked={selectedQuestionIds.includes(question.id)}
+                    onChange={() => toggleQuestion(question.id)}
+                    className="mt-1"
+                  />
 
-              {QUESTION_BANKS.map((bank) => (
-                <option key={bank.value} value={bank.value}>
-                  {bank.label}
-                </option>
-              ))}
-            </select>
+                  <span className="space-y-1">
+                    <span className="block font-medium">
+                      {index + 1}. {question.questionText}
+                    </span>
+
+                    <span className="block text-sm text-muted-foreground">
+                      {question.marks} mark(s) · {question.options.length} options
+                    </span>
+                  </span>
+                </label>
+              ))
+            )}
+
+            <p className="text-sm font-medium">
+              Selected: {selectedQuestionIds.length} question(s)
+              {" · "}
+              Total: {selectedMarks} marks
+            </p>
           </div>
 
           <div className="md:col-span-2">

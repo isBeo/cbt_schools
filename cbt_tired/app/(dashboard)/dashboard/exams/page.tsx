@@ -16,6 +16,20 @@ export default async function ExamsPage() {
   let classes: { id: number; name: string }[] = []
   let subjects: { id: number; name: string }[] = []
 
+  let bankQuestions: {
+  id: number
+  questionText: string
+  marks: number
+  classId: number
+  subjectId: number
+  options: {
+    id: number
+    optionText: string
+    optionOrder: number
+    isCorrect: boolean
+  }[]
+}[] = []
+
   if (role === "SUPER_ADMIN") {
     const [allClasses, allSubjects] = await Promise.all([
       prisma.class.findMany({
@@ -80,6 +94,50 @@ export default async function ExamsPage() {
     redirect("/dashboard")
   }
 
+  if (role === "SUPER_ADMIN" || role === "SCHOOL_ADMIN" || role === "TEACHER") {
+  bankQuestions = await prisma.bankQuestion.findMany({
+    where: {
+      isActive: true,
+      ...(schoolId ? { schoolId } : {}),
+      ...(role === "TEACHER"
+        ? {
+            OR: classes.flatMap((classItem) =>
+              subjects.map((subjectItem) => ({
+                classId: classItem.id,
+                subjectId: subjectItem.id,
+              }))
+            ),
+          }
+        : {}),
+    },
+    select: {
+      id: true,
+      questionText: true,
+      marks: true,
+      classId: true,
+      subjectId: true,
+      options: {
+        select: {
+          id: true,
+          optionText: true,
+          optionOrder: true,
+          isCorrect: true,
+        },
+        orderBy: { optionOrder: "asc" },
+      },
+    },
+    orderBy: { id: "desc" },
+  })
+}
+
+console.log(
+  "EXAM BANK QUESTIONS:",
+  bankQuestions.map((q) => ({
+    id: q.id,
+    classId: q.classId,
+    subjectId: q.subjectId,
+  }))
+)
   return (
     <div className="space-y-8 p-8">
       <div>
@@ -89,7 +147,11 @@ export default async function ExamsPage() {
         </p>
       </div>
 
-      <CreateExam classes={classes} subjects={subjects} />
+      <CreateExam
+  classes={classes}
+  subjects={subjects}
+  bankQuestions={bankQuestions}
+/>
 
       <ExamTable />
     </div>

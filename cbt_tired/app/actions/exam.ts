@@ -609,7 +609,8 @@ export async function draftExam(examId: number) {
 }
 
 
-// CREATE EXAM
+
+// CREATE EXAM FROM DATABASE QUESTION BANK
 export async function createExam(formData: FormData) {
   const session = await auth()
 
@@ -626,12 +627,14 @@ export async function createExam(formData: FormData) {
   const title = formData.get("title")
   const term = formData.get("term")
   const sessionName = formData.get("session")
-  const questionSource = formData.get("questionSource")
 
   const durationMinutes = Number(formData.get("durationMinutes"))
-  const totalMarks = Number(formData.get("totalMarks"))
   const classId = Number(formData.get("classId"))
   const subjectId = Number(formData.get("subjectId"))
+
+  const bankQuestionIds = formData
+    .getAll("bankQuestionIds")
+    .map((value) => Number(value))
 
   if (
     typeof title !== "string" ||
@@ -639,32 +642,23 @@ export async function createExam(formData: FormData) {
     typeof term !== "string" ||
     !term.trim() ||
     typeof sessionName !== "string" ||
-    !sessionName.trim() ||
-    typeof questionSource !== "string" ||
-    !questionSource.trim()
+    !sessionName.trim()
   ) {
     throw new Error("Please provide all required exam details.")
-  }
-
-  const validQuestionSource = QUESTION_BANKS.some(
-    (bank) => bank.value === questionSource.trim()
-  )
-
-  if (!validQuestionSource) {
-    throw new Error("Invalid question source selected.")
   }
 
   if (
     !Number.isInteger(durationMinutes) ||
     durationMinutes <= 0 ||
-    !Number.isInteger(totalMarks) ||
-    totalMarks <= 0 ||
     !Number.isInteger(classId) ||
     classId <= 0 ||
     !Number.isInteger(subjectId) ||
-    subjectId <= 0
+    subjectId <= 0 ||
+    bankQuestionIds.length === 0 ||
+    bankQuestionIds.some((id) => !Number.isInteger(id) || id <= 0) ||
+    new Set(bankQuestionIds).size !== bankQuestionIds.length
   ) {
-    throw new Error("Invalid exam details.")
+    throw new Error("Invalid exam details or question selection.")
   }
 
   const [classRecord, subjectRecord] = await Promise.all([
@@ -714,17 +708,85 @@ export async function createExam(formData: FormData) {
     }
   }
 
-  await prisma.exam.create({
-    data: {
-      title: title.trim(),
-      term: term.trim(),
-      session: sessionName.trim(),
-      durationMinutes,
-      totalMarks,
+  const bankQuestions = await prisma.bankQuestion.findMany({
+    where: {
+      id: { in: bankQuestionIds },
+      schoolId: classRecord.schoolId,
       classId,
       subjectId,
-      questionSource: questionSource.trim(),
+      isActive: true,
     },
+    include: {
+      options: {
+        orderBy: { optionOrder: "asc" },
+      },
+    },
+  })
+
+  if (bankQuestions.length !== bankQuestionIds.length) {
+    throw new Error(
+      "Some selected questions are unavailable or do not belong to this class and subject."
+    )
+  }
+
+  if (
+    bankQuestions.some(
+      (question) =>
+        question.options.length < 2 ||
+        !question.options.some((option) => option.isCorrect)
+    )
+  ) {
+    throw new Error(
+      "Every selected objective question must have at least two options and a correct answer."
+    )
+  }
+
+  const totalMarks = bankQuestions.reduce(
+    (total, question) => total + question.marks,
+    0
+  )
+
+  if (totalMarks <= 0) {
+    throw new Error("The selected questions have invalid total marks.")
+  }
+
+  const orderedQuestions = bankQuestionIds.map(
+    (questionId) =>
+      bankQuestions.find((question) => question.id === questionId)!
+  )
+
+  await prisma.$transaction(async (tx) => {
+    const exam = await tx.exam.create({
+      data: {
+        title: title.trim(),
+        term: term.trim(),
+        session: sessionName.trim(),
+        durationMinutes,
+        totalMarks,
+        classId,
+        subjectId,
+      },
+    })
+
+    for (const [index, bankQuestion] of orderedQuestions.entries()) {
+      await tx.question.create({
+        data: {
+          examId: exam.id,
+          sourceBankQuestionId: bankQuestion.id,
+          questionText: bankQuestion.questionText,
+          questionType: bankQuestion.questionType,
+          marks: bankQuestion.marks,
+          questionOrder: index + 1,
+          options: {
+            create: bankQuestion.options.map((option) => ({
+              optionText: option.optionText,
+              optionOrder: option.optionOrder,
+              isCorrect: option.isCorrect,
+            })),
+          },
+        },
+      })
+    }
   })
 
   revalidatePath("/dashboard/exams")
