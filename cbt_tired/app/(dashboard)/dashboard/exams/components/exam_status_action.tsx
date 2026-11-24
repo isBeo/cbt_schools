@@ -12,10 +12,7 @@ type Props = {
   action: ExamAction
 }
 
-export default function ExamStatusAction({
-  examId,
-  action,
-}: Props) {
+export default function ExamStatusAction({ examId, action }: Props) {
   async function handleSubmit() {
     "use server"
 

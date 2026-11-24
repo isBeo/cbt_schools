@@ -1,4 +1,3 @@
-
 import { ExamCard } from "./exam-card"
 
 type Exam = {

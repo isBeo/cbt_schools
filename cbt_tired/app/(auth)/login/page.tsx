@@ -1,4 +1,3 @@
-
 "use client"
 
 import { useState, type FormEvent } from "react"
@@ -25,9 +24,7 @@ export default function LoginPage() {
 
     try {
       const result = await signIn("credentials", {
-        ...(email.trim()
-          ? { email }
-          : { schoolCode, admissionNo }),
+        ...(email.trim() ? { email } : { schoolCode, admissionNo }),
         password,
         redirect: false,
       })
@@ -65,7 +62,9 @@ export default function LoginPage() {
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-2">
-            <label className="text-sm font-medium">Staff Email (leave blank for students)</label>
+            <label className="text-sm font-medium">
+              Staff Email (leave blank for students)
+            </label>
             <Input
               type="email"
               placeholder="admin@example.com"

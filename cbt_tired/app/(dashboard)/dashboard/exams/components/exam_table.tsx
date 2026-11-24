@@ -1,4 +1,3 @@
-
 import DeleteExam from "./delete_exam"
 import ExamStatusAction from "./exam_status_action"
 
@@ -116,18 +115,14 @@ export default async function ExamTable() {
         ) : (
           exams.map((exam) => (
             <TableRow key={exam.id}>
-              <TableCell className="font-medium">
-                {exam.title}
-              </TableCell>
+              <TableCell className="font-medium">{exam.title}</TableCell>
 
               <TableCell>{exam.subject.name}</TableCell>
 
               <TableCell>{exam.class.name}</TableCell>
 
               <TableCell>
-                <Badge variant="secondary">
-                  {exam.status}
-                </Badge>
+                <Badge variant="secondary">{exam.status}</Badge>
               </TableCell>
 
               <TableCell>
@@ -135,25 +130,16 @@ export default async function ExamTable() {
                   {/* DRAFT EXAM */}
                   {exam.status === "DRAFT" && (
                     <>
-                      <Link
-                        href={`/dashboard/exams/${exam.id}/questions`}
-                      >
+                      <Link href={`/dashboard/exams/${exam.id}/questions`}>
                         <Button size="sm" variant="secondary">
                           Manage Questions
                         </Button>
                       </Link>
 
-                      <ExamStatusAction
-                        examId={exam.id}
-                        action="publish"
-                      />
+                      <ExamStatusAction examId={exam.id} action="publish" />
 
-                      {(role === "SUPER_ADMIN" ||
-                        role === "SCHOOL_ADMIN") && (
-                        <DeleteExam
-                          examId={exam.id}
-                          examTitle={exam.title}
-                        />
+                      {(role === "SUPER_ADMIN" || role === "SCHOOL_ADMIN") && (
+                        <DeleteExam examId={exam.id} examTitle={exam.title} />
                       )}
                     </>
                   )}
@@ -166,37 +152,25 @@ export default async function ExamTable() {
                       </Badge>
 
                       {exam._count.questions > 0 ? (
-                        <ExamStatusAction
-                          examId={exam.id}
-                          action="activate"
-                        />
+                        <ExamStatusAction examId={exam.id} action="activate" />
                       ) : (
                         <Button size="sm" disabled>
                           No Questions Available
                         </Button>
                       )}
 
-                      <ExamStatusAction
-                        examId={exam.id}
-                        action="draft"
-                      />
+                      <ExamStatusAction examId={exam.id} action="draft" />
                     </>
                   )}
 
                   {/* ACTIVE EXAM */}
                   {exam.status === "ACTIVE" && (
-                    <ExamStatusAction
-                      examId={exam.id}
-                      action="close"
-                    />
+                    <ExamStatusAction examId={exam.id} action="close" />
                   )}
 
                   {/* CLOSED EXAM */}
                   {exam.status === "CLOSED" && (
-                    <ExamStatusAction
-                      examId={exam.id}
-                      action="activate"
-                    />
+                    <ExamStatusAction examId={exam.id} action="activate" />
                   )}
                 </div>
               </TableCell>

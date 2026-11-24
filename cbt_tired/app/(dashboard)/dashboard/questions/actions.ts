@@ -1,8 +1,10 @@
 "use server"
 
+import mammoth from "mammoth"
 import { auth } from "@/auth"
 import { prisma } from "@/lib/prisma"
 import { revalidatePath } from "next/cache"
+import { parseQuestionText } from "@/lib/question-import-parser"
 
 type QuestionOptionInput = {
   optionText: string
@@ -125,59 +127,61 @@ async function validateClassAndSubject(
   }
 }
 
+
 export async function createBankQuestion(input: QuestionInput) {
   const user = await getAuthorizedTeacher()
   const options = validateQuestionInput(input)
 
   await validateTeacherAssignment(user, input.classId, input.subjectId)
+  await validateClassAndSubject(user.schoolId, input.classId, input.subjectId)
 
-  await validateClassAndSubject(
-  user.schoolId,
-  input.classId,
-  input.subjectId
-)
-
-  const result = await prisma.$transaction(async (tx) => {
-    const question = await tx.bankQuestion.create({
-      data: {
-        questionText: input.questionText.trim(),
-        questionType: "OBJECTIVE",
-        marks: input.marks,
-        schoolId: user.schoolId,
-        classId: input.classId,
-        subjectId: input.subjectId,
-        createdById: user.userId,
-        options: {
-          create: options.map((option, index) => ({
-            optionText: option.optionText,
-            optionOrder: index + 1,
-            isCorrect: option.isCorrect,
-          })),
-        },
-      },
-    })
-
-    await tx.auditLog.create({
-      data: {
-        userId: user.userId,
-        schoolId: user.schoolId,
-        actorName: user.name,
-        actorRole: user.role,
-        action: "CREATE",
-        entity: "BankQuestion",
-        entityId: String(question.id),
-        description: "Created a question in the Question Bank.",
-        metadata: {
-          questionText: question.questionText,
+  const result = await prisma.$transaction(
+    async (tx) => {
+      const question = await tx.bankQuestion.create({
+        data: {
+          questionText: input.questionText.trim(),
+          questionType: "OBJECTIVE",
+          marks: input.marks,
+          schoolId: user.schoolId,
           classId: input.classId,
           subjectId: input.subjectId,
-          marks: input.marks,
+          createdById: user.userId,
+          options: {
+            create: options.map((option, index) => ({
+              optionText: option.optionText,
+              optionOrder: index + 1,
+              isCorrect: option.isCorrect,
+            })),
+          },
         },
-      },
-    })
+      })
 
-    return question
-  })
+      await tx.auditLog.create({
+        data: {
+          userId: user.userId,
+          schoolId: user.schoolId,
+          actorName: user.name,
+          actorRole: user.role,
+          action: "CREATE",
+          entity: "BankQuestion",
+          entityId: String(question.id),
+          description: "Created a question in the Question Bank.",
+          metadata: {
+            questionText: question.questionText,
+            classId: input.classId,
+            subjectId: input.subjectId,
+            marks: input.marks,
+          },
+        },
+      })
+
+      return question
+    },
+    {
+      maxWait: 10_000,
+      timeout: 30_000,
+    }
+  )
 
   revalidatePath("/dashboard/questions")
   revalidatePath("/dashboard/audit-logs")
@@ -187,6 +191,7 @@ export async function createBankQuestion(input: QuestionInput) {
     questionId: result.id,
   }
 }
+
 
 export async function updateBankQuestion(
   questionId: number,
@@ -201,11 +206,7 @@ export async function updateBankQuestion(
 
   await validateTeacherAssignment(user, input.classId, input.subjectId)
 
- await validateClassAndSubject(
-  user.schoolId,
-  input.classId,
-  input.subjectId
-)
+  await validateClassAndSubject(user.schoolId, input.classId, input.subjectId)
 
   const existing = await prisma.bankQuestion.findFirst({
     where: {
@@ -326,3 +327,147 @@ export async function archiveBankQuestion(questionId: number) {
 
   return { success: true }
 }
+
+type BulkQuestionImportInput = {
+  text: string
+  classId: number
+  subjectId: number
+}
+
+
+export async function importBankQuestions(input: BulkQuestionImportInput) {
+  const user = await getAuthorizedTeacher()
+
+  if (!input.text?.trim()) {
+    throw new Error("Paste or upload your questions first.")
+  }
+
+  if (!Number.isInteger(input.classId) || !Number.isInteger(input.subjectId)) {
+    throw new Error("Select a valid class and subject.")
+  }
+
+  await validateTeacherAssignment(user, input.classId, input.subjectId)
+  await validateClassAndSubject(user.schoolId, input.classId, input.subjectId)
+
+  const parsed = parseQuestionText(input.text)
+
+  if (parsed.errors.length > 0) {
+    throw new Error(
+      `Import rejected: ${parsed.errors
+        .map((error) => `Question ${error.questionNumber}: ${error.message}`)
+        .join(" ")}`
+    )
+  }
+
+  if (parsed.questions.length === 0) {
+    throw new Error("No valid questions were found.")
+  }
+
+  if (parsed.questions.length > 100) {
+    throw new Error("Import is limited to 100 questions at a time.")
+  }
+
+  const result = await prisma.$transaction(
+    async (tx) => {
+      const importedQuestions = []
+
+      for (const question of parsed.questions) {
+        const created = await tx.bankQuestion.create({
+          data: {
+            questionText: question.questionText,
+            questionType: "OBJECTIVE",
+            marks: question.marks,
+            schoolId: user.schoolId,
+            classId: input.classId,
+            subjectId: input.subjectId,
+            createdById: user.userId,
+            options: {
+              create: question.options.map((option) => ({
+                optionText: option.optionText,
+                optionOrder: option.optionOrder,
+                isCorrect: option.isCorrect,
+              })),
+            },
+          },
+        })
+
+        importedQuestions.push(created)
+      }
+
+      await tx.auditLog.create({
+        data: {
+          userId: user.userId,
+          schoolId: user.schoolId,
+          actorName: user.name,
+          actorRole: user.role,
+          action: "CREATE",
+          entity: "BankQuestion",
+          entityId: String(importedQuestions[0].id),
+          description: `Bulk imported ${importedQuestions.length} questions into the Question Bank.`,
+          metadata: {
+            importedCount: importedQuestions.length,
+            classId: input.classId,
+            subjectId: input.subjectId,
+            questionIds: importedQuestions.map((question) => question.id),
+          },
+        },
+      })
+
+      return importedQuestions
+    },
+    {
+      maxWait: 10_000,
+      timeout: 30_000,
+    }
+  )
+
+  revalidatePath("/dashboard/questions")
+  revalidatePath("/dashboard/audit-logs")
+
+  return {
+    success: true,
+    importedCount: result.length,
+  }
+}
+
+
+
+export async function extractDocxText(formData: FormData) {
+  await getAuthorizedTeacher()
+
+  const file = formData.get("file")
+
+  if (!(file instanceof File)) {
+    throw new Error("Please select a Word document.")
+  }
+
+  if (!file.name.toLowerCase().endsWith(".docx")) {
+    throw new Error("Only .docx files are supported.")
+  }
+
+  if (file.size > 5 * 1024 * 1024) {
+    throw new Error("Word document must not exceed 5MB.")
+  }
+
+  try {
+    const buffer = Buffer.from(await file.arrayBuffer())
+
+    const result = await mammoth.extractRawText({ buffer })
+
+    if (!result.value.trim()) {
+      throw new Error("The Word document contains no readable text.")
+    }
+
+    return {
+      success: true,
+      text: result.value,
+    }
+  } catch (error) {
+    if (error instanceof Error && error.message.includes("Word document")) {
+      throw error
+    }
+
+    throw new Error("Unable to extract text from this Word document.")
+  }
+}
+

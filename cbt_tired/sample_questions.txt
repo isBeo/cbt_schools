@@ -1,0 +1,16 @@
+
+QUESTION: What is the largest ocean in the world?
+MARKS: 2
+A: Atlantic Ocean
+B: Indian Ocean
+C: Pacific Ocean
+D: Arctic Ocean
+ANSWER: C
+---
+QUESTION: How many sides does a triangle have?
+MARKS: 1
+A: Two
+B: Three
+C: Four
+D: Five
+ANSWER: B

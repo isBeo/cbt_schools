@@ -1,0 +1,15 @@
+QUESTION: What is the capital of Nigeria?
+MARKS: 1
+A: Lagos
+B: Abuja
+C: Kano
+D: Port Harcourt
+ANSWER: B
+
+QUESTION: Which language is used to structure web pages?
+MARKS: 2
+A: Python
+B: CSS
+C: HTML
+D: SQL
+ANSWER: C

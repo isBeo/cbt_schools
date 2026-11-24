@@ -1,4 +1,3 @@
-
 import { auth } from "@/auth"
 import { prisma } from "@/lib/prisma"
 import { redirect } from "next/navigation"
@@ -34,9 +33,7 @@ export default async function StudentPage() {
   return (
     <main className="mx-auto max-w-3xl space-y-6 p-6">
       <div>
-        <h1 className="text-2xl font-bold">
-          Welcome, {student.firstName}
-        </h1>
+        <h1 className="text-2xl font-bold">Welcome, {student.firstName}</h1>
         <p className="text-muted-foreground">
           {student.firstName} {student.lastName} · {student.class.name}
         </p>

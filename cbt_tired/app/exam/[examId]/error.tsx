@@ -1,4 +1,3 @@
-
 "use client"
 
 import { useEffect, useRef, useState } from "react"
@@ -15,9 +14,7 @@ export default function ExamError({
 }) {
   const router = useRouter()
   const started = useRef(false)
-  const [message, setMessage] = useState(
-    "Checking your examination status..."
-  )
+  const [message, setMessage] = useState("Checking your examination status...")
 
   useEffect(() => {
     if (started.current) return
@@ -49,18 +46,12 @@ export default function ExamError({
 
   return (
     <main className="flex min-h-[70vh] flex-col items-center justify-center gap-4 p-6 text-center">
-      <h1 className="text-2xl font-bold">
-        Examination Unavailable
-      </h1>
+      <h1 className="text-2xl font-bold">Examination Unavailable</h1>
 
-      <p className="max-w-md text-muted-foreground">
-        {message}
-      </p>
+      <p className="max-w-md text-muted-foreground">{message}</p>
 
       <div className="flex flex-wrap justify-center gap-3">
-        <Button
-          onClick={() => router.replace("/student/exams")}
-        >
+        <Button onClick={() => router.replace("/student/exams")}>
           Available Exams
         </Button>
 

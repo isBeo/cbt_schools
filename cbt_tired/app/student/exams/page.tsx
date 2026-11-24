@@ -1,4 +1,3 @@
-
 import { auth } from "@/auth"
 import { prisma } from "@/lib/prisma"
 import { redirect } from "next/navigation"
@@ -30,26 +29,20 @@ export default async function StudentExamsPage() {
       status: "ACTIVE",
       AND: [
         {
-          OR: [
-            { startTime: null },
-            { startTime: { lte: now } },
-          ],
+          OR: [{ startTime: null }, { startTime: { lte: now } }],
         },
         {
-          OR: [
-            { endTime: null },
-            { endTime: { gte: now } },
-          ],
+          OR: [{ endTime: null }, { endTime: { gte: now } }],
         },
       ],
-    attempts: {
-  none: {
-    studentId: student.id,
-    status: {
-      in: ["SUBMITTED", "GRADED"],
-    },
-  },
-},
+      attempts: {
+        none: {
+          studentId: student.id,
+          status: {
+            in: ["SUBMITTED", "GRADED"],
+          },
+        },
+      },
     },
     select: {
       id: true,
@@ -68,15 +61,11 @@ export default async function StudentExamsPage() {
 
   return (
     <main className="mx-auto max-w-3xl space-y-6 p-6">
-      <h1 className="text-2xl font-bold">
-        Welcome, {student.firstName}
-      </h1>
+      <h1 className="text-2xl font-bold">Welcome, {student.firstName}</h1>
 
       <h2 className="font-semibold">Available Examinations</h2>
 
-      {exams.length === 0 && (
-        <p>No examinations are available.</p>
-      )}
+      {exams.length === 0 && <p>No examinations are available.</p>}
 
       {exams.map((exam) => (
         <div key={exam.id} className="rounded-lg border p-4">

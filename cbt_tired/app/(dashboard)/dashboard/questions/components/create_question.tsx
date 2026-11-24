@@ -432,11 +432,11 @@ export default function CreateQuestion({
                 <p className="mt-3 text-xs text-muted-foreground">
                   Created by {question.createdByName} ·{" "}
                   {new Date(question.createdAt).toLocaleDateString("en-GB", {
-  day: "2-digit",
-  month: "2-digit",
-  year: "numeric",
-  timeZone: "UTC",
-})}
+                    day: "2-digit",
+                    month: "2-digit",
+                    year: "numeric",
+                    timeZone: "UTC",
+                  })}
                 </p>
               </article>
             ))}

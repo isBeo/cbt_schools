@@ -1,13 +1,7 @@
-
 "use client"
 
 import { createExam } from "@/app/actions/exam"
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -40,8 +34,8 @@ export default function CreateExam({
   const [subjectId, setSubjectId] = useState("")
   const [selectedQuestionIds, setSelectedQuestionIds] = useState<number[]>([])
   console.log("QUESTION BANK RECEIVED:", bankQuestions)
-console.log("SELECTED CLASS:", classId)
-console.log("SELECTED SUBJECT:", subjectId)
+  console.log("SELECTED CLASS:", classId)
+  console.log("SELECTED SUBJECT:", subjectId)
   const filteredQuestions = bankQuestions.filter(
     (question) =>
       Number(question.classId) === Number(classId) &&
@@ -50,18 +44,16 @@ console.log("SELECTED SUBJECT:", subjectId)
 
   console.log("ALL BANK QUESTIONS:", JSON.stringify(bankQuestions, null, 2))
 
-console.log("AVAILABLE CLASSES:", JSON.stringify(classes, null, 2))
+  console.log("AVAILABLE CLASSES:", JSON.stringify(classes, null, 2))
 
-console.log("FILTERED QUESTIONS:", JSON.stringify(filteredQuestions, null, 2))
+  console.log("FILTERED QUESTIONS:", JSON.stringify(filteredQuestions, null, 2))
 
   const selectedMarks = bankQuestions
     .filter((question) => selectedQuestionIds.includes(question.id))
     .reduce((total, question) => total + question.marks, 0)
 
   const isFormValid =
-    classId !== "" &&
-    subjectId !== "" &&
-    selectedQuestionIds.length > 0
+    classId !== "" && subjectId !== "" && selectedQuestionIds.length > 0
 
   const toggleQuestion = (questionId: number) => {
     setSelectedQuestionIds((current) =>
@@ -95,10 +87,7 @@ console.log("FILTERED QUESTIONS:", JSON.stringify(filteredQuestions, null, 2))
       </CardHeader>
 
       <CardContent>
-        <form
-          onSubmit={handleSubmit}
-          className="grid gap-4 md:grid-cols-2"
-        >
+        <form onSubmit={handleSubmit} className="grid gap-4 md:grid-cols-2">
           <div>
             <Label htmlFor="title">Exam Title</Label>
             <Input id="title" name="title" required />
@@ -183,7 +172,7 @@ console.log("FILTERED QUESTIONS:", JSON.stringify(filteredQuestions, null, 2))
             </select>
           </div>
 
-          <div className="md:col-span-2 space-y-3">
+          <div className="space-y-3 md:col-span-2">
             <div>
               <Label>Choose Questions</Label>
               <p className="text-sm text-muted-foreground">
@@ -218,7 +207,8 @@ console.log("FILTERED QUESTIONS:", JSON.stringify(filteredQuestions, null, 2))
                     </span>
 
                     <span className="block text-sm text-muted-foreground">
-                      {question.marks} mark(s) · {question.options.length} options
+                      {question.marks} mark(s) · {question.options.length}{" "}
+                      options
                     </span>
                   </span>
                 </label>

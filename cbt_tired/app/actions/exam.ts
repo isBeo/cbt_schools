@@ -1,4 +1,3 @@
-
 "use server"
 
 import { QUESTION_BANKS } from "@/lib/question_banks"
@@ -22,11 +21,7 @@ async function getAuthorizedExam(examId: number) {
 
   const { id, role, schoolId } = session.user
 
-  if (
-    role !== "SUPER_ADMIN" &&
-    role !== "SCHOOL_ADMIN" &&
-    role !== "TEACHER"
-  ) {
+  if (role !== "SUPER_ADMIN" && role !== "SCHOOL_ADMIN" && role !== "TEACHER") {
     throw new Error("You are not authorized to manage exams.")
   }
 
@@ -153,11 +148,7 @@ export async function startExam(examId: number) {
 
   const userId = Number(session.user.id)
 
-  if (
-    !Number.isInteger(userId) ||
-    !Number.isInteger(examId) ||
-    examId <= 0
-  ) {
+  if (!Number.isInteger(userId) || !Number.isInteger(examId) || examId <= 0) {
     throw new Error("Invalid exam details.")
   }
 
@@ -178,16 +169,10 @@ export async function startExam(examId: number) {
       status: "ACTIVE",
       AND: [
         {
-          OR: [
-            { startTime: null },
-            { startTime: { lte: now } },
-          ],
+          OR: [{ startTime: null }, { startTime: { lte: now } }],
         },
         {
-          OR: [
-            { endTime: null },
-            { endTime: { gte: now } },
-          ],
+          OR: [{ endTime: null }, { endTime: { gte: now } }],
         },
       ],
     },
@@ -291,16 +276,10 @@ export async function hasAvailableExams() {
       status: "ACTIVE",
       AND: [
         {
-          OR: [
-            { startTime: null },
-            { startTime: { lte: now } },
-          ],
+          OR: [{ startTime: null }, { startTime: { lte: now } }],
         },
         {
-          OR: [
-            { endTime: null },
-            { endTime: { gte: now } },
-          ],
+          OR: [{ endTime: null }, { endTime: { gte: now } }],
         },
       ],
       attempts: {
@@ -461,8 +440,7 @@ export async function submitExam(data: SubmitExamInput) {
         }
 
         const durationDeadline = new Date(
-          attempt.startedAt.getTime() +
-            exam.durationMinutes * 60 * 1000
+          attempt.startedAt.getTime() + exam.durationMinutes * 60 * 1000
         )
 
         const expiresAt =
@@ -487,9 +465,7 @@ export async function submitExam(data: SubmitExamInput) {
           if (
             !question ||
             !Number.isInteger(parsedOptionId) ||
-            !question.options.some(
-              (option) => option.id === parsedOptionId
-            )
+            !question.options.some((option) => option.id === parsedOptionId)
           ) {
             throw new Error("Invalid answer submitted.")
           }
@@ -551,8 +527,7 @@ export async function submitExam(data: SubmitExamInput) {
           })),
         })
 
-        const percentage =
-          totalMarks === 0 ? 0 : (score / totalMarks) * 100
+        const percentage = totalMarks === 0 ? 0 : (score / totalMarks) * 100
 
         let grade = "F"
 
@@ -700,11 +675,7 @@ export async function createExam(formData: FormData) {
 
   const { id, role, schoolId } = session.user
 
-  if (
-    role !== "SUPER_ADMIN" &&
-    role !== "SCHOOL_ADMIN" &&
-    role !== "TEACHER"
-  ) {
+  if (role !== "SUPER_ADMIN" && role !== "SCHOOL_ADMIN" && role !== "TEACHER") {
     throw new Error("You are not authorized to create exams.")
   }
 
@@ -834,9 +805,8 @@ export async function createExam(formData: FormData) {
     throw new Error("The selected questions have invalid total marks.")
   }
 
-  const orderedQuestions = bankQuestionIds.map(
-    (questionId) =>
-      bankQuestions.find((question) => question.id === questionId)!
+  const orderedQuestions = bankQuestionIds.map((questionId) =>
+    bankQuestions.find((question) => question.id === questionId)!
   )
 
   await prisma.$transaction(

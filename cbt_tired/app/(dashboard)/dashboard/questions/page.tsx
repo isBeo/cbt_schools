@@ -2,6 +2,7 @@ import { auth } from "@/auth"
 import { prisma } from "@/lib/prisma"
 import { redirect } from "next/navigation"
 import CreateQuestion from "./components/create_question"
+import BulkQuestionImport from "./components/bulk_question_import"
 
 export default async function QuestionsPage() {
   const session = await auth()
@@ -41,17 +42,17 @@ export default async function QuestionsPage() {
   const [classes, subjects, questions] = await Promise.all([
     prisma.class.findMany({
       where: isTeacher
-  ? { id: { in: assignedClassIds }, schoolId }
-  : { schoolId },
+        ? { id: { in: assignedClassIds }, schoolId }
+        : { schoolId },
       orderBy: { name: "asc" },
     }),
 
-  prisma.subject.findMany({
-  where: isTeacher
-    ? { id: { in: assignedSubjectIds }, schoolId }
-    : { schoolId },
-  orderBy: { name: "asc" },
-}),
+    prisma.subject.findMany({
+      where: isTeacher
+        ? { id: { in: assignedSubjectIds }, schoolId }
+        : { schoolId },
+      orderBy: { name: "asc" },
+    }),
 
     prisma.bankQuestion.findMany({
       where: {
@@ -115,6 +116,13 @@ export default async function QuestionsPage() {
         classes={classes}
         subjects={subjects}
         questions={safeQuestions}
+        isTeacher={isTeacher}
+        assignments={assignmentPairs}
+      />
+
+      <BulkQuestionImport
+        classes={classes}
+        subjects={subjects}
         isTeacher={isTeacher}
         assignments={assignmentPairs}
       />

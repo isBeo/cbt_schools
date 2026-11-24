@@ -20,19 +20,15 @@ export default async function CreateExam() {
     },
   })
 
-
-
   const classes = await prisma.class.findMany({
     orderBy: {
       name: "asc",
     },
   })
 
-
-  
   return (
     <Dialog>
-      <DialogTrigger >
+      <DialogTrigger>
         <Button>Create Exam</Button>
       </DialogTrigger>
 
@@ -97,8 +93,7 @@ export default async function CreateExam() {
           >
             <option value="">Select Question Bank</option>
 
-          {
-            QUESTION_BANKS.map((bank) =>(
+            {QUESTION_BANKS.map((bank) => (
               <option key={bank.value} value={bank.value}>
                 {bank.label}
               </option>

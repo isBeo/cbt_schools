@@ -1,4 +1,3 @@
-
 import { auth } from "@/auth"
 import { prisma } from "@/lib/prisma"
 import { notFound, redirect } from "next/navigation"
@@ -24,11 +23,7 @@ export default async function StudentPage({ params }: Props) {
   const { studentId } = await params
   const id = Number(studentId)
 
-  if (
-    !Number.isInteger(userId) ||
-    !Number.isInteger(id) ||
-    id <= 0
-  ) {
+  if (!Number.isInteger(userId) || !Number.isInteger(id) || id <= 0) {
     notFound()
   }
 
@@ -62,16 +57,10 @@ export default async function StudentPage({ params }: Props) {
       status: "ACTIVE",
       AND: [
         {
-          OR: [
-            { startTime: null },
-            { startTime: { lte: now } },
-          ],
+          OR: [{ startTime: null }, { startTime: { lte: now } }],
         },
         {
-          OR: [
-            { endTime: null },
-            { endTime: { gte: now } },
-          ],
+          OR: [{ endTime: null }, { endTime: { gte: now } }],
         },
       ],
       attempts: {
@@ -102,11 +91,7 @@ export default async function StudentPage({ params }: Props) {
         className={student.class.name}
       />
 
-      {exams.length === 0 ? (
-        <EmptyState />
-      ) : (
-        <ExamList exams={exams} />
-      )}
+      {exams.length === 0 ? <EmptyState /> : <ExamList exams={exams} />}
     </div>
   )
 }

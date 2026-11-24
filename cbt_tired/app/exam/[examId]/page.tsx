@@ -1,4 +1,3 @@
-
 import { startExam } from "@/app/actions/exam"
 import { auth } from "@/auth"
 import { prisma } from "@/lib/prisma"
@@ -45,16 +44,10 @@ export default async function ExamPage({ params }: Props) {
       status: "ACTIVE",
       AND: [
         {
-          OR: [
-            { startTime: null },
-            { startTime: { lte: now } },
-          ],
+          OR: [{ startTime: null }, { startTime: { lte: now } }],
         },
         {
-          OR: [
-            { endTime: null },
-            { endTime: { gte: now } },
-          ],
+          OR: [{ endTime: null }, { endTime: { gte: now } }],
         },
       ],
     },

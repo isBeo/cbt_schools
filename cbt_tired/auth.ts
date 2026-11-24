@@ -1,4 +1,3 @@
-
 import NextAuth, { type DefaultSession } from "next-auth"
 import Credentials from "next-auth/providers/credentials"
 import { PrismaAdapter } from "@auth/prisma-adapter"
@@ -77,22 +76,22 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           return null
         }
 
-       if (!user) return null
+        if (!user) return null
 
-const valid = await bcrypt.compare(
-  credentials.password,
-  user.passwordHash
-)
+        const valid = await bcrypt.compare(
+          credentials.password,
+          user.passwordHash
+        )
 
-if (!valid) return null
+        if (!valid) return null
 
-return {
-  id: String(user.id),
-  name: user.name,
-  email: user.email,
-  role: user.role,
-  schoolId: user.schoolId,
-}
+        return {
+          id: String(user.id),
+          name: user.name,
+          email: user.email,
+          role: user.role,
+          schoolId: user.schoolId,
+        }
 
         if (!valid) return null
 

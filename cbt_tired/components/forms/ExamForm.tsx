@@ -1,4 +1,3 @@
-
 "use client"
 
 import { submitExam } from "@/app/actions/exam"
@@ -137,9 +136,7 @@ export function ExamForm({
     const updateTimeLeft = () => {
       const remaining = Math.max(
         0,
-        Math.ceil(
-          (new Date(expiresAt).getTime() - Date.now()) / 1000
-        )
+        Math.ceil((new Date(expiresAt).getTime() - Date.now()) / 1000)
       )
 
       setTimeLeft(remaining)
@@ -204,15 +201,13 @@ export function ExamForm({
 
       {timeLeft === 0 && (
         <p className="text-sm font-medium text-red-600">
-          Time is up. Your exam is being submitted. If submission fails,
-          use the submit button to retry.
+          Time is up. Your exam is being submitted. If submission fails, use the
+          submit button to retry.
         </p>
       )}
 
       <div className="rounded-lg border p-6">
-        <h2 className="mb-6 text-lg font-semibold">
-          {question.questionText}
-        </h2>
+        <h2 className="mb-6 text-lg font-semibold">{question.questionText}</h2>
 
         <div className="space-y-3">
           {question.options.map((option) => (
@@ -256,11 +251,7 @@ export function ExamForm({
             Next
           </Button>
         ) : (
-          <Button
-            type="button"
-            onClick={handleSubmit}
-            disabled={isSubmitting}
-          >
+          <Button type="button" onClick={handleSubmit} disabled={isSubmitting}>
             {isSubmitting ? "Submitting..." : "Submit Exam"}
           </Button>
         )}

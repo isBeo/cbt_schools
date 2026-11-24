@@ -1,13 +1,8 @@
-
 "use client"
 
 import { useState } from "react"
 
-export default function PublishExam({
-  examId,
-}: {
-  examId: number
-}) {
+export default function PublishExam({ examId }: { examId: number }) {
   const [message, setMessage] = useState("")
 
   return (
@@ -23,11 +18,7 @@ export default function PublishExam({
         Publish
       </button>
 
-      {message && (
-        <p className="text-xs text-muted-foreground">
-          {message}
-        </p>
-      )}
+      {message && <p className="text-xs text-muted-foreground">{message}</p>}
     </div>
   )
 }

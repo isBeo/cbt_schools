@@ -1,4 +1,3 @@
-
 import { auth } from "@/auth"
 import { prisma } from "@/lib/prisma"
 import { notFound, redirect } from "next/navigation"
@@ -76,9 +75,7 @@ export default async function ResultPage({ params }: Props) {
     },
   })
 
-  const teacherNames = teachers.map(
-    (assignment) => assignment.teacher.name
-  )
+  const teacherNames = teachers.map((assignment) => assignment.teacher.name)
 
   return (
     <main className="mx-auto max-w-2xl space-y-6 p-6">
@@ -91,16 +88,13 @@ export default async function ResultPage({ params }: Props) {
           </h1>
 
           <p className="mt-2 text-muted-foreground">
-            You have successfully completed your examination.
-            Your answers have been submitted and your examination
-            record has been saved.
+            You have successfully completed your examination. Your answers have
+            been submitted and your examination record has been saved.
           </p>
         </div>
 
         <section className="space-y-3">
-          <h2 className="text-lg font-semibold">
-            Student Information
-          </h2>
+          <h2 className="text-lg font-semibold">Student Information</h2>
 
           <div className="flex justify-between border-b pb-2">
             <span>Full name</span>
@@ -126,15 +120,11 @@ export default async function ResultPage({ params }: Props) {
         </section>
 
         <section className="mt-6 space-y-3">
-          <h2 className="text-lg font-semibold">
-            Examination Information
-          </h2>
+          <h2 className="text-lg font-semibold">Examination Information</h2>
 
           <div className="flex justify-between border-b pb-2">
             <span>Examination</span>
-            <span className="font-medium">
-              {attempt.exam.title}
-            </span>
+            <span className="font-medium">{attempt.exam.title}</span>
           </div>
 
           <div className="flex justify-between border-b pb-2">
@@ -145,24 +135,23 @@ export default async function ResultPage({ params }: Props) {
           <div className="flex justify-between border-b pb-2">
             <span>Teacher in charge</span>
             <span className="text-right">
-              {teacherNames.length
-                ? teacherNames.join(", ")
-                : "Not assigned"}
+              {teacherNames.length ? teacherNames.join(", ") : "Not assigned"}
             </span>
           </div>
 
           <div className="flex justify-between">
             <span>Date completed</span>
             <span>
-              {(attempt.submittedAt ?? attempt.result.generatedAt)
-                .toLocaleString("en-NG")}
+              {(
+                attempt.submittedAt ?? attempt.result.generatedAt
+              ).toLocaleString("en-NG")}
             </span>
           </div>
         </section>
 
         <div className="mt-8 rounded-lg bg-muted p-4 text-center text-sm">
-          Your examination has been recorded successfully.
-          Keep up the good work!
+          Your examination has been recorded successfully. Keep up the good
+          work!
         </div>
       </div>
 

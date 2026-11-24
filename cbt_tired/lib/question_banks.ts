@@ -3,22 +3,21 @@ export const QUESTION_BANKS = [
   // Basic One
   // ==========================
 
-
   // ==========================
   // Basic Two
   // ==========================
   {
-  class: "Basic Two",
-  subject: "Basic Science",
-  label: "Basic Science (Basic Two)",
-  value: "basic_2/basic-science.json",
-},
-{
-  class: "Basic Two",
-  subject: "Christian Religious Studies",
-  label: "CRS (Basic Two)",
-  value: "basic_2/crs.json",
-},
+    class: "Basic Two",
+    subject: "Basic Science",
+    label: "Basic Science (Basic Two)",
+    value: "basic_2/basic-science.json",
+  },
+  {
+    class: "Basic Two",
+    subject: "Christian Religious Studies",
+    label: "CRS (Basic Two)",
+    value: "basic_2/crs.json",
+  },
 
   // ==========================
   // Basic Three
